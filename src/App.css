@@ -6,6 +6,7 @@ body, html {
   font-family: 'Pretendard', 'sans-serif';
   background: #fff;
   color: #000;
+  scroll-behavior: smooth;
 }
 
 .App {
@@ -46,8 +47,6 @@ body, html {
 }
 
 .snap-container {
-  height: 100vh;
-  overflow-y: auto;
   scroll-snap-type: y mandatory;
   padding-top: 64px;
 }
