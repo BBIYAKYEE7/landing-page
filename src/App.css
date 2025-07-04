@@ -46,6 +46,26 @@ body, html {
   letter-spacing: -1px;
 }
 
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.5rem;
+}
+.header-nav button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #222;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.header-nav button:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
 .snap-container {
   scroll-snap-type: y mandatory;
   padding-top: 64px;
