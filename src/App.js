@@ -3,6 +3,16 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import './App.css';
 import logo from './logo.png';
 
+function Header() {
+  return (
+    <header className="main-header">
+      <div className="header-content">
+        <span className="header-logo">U-TEED</span>
+      </div>
+    </header>
+  );
+}
+
 const sections = [
   {
     title: '모든 단체 스포츠를 위한',
@@ -116,14 +126,17 @@ function DetailPage({ num }) {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/detail/1" element={<DetailPage num={1} />} />
-        <Route path="/detail/2" element={<DetailPage num={2} />} />
-        <Route path="/detail/3" element={<DetailPage num={3} />} />
-      </Routes>
-    </Router>
+    <>
+      <Header />
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/detail/1" element={<DetailPage num={1} />} />
+          <Route path="/detail/2" element={<DetailPage num={2} />} />
+          <Route path="/detail/3" element={<DetailPage num={3} />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
