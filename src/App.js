@@ -61,12 +61,14 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
         <p className="hashtag">{hashtag}</p>
         <button className="detail-btn" onClick={() => navigate(detailLink)}>자세히 보기</button>
       </div>
-      <img
-        src={image}
-        alt={highlight}
-        className="parallax-img"
-        style={{ transform: `translateY(${parallaxOffset}px)` }}
-      />
+      {index === 0 && image && (
+        <img
+          src={image}
+          alt={highlight}
+          className="parallax-img"
+          style={{ transform: `translateY(${parallaxOffset}px)` }}
+        />
+      )}
     </section>
   );
 }
