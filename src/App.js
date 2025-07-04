@@ -3,11 +3,16 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import './App.css';
 import logo from './logo.png';
 
-function Header() {
+function Header({ onNavClick }) {
   return (
     <header className="main-header">
       <div className="header-content">
         <span className="header-logo">U-TEED</span>
+        <nav className="header-nav">
+          <button onClick={() => onNavClick('section-1')}>소개</button>
+          <button onClick={() => onNavClick('section-2')}>주변 모집</button>
+          <button onClick={() => onNavClick('section-3')}>채팅&정산</button>
+        </nav>
       </div>
     </header>
   );
@@ -37,7 +42,7 @@ const sections = [
   },
 ];
 
-function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, detailLink, navigate }) {
+function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, detailLink, navigate, sectionRef, id }) {
   const ref = useRef();
   const [inView, setInView] = useState(false);
 
@@ -54,7 +59,10 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
   const parallaxOffset = scrollY * 0.2 * (index + 1);
 
   return (
-    <section className="parallax-section" ref={ref}>
+    <section className="parallax-section" ref={el => {
+      ref.current = el;
+      if (sectionRef) sectionRef.current = el;
+    }} id={id}>
       <div className={`text-block ${inView ? 'show' : ''}`}>
         <h2>{title}</h2>
         <h1>{highlight}</h1>
@@ -81,7 +89,7 @@ function FooterSection({ visible, footerRef }) {
   );
 }
 
-function MainPage() {
+function MainPage({ sectionRefs }) {
   const [scrollY, setScrollY] = useState(0);
   const [footerInView, setFooterInView] = useState(false);
   const footerRef = useRef();
@@ -110,7 +118,15 @@ function MainPage() {
   return (
     <div className="App snap-container">
       {sections.map((sec, i) => (
-        <ParallaxSection key={i} {...sec} index={i} scrollY={scrollY} navigate={navigate} />
+        <ParallaxSection
+          key={i}
+          {...sec}
+          index={i}
+          scrollY={scrollY}
+          navigate={navigate}
+          sectionRef={sectionRefs[i]}
+          id={`section-${i+1}`}
+        />
       ))}
       <FooterSection visible={footerInView} footerRef={footerRef} />
     </div>
@@ -127,12 +143,18 @@ function DetailPage({ num }) {
 }
 
 function App() {
+  const sectionRefs = [useRef(), useRef(), useRef()];
+  const handleNavClick = (id) => {
+    const idx = { 'section-1': 0, 'section-2': 1, 'section-3': 2 }[id];
+    sectionRefs[idx]?.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
-      <Header />
+      <Header onNavClick={handleNavClick} />
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage sectionRefs={sectionRefs} />} />
           <Route path="/detail/1" element={<DetailPage num={1} />} />
           <Route path="/detail/2" element={<DetailPage num={2} />} />
           <Route path="/detail/3" element={<DetailPage num={3} />} />
