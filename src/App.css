@@ -4,8 +4,9 @@ body, .App {
   font-family: 'Pretendard', 'sans-serif';
   margin: 0;
   padding: 0;
-  background: linear-gradient(120deg, #fff6f6 0%, #fffbe6 100%);
+  background: #fff;
   min-height: 100vh;
+  color: #000;
 }
 
 .App {
@@ -15,16 +16,24 @@ body, .App {
   justify-content: center;
 }
 
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+}
+
 .parallax-section {
+  scroll-snap-align: start;
   width: 100vw;
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  margin: 0 auto 80px auto;
+  margin: 0 auto;
+  background: transparent;
 }
 
 .text-block {
@@ -40,19 +49,19 @@ body, .App {
 .text-block h2 {
   font-size: 2.2rem;
   font-weight: 500;
-  color: #ff3b30;
+  color: #000;
   margin: 0 0 0.5em 0;
 }
 .text-block h1 {
   font-size: 4rem;
   font-weight: 900;
-  color: #ff3b30;
+  color: #000;
   margin: 0 0 0.5em 0;
   letter-spacing: -2px;
 }
 .text-block .hashtag {
   font-size: 1.1rem;
-  color: #ff7f50;
+  color: #222;
   margin-bottom: 1.5em;
 }
 
@@ -63,6 +72,68 @@ body, .App {
   display: block;
   transition: transform 0.5s cubic-bezier(.4,2,.6,1);
   z-index: 1;
+  filter: grayscale(1) contrast(1.1);
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+}
+
+.detail-btn {
+  display: inline-block;
+  margin-top: 2em;
+  padding: 0.8em 2.2em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #000;
+  border: none;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+  cursor: pointer;
+}
+.detail-btn:hover {
+  background: #222;
+}
+
+.footer-section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #333;
+  width: 100vw;
+  position: relative;
+  z-index: 10;
+  transition: background 0.5s;
+}
+.footer-section .footer-content {
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0 auto;
+}
+.footer-section.footer-visible {
+  background: #333 !important;
+}
+
+.detail-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #000;
+}
+.detail-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1em;
+}
+.detail-page p {
+  font-size: 1.2rem;
 }
 
 @media (max-width: 600px) {
@@ -76,7 +147,14 @@ body, .App {
     width: 180px;
   }
   .parallax-section {
-    min-height: 60vh;
-    margin-bottom: 40px;
+    min-height: 100vh;
+    margin-bottom: 0;
+  }
+  .detail-btn {
+    font-size: 1rem;
+    padding: 0.7em 1.5em;
+  }
+  .footer-section .footer-content {
+    font-size: 1rem;
   }
 }
