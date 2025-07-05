@@ -23,7 +23,7 @@ body, .App {
   font-family: 'Paperlogy', 'Pretendard', sans-serif;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: #d9d9d9;
   color: #000;
   scroll-behavior: smooth;
 }
@@ -41,7 +41,7 @@ body, .App {
   left: 0;
   width: 100vw;
   height: 64px;
-  background: #fff;
+  background: #d9d9d9;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
   z-index: 1000;
   display: flex;
