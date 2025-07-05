@@ -23,9 +23,10 @@ body, .App {
   font-family: 'Paperlogy', 'Pretendard', sans-serif;
   margin: 0;
   padding: 0;
-  background: #d9d9d9;
+  background: #fff;
   color: #000;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .App {
@@ -41,11 +42,13 @@ body, .App {
   left: 0;
   width: 100vw;
   height: 64px;
-  background: #d9d9d9;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
   z-index: 1000;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .header-content {
@@ -63,6 +66,7 @@ body, .App {
   font-weight: 900;
   color: #000;
   letter-spacing: -1px;
+  font-family: 'Paperlogy', 'Pretendard', sans-serif;
 }
 
 .header-nav {
@@ -79,6 +83,7 @@ body, .App {
   cursor: pointer;
   padding: 0;
   transition: color 0.2s;
+  font-family: 'Paperlogy', 'Pretendard', sans-serif;
 }
 .header-nav button:hover {
   color: #000;
@@ -102,7 +107,7 @@ body, .App {
 
 .parallax-section {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin: 0 auto;
   background: transparent;
 }
@@ -148,7 +153,18 @@ body, .App {
   filter: grayscale(1) contrast(1.1);
   background: #fff;
   border-radius: 24px;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+}
+
+.parallax-logo-img {
+  display: block;
+  margin: 0 auto 2rem auto;
+  width: 400px;
+  height: 400px;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 32px;
 }
 
 .detail-btn {
