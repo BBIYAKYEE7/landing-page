@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
-import logo from './image/logo.png';
+import logo from './logo.png';
 import DetailPage from './DetailPage';
 
 function Header({ onNavClick }) {
@@ -21,9 +21,9 @@ function Header({ onNavClick }) {
       <div className="header-content">
         <span className="header-logo" style={{cursor: 'pointer'}} onClick={handleLogoClick}>U-TEED</span>
         <nav className="header-nav">
-          <button onClick={() => onNavClick('section-1')}>SPOT</button>
-          <button onClick={() => onNavClick('section-2')}>Project 2.</button>
-          <button onClick={() => onNavClick('section-3')}>Project 3.</button>
+          <button onClick={() => onNavClick('section-1')}>소개</button>
+          <button onClick={() => onNavClick('section-2')}>주변 모집</button>
+          <button onClick={() => onNavClick('section-3')}>채팅&정산</button>
         </nav>
       </div>
     </header>
@@ -33,21 +33,23 @@ function Header({ onNavClick }) {
 const sections = [
   {
     title: '모든 단체 스포츠를 위한',
-    highlight: '인원 모집 플랫폼. SPOT',
-    hashtag: '#축구뿐만 아니라 농구, 배드민턴, 야구, 배구 등 모든 스포츠',
-    image: null,
+    highlight: '인원 모집 플랫폼',
+    hashtag: '#축구뿐만 아니라 농구, 배드민턴, 족구, 배구 등 모든 스포츠',
+    image: logo,
     detailLink: '/detail/1',
   },
   {
     title: '주변에서 바로 찾는',
     highlight: '스포츠 멤버',
     hashtag: '#내 주변에서 빠르게 인원 모집',
+    image: logo,
     detailLink: '/detail/2',
   },
   {
     title: '모임의 기본',
     highlight: '채팅 & 정산',
     hashtag: '#실시간 채팅 #간편 정산',
+    image: logo,
     detailLink: '/detail/3',
   },
 ];
@@ -68,37 +70,18 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
   // Parallax offset (이미지에만 적용)
   const parallaxOffset = scrollY * 0.2 * (index + 1);
 
-  // 버튼 클릭 핸들러
-  const handleDetailClick = () => {
-    if (index === 0) {
-      navigate(detailLink);
-    } else {
-      window.alert('서비스 준비중입니다.');
-    }
-  };
-
   return (
     <section className="parallax-section" ref={el => {
       ref.current = el;
       if (sectionRef) sectionRef.current = el;
     }} id={id}>
-      {/* 첫 번째 섹션: 텍스트 위에만 로고 */}
-      {index === 0 && (
-        <img
-          src={logo}
-          alt="로고"
-          className="parallax-logo-img"
-          style={{ marginBottom: '2rem', width: '400px', height: '400px', objectFit: 'contain' }}
-        />
-      )}
       <div className={`text-block ${inView ? 'show' : ''}`}>
         <h2>{title}</h2>
         <h1>{highlight}</h1>
         <p className="hashtag">{hashtag}</p>
-        <button className="detail-btn" onClick={handleDetailClick}>자세히 보기</button>
+        <button className="detail-btn" onClick={() => navigate(detailLink)}>자세히 보기</button>
       </div>
-      {/* 두 번째, 세 번째 섹션: 아래 큰 이미지만 */}
-      {index !== 0 && image && (
+      {index === 0 && image && (
         <img
           src={image}
           alt={highlight}
