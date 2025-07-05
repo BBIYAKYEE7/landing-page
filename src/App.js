@@ -1,13 +1,24 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import logo from './logo.png';
 
 function Header({ onNavClick }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogoClick = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <header className="main-header">
       <div className="header-content">
-        <span className="header-logo">U-TEED</span>
+        <span className="header-logo" style={{cursor: 'pointer'}} onClick={handleLogoClick}>U-TEED</span>
         <nav className="header-nav">
           <button onClick={() => onNavClick('section-1')}>소개</button>
           <button onClick={() => onNavClick('section-2')}>주변 모집</button>
@@ -150,17 +161,15 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <Header onNavClick={handleNavClick} />
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainPage sectionRefs={sectionRefs} />} />
-          <Route path="/detail/1" element={<DetailPage num={1} />} />
-          <Route path="/detail/2" element={<DetailPage num={2} />} />
-          <Route path="/detail/3" element={<DetailPage num={3} />} />
-        </Routes>
-      </Router>
-    </>
+      <Routes>
+        <Route path="/" element={<MainPage sectionRefs={sectionRefs} />} />
+        <Route path="/detail/1" element={<DetailPage num={1} />} />
+        <Route path="/detail/2" element={<DetailPage num={2} />} />
+        <Route path="/detail/3" element={<DetailPage num={3} />} />
+      </Routes>
+    </Router>
   );
 }
 
