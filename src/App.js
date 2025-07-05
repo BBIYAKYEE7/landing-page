@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import logo from './logo.png';
+import DetailPage from './DetailPage';
 
 function Header({ onNavClick }) {
   const navigate = useNavigate();
@@ -140,15 +141,6 @@ function MainPage({ sectionRefs }) {
         />
       ))}
       <FooterSection visible={footerInView} footerRef={footerRef} />
-    </div>
-  );
-}
-
-function DetailPage({ num }) {
-  return (
-    <div className="detail-page">
-      <h1>상세페이지 {num}</h1>
-      <p>여기에 상세 설명과 이미지를 추가하세요.</p>
     </div>
   );
 }
