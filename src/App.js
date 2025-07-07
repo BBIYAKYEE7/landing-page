@@ -31,9 +31,9 @@ function Header({ onNavClick }) {
 
 const sections = [
   {
-    title: '모든 단체 스포츠를 위한',
-    highlight: '인원 모집 플랫폼. SPOT',
-    hashtag: '#축구뿐만 아니라 농구, 배드민턴, 야구, 배구 등 모든 스포츠',
+    title: '지금 당신 주변의 모든 운동.',
+    highlight: 'SPOT',
+    hashtag: '#축구뿐만 아니라 농구, 배드민턴, 야구, 배구 등 모든 스포츠를 위한',
     image: null,
     detailLink: '/detail/1',
   },
