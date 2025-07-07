@@ -159,8 +159,8 @@ body, .App {
 .parallax-logo-img {
   display: block;
   margin: 0 auto 2rem auto;
-  width: 400px;
-  height: 400px;
+  width: 20rem;
+  height: 20rem;
   max-width: none;
   max-height: none;
   object-fit: contain;
