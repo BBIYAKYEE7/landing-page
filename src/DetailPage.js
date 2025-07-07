@@ -13,10 +13,12 @@ const DetailPage = ({ num = 1 }) => {
   const projectSections = {
     1: [
       {
-        id: 'project-title',
+        id: 'SPOT',
         isTitle: true,
-        title: `프로젝트 ${num} 상세 정보`,
-        description: '각 섹션을 스크롤하여 자세한 기능을 확인해보세요',
+        title: '모든 단체 스포츠를 위한',
+        highlight: '인원 모집 플랫폼. SPOT',
+        hashtag: '#축구뿐만 아니라 농구, 배드민턴, 야구, 배구 등 모든 스포츠',
+        description: '스크롤하여 더 자세히 알아보세요.',
       },
       {
         id: 'home',
@@ -41,70 +43,6 @@ const DetailPage = ({ num = 1 }) => {
         title: '간편 정산',
         description: '구장비, 장비비 등을 간편하게 정산할 수 있는 기능입니다. 투명하고 공정한 비용 분담을 도와드립니다.',
         image: '/payment.png'
-      }
-    ],
-    2: [
-      {
-        id: 'project-title',
-        isTitle: true,
-        title: `프로젝트 ${num} 상세 정보`,
-        description: '각 섹션을 스크롤하여 자세한 기능을 확인해보세요',
-      },
-      {
-        id: 'nearby',
-        title: '주변 검색',
-        description: 'GPS 기반으로 내 주변의 스포츠 모임을 실시간으로 찾아볼 수 있습니다. 거리순으로 정렬되어 가까운 모임부터 확인하세요.',
-        image: '/nearby.png'
-      },
-      {
-        id: 'matching',
-        title: '스마트 매칭',
-        description: '내 실력과 선호도에 맞는 모임을 자동으로 추천해드립니다. 초보자부터 전문가까지 모두가 만족할 수 있는 매칭 시스템입니다.',
-        image: '/matching.png'
-      },
-      {
-        id: 'profile',
-        title: '프로필 관리',
-        description: '내 스포츠 경력과 선호도를 관리할 수 있습니다. 다른 사용자들이 나를 더 잘 이해할 수 있도록 도와줍니다.',
-        image: '/profile.png'
-      },
-      {
-        id: 'notification',
-        title: '알림 시스템',
-        description: '새로운 모임, 채팅 메시지, 정산 알림 등을 실시간으로 받아볼 수 있습니다. 중요한 소식을 놓치지 마세요.',
-        image: '/notification.png'
-      }
-    ],
-    3: [
-      {
-        id: 'project-title',
-        isTitle: true,
-        title: `프로젝트 ${num} 상세 정보`,
-        description: '각 섹션을 스크롤하여 자세한 기능을 확인해보세요',
-      },
-      {
-        id: 'chat-room',
-        title: '채팅방',
-        description: '모임 전용 채팅방에서 멤버들과 자유롭게 소통하세요. 사진, 위치 공유 등 다양한 기능을 제공합니다.',
-        image: '/chat-room.png'
-      },
-      {
-        id: 'schedule',
-        title: '일정 관리',
-        description: '모임 일정을 체계적으로 관리할 수 있습니다. 캘린더 형태로 한눈에 보기 쉽게 구성되어 있습니다.',
-        image: '/schedule.png'
-      },
-      {
-        id: 'expense',
-        title: '비용 정산',
-        description: '구장비, 장비비, 음료비 등을 투명하게 정산할 수 있습니다. 각자 낸 금액과 받을 금액을 명확히 확인하세요.',
-        image: '/expense.png'
-      },
-      {
-        id: 'history',
-        title: '활동 기록',
-        description: '참여한 모든 모임의 기록을 관리할 수 있습니다. 나의 스포츠 활동 히스토리를 한눈에 확인하세요.',
-        image: '/history.png'
       }
     ]
   };
@@ -168,6 +106,12 @@ const DetailPage = ({ num = 1 }) => {
             {section.isTitle ? (
               <div className="project-title-section">
                 <h1 className="project-title-main">{section.title}</h1>
+                {section.highlight && (
+                  <h2 className="project-title-highlight">{section.highlight}</h2>
+                )}
+                {section.hashtag && (
+                  <p className="project-title-hashtag">{section.hashtag}</p>
+                )}
                 <p className="project-title-desc">{section.description}</p>
               </div>
             ) : (

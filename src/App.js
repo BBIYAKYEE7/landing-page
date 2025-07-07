@@ -23,7 +23,6 @@ function Header({ onNavClick }) {
         <nav className="header-nav">
           <button onClick={() => onNavClick('section-1')}>SPOT</button>
           <button onClick={() => onNavClick('section-2')}>Project 2.</button>
-          <button onClick={() => onNavClick('section-3')}>Project 3.</button>
         </nav>
       </div>
     </header>
@@ -39,17 +38,11 @@ const sections = [
     detailLink: '/detail/1',
   },
   {
-    title: '주변에서 바로 찾는',
-    highlight: '스포츠 멤버',
-    hashtag: '#내 주변에서 빠르게 인원 모집',
-    detailLink: '/detail/2',
-  },
-  {
-    title: '모임의 기본',
-    highlight: '채팅 & 정산',
-    hashtag: '#실시간 채팅 #간편 정산',
-    detailLink: '/detail/3',
-  },
+    title: '프로젝트 준비중...',
+    highlight: '다른 프로젝트도 의뢰해보세요!',
+    hashtag: '#내가_기획하는',
+    detailLink: "mailto:admin@u-teed.co.kr",
+  }
 ];
 
 function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, detailLink, navigate, sectionRef, id }) {
@@ -122,6 +115,10 @@ function MainPage({ sectionRefs }) {
   const [footerInView, setFooterInView] = useState(false);
   const footerRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
