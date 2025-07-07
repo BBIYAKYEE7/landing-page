@@ -88,7 +88,6 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
           src={logo}
           alt="로고"
           className="parallax-logo-img"
-          style={{ marginBottom: '2rem', width: '400px', height: '400px', objectFit: 'contain' }}
         />
       )}
       <div className={`text-block ${inView ? 'show' : ''}`}>

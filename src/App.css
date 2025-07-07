@@ -227,6 +227,31 @@ body, .App {
     min-height: 100vh;
     margin-bottom: 0;
   }
+  
+  /* 헤더 모바일 대응 */
+  .header-content {
+    padding: 0 1rem;
+  }
+  
+  .header-logo {
+    font-size: 1.2rem;
+  }
+  
+  .header-nav {
+    gap: 1rem;
+  }
+  
+  .header-nav button {
+    font-size: 0.9rem;
+  }
+  
+  /* 로고 이미지 모바일 크기 */
+  .parallax-logo-img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+  
   .detail-btn {
     font-size: 1rem;
     padding: 0.7em 1.5em;
@@ -242,5 +267,37 @@ body, .App {
   }
   .parallax-img {
     width: 180px;
+  }
+}
+
+/* 더 작은 모바일 화면 대응 */
+@media (max-width: 400px) {
+  .header-logo {
+    font-size: 1rem;
+  }
+  
+  .header-nav {
+    gap: 0.8rem;
+  }
+  
+  .header-nav button {
+    font-size: 0.8rem;
+  }
+  
+  .parallax-logo-img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .text-block h1 {
+    font-size: 1.8rem;
+  }
+  
+  .text-block h2 {
+    font-size: 1rem;
+  }
+  
+  .text-block .hashtag {
+    font-size: 0.95rem;
   }
 }
