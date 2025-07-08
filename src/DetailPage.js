@@ -8,6 +8,13 @@ const DetailPage = ({ num = 1 }) => {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const sectionsRef = useRef([]);
+  const [highlightBounce, setHighlightBounce] = useState(false);
+
+  useEffect(() => {
+    // 마운트 후 50ms 뒤에 bounce-in 클래스 추가
+    const timer = setTimeout(() => setHighlightBounce(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   // 각 프로젝트별 섹션 데이터
   const projectSections = {
@@ -105,14 +112,14 @@ const DetailPage = ({ num = 1 }) => {
           >
             {section.isTitle ? (
               <div className="project-title-section">
-                <h1 className="project-title-main">{section.title}</h1>
+                <h2 className={`project-title-main${highlightBounce ? ' show' : ''}`}>{section.title}</h2>
                 {section.highlight && (
-                  <h2 className="project-title-highlight">{section.highlight}</h2>
+                  <h1 className={`project-title-highlight${highlightBounce ? ' show' : ''}`}>{section.highlight}</h1>
                 )}
                 {section.hashtag && (
-                  <p className="project-title-hashtag">{section.hashtag}</p>
+                  <p className={`project-title-hashtag${highlightBounce ? ' show' : ''}`}>{section.hashtag}</p>
                 )}
-                <p className="project-title-desc">{section.description}</p>
+                <p className={`project-title-desc${highlightBounce ? ' show' : ''}`}>{section.description}</p>
               </div>
             ) : (
               <div className="section-content">
