@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DetailPage.css';
 import homeImg from './image/home.png';
-import searchImg from './image/주변탐색 스크롤 업.png';
+import searchImg from './image/scroll.png';
 import chatImg from './image/커뮤니티 상세정보.png';
 import paymentImg from './image/상세페이지.png';
 
@@ -131,7 +131,6 @@ const DetailPage = ({ num = 1 }) => {
                   <h2 className="section-title">{section.title}</h2>
                   <p className="section-description">{section.description}</p>
                 </div>
-                <div className="phone-container">
                   <div className="phone-frame">
                     <img 
                       src={section.image} 
@@ -140,7 +139,6 @@ const DetailPage = ({ num = 1 }) => {
                     />
                   </div>
                 </div>
-              </div>
             )}
           </section>
         ))}
