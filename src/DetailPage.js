@@ -20,6 +20,8 @@ const DetailPage = ({ num = 1 }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  
+
   // 각 프로젝트별 섹션 데이터
   const projectSections = {
     1: [
@@ -104,64 +106,94 @@ const DetailPage = ({ num = 1 }) => {
   };
 
   return (
-    <div className={`detail-page visible`}>
-      <div className="sections-container" style={{ paddingTop: 0 }}>
-        {sections.map((section, index) => (
-          <section
-            key={section.id}
-            ref={el => sectionsRef.current[index] = el}
-            className={`detail-section ${index % 2 === 0 ? 'even-section' : ''}`}
-            id={section.id}
-            style={getSectionStyle(index)}
-          >
-            {section.isTitle ? (
-              <div className="project-title-section">
-                <h2 className={`project-title-main${highlightBounce ? ' show' : ''}`}>{section.title}</h2>
-                {section.highlight && (
-                  <h1 className={`project-title-highlight${highlightBounce ? ' show' : ''}`}>{section.highlight}</h1>
-                )}
-                {section.hashtag && (
-                  <p className={`project-title-hashtag${highlightBounce ? ' show' : ''}`}>{section.hashtag}</p>
-                )}
-                <p className={`project-title-desc${highlightBounce ? ' show' : ''}`}>{section.description}</p>
-              </div>
-            ) : (
-              <div className="section-content">
-                <div className="section-text">
-                  <h2 className="section-title">{section.title}</h2>
-                  <p className="section-description">{section.description}</p>
+    <div>
+      <div className={`detail-page visible`}>
+        <div className="sections-container" style={{ paddingTop: 0 }}>
+          {sections.map((section, index) => (
+            <section
+              key={section.id}
+              ref={el => sectionsRef.current[index] = el}
+              className={`detail-section ${index % 2 === 0 ? 'even-section' : ''}`}
+              id={section.id}
+              style={getSectionStyle(index)}
+            >
+              {section.isTitle ? (
+                <div className="project-title-section">
+                  <h2 className={`project-title-main${highlightBounce ? ' show' : ''}`}>{section.title}</h2>
+                  {section.highlight && (
+                    <h1 className={`project-title-highlight${highlightBounce ? ' show' : ''}`}>{section.highlight}</h1>
+                  )}
+                  {section.hashtag && (
+                    <p className={`project-title-hashtag${highlightBounce ? ' show' : ''}`}>{section.hashtag}</p>
+                  )}
+                  <p className={`project-title-desc${highlightBounce ? ' show' : ''}`}>{section.description}</p>
                 </div>
-                <div className="phone-container">
-                  <div className="phone-frame">
-                    <img 
-                      src={section.image} 
-                      alt={section.title}
-                      className={`phone-image ${section.id === 'chat' ? 'community-image' : ''} ${section.id === 'payment' ? 'detail-image' : ''} ${section.id === 'search' ? 'search-image' : ''} ${section.id === 'home' ? 'home-image' : ''}`}
-                    />
+              ) : (
+                <div className="section-content">
+                  <div className="section-text">
+                    <h2 className="section-title">{section.title}</h2>
+                    <p className="section-description">{section.description}</p>
+                  </div>
+                  <div className="phone-container">
+                    <div className="phone-frame">
+                      <img 
+                        src={section.image} 
+                        alt={section.title}
+                        className={`phone-image ${section.id === 'chat' ? 'community-image' : ''} ${section.id === 'payment' ? 'detail-image' : ''} ${section.id === 'search' ? 'search-image' : ''} ${section.id === 'home' ? 'home-image' : ''}`}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </section>
-        ))}
-      </div>
-      <div className="back-button-container">
-        <button className="back-button" onClick={handleBackClick}>
-          <span className="back-icon">←</span>
-          돌아가기
-        </button>
-      </div>
-      <div className="scroll-indicator">
-        <div className="scroll-dots">
-          {sections.map((_, index) => (
-            <div 
-              key={index}
-              className={`scroll-dot`}
-              onClick={() => handleDotClick(index)}
-            />
+              )}
+            </section>
           ))}
         </div>
+        <div className="back-button-container">
+          <button className="back-button" onClick={handleBackClick}>
+            <span className="back-icon">←</span>
+            돌아가기
+          </button>
+        </div>
+        <div className="scroll-indicator">
+          <div className="scroll-dots">
+            {sections.map((_, index) => (
+              <div 
+                key={index}
+                className={`scroll-dot`}
+                onClick={() => handleDotClick(index)}
+              />
+            ))}
+          </div>
+        </div>
+        {/* Footer 버튼 추가 완료 */}
       </div>
+      <section className="footer-section">
+        <div className="footer-content company-footer" style={{fontFamily: 'Pretendard, sans-serif', color: '#6B7684', fontWeight: 400, fontSize: '1.05rem', lineHeight: 1.7, textAlign: 'left', maxWidth: 900, margin: '0 auto', padding: '2.5rem 1.5rem'}}>
+          <div style={{fontWeight: 700, fontSize: '1.25rem', color: '#222', marginBottom: '0.7rem'}}>U-TEED</div>
+          <div>사업자 등록번호 : 000-00-00000 | 대표 : 임태호</div>
+          <div>Copyright © 2025 U-TEED. All Rights Reserved.</div>
+          <div></div>
+          {/* 버튼 영역 */}
+          <div style={{display: 'flex', gap: '1.2rem', marginTop: '1.7rem'}}>
+            <a href="https://instagram.com/spot_uteed" target="_blank" rel="noopener noreferrer" className="footer-btn">
+              <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                <svg width="22" height="22" viewBox="0 0 448 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M224 202.7A53.3 53.3 0 1 0 224 309.3 53.3 53.3 0 1 0 224 202.7zm124.7-41c0-16.6-13.4-30-30-30H129.3c-16.6 0-30 13.4-30 30v193.9c0 16.6 13.4 30 30 30h189.4c16.6 0 30-13.4 30-30V161.7zm-28.7 193.9c0 8.3-6.7 15-15 15H143c-8.3 0-15-6.7-15-15V184h30.2c-2.1 7.1-3.2 14.6-3.2 22.4 0 53 43 96 96 96s96-43 96-96c0-7.8-1.1-15.3-3.2-22.4H348v161.9zM224 176c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zm80-32c0 8.8-7.2 16-16 16s-16-7.2-16-16 7.2-16 16-16 16 7.2 16 16z" fill="#6B7684"/>
+                </svg>
+              </span>
+              <span style={{verticalAlign: 'middle'}}></span>
+            </a>
+            <a href="mailto:admin@u-teed.co.kr" className="footer-btn">
+              <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm8 5l8-5H4l8 5zm0 2l-8-5v10h16V8l-8 5z" fill="#6B7684"/>
+                </svg>
+              </span>
+              <span style={{verticalAlign: 'middle'}}></span>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

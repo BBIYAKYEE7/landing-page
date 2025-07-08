@@ -22,7 +22,7 @@ function Header({ onNavClick }) {
         <span className="header-logo" style={{cursor: 'pointer'}} onClick={handleLogoClick}>U-TEED</span>
         <nav className="header-nav">
           <button onClick={() => onNavClick('section-1')}>SPOT</button>
-          <button onClick={() => onNavClick('section-2')}>Project 2.</button>
+          <button onClick={() => onNavClick('section-2')}>프로젝트 의뢰하기</button>
         </nav>
       </div>
     </header>
@@ -66,7 +66,7 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
     if (index === 0) {
       navigate(detailLink);
     } else {
-      window.alert('서비스 준비중입니다.');
+      window.location.href = 'mailto:admin@u-teed.co.kr';
     }
   };
 
@@ -104,8 +104,32 @@ function ParallaxSection({ title, highlight, hashtag, image, index, scrollY, det
 
 function FooterSection({ visible, footerRef }) {
   return (
-    <section ref={footerRef} className={`parallax-section footer-section ${visible ? 'footer-visible' : ''}`}>
-      <div className="footer-content">© 2025 U-TEED. All rights reserved.</div>
+    <section ref={footerRef} className={`parallax-section footer-section ${visible ? 'footer-visible' : ''}`}> 
+      <div className="footer-content company-footer" style={{fontFamily: 'Pretendard, sans-serif', color: '#6B7684', fontWeight: 400, fontSize: '1.05rem', lineHeight: 1.7, textAlign: 'left', maxWidth: 900, margin: '0 auto', padding: '2.5rem 1.5rem'}}>
+        <div style={{fontWeight: 700, fontSize: '1.25rem', color: '#222', marginBottom: '0.7rem'}}>U-TEED</div>
+        <div>사업자 등록번호 : 000-00-00000 | 대표 : 임태호</div>
+        <div>Copyright © 2025 U-TEED. All Rights Reserved.</div>
+        <div></div>
+        {/* 버튼 영역 */}
+        <div style={{display: 'flex', gap: '1.2rem', marginTop: '1.7rem'}}>
+          <a href="https://instagram.com/spot_uteed" target="_blank" rel="noopener noreferrer" className="footer-btn">
+            <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
+              <svg width="22" height="22" viewBox="0 0 448 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M224 202.7A53.3 53.3 0 1 0 224 309.3 53.3 53.3 0 1 0 224 202.7zm124.7-41c0-16.6-13.4-30-30-30H129.3c-16.6 0-30 13.4-30 30v193.9c0 16.6 13.4 30 30 30h189.4c16.6 0 30-13.4 30-30V161.7zm-28.7 193.9c0 8.3-6.7 15-15 15H143c-8.3 0-15-6.7-15-15V184h30.2c-2.1 7.1-3.2 14.6-3.2 22.4 0 53 43 96 96 96s96-43 96-96c0-7.8-1.1-15.3-3.2-22.4H348v161.9zM224 176c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zm80-32c0 8.8-7.2 16-16 16s-16-7.2-16-16 7.2-16 16-16 16 7.2 16 16z" fill="#6B7684"/>
+              </svg>
+            </span>
+            <span style={{verticalAlign: 'middle'}}></span>
+          </a>
+          <a href="mailto:admin@u-teed.co.kr" className="footer-btn">
+            <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm8 5l8-5H4l8 5zm0 2l-8-5v10h16V8l-8 5z" fill="#6B7684"/>
+              </svg>
+            </span>
+            <span style={{verticalAlign: 'middle'}}></span>
+          </a>
+        </div>
+      </div>
     </section>
   );
 }
@@ -134,11 +158,6 @@ function MainPage({ sectionRefs }) {
     if (footerRef.current) observer.observe(footerRef.current);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    document.body.style.background = footerInView ? '#333' : '#fff';
-    return () => { document.body.style.background = '#fff'; };
-  }, [footerInView]);
 
   return (
     <div className="App snap-container">
