@@ -131,6 +131,7 @@ const DetailPage = ({ num = 1 }) => {
                   <h2 className="section-title">{section.title}</h2>
                   <p className="section-description">{section.description}</p>
                 </div>
+                <div className="phone-container">
                   <div className="phone-frame">
                     <img 
                       src={section.image} 
@@ -139,6 +140,7 @@ const DetailPage = ({ num = 1 }) => {
                     />
                   </div>
                 </div>
+              </div>
             )}
           </section>
         ))}

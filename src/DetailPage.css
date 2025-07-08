@@ -123,16 +123,25 @@
 
 /* 섹션 내용 */
 .section-content {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 1000px;
   width: 100%;
   gap: 60px;
-  background: #fff;
-  border-radius: 32px;
-  box-shadow: 0 8px 48px 0 rgba(0,0,0,0.1);
   padding: 48px 32px;
+}
+
+.section-image-right {
+  max-width: 320px;
+  width: 40%;
+  height: auto;
+  margin-left: 32px;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
 /* 텍스트 영역 */
@@ -194,6 +203,12 @@
 
 .phone-frame:hover .phone-image {
   transform: none;
+}
+
+.phone-frame,
+.phone-screen,
+.phone-container {
+  background: transparent !important;
 }
 
 /* 돌아가기 버튼 */
