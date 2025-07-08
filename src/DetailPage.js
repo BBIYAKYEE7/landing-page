@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './DetailPage.css';
 import homeImg from './image/home.png';
 import searchImg from './image/scroll.png';
-import chatImg from './image/커뮤니티 상세정보.png';
-import paymentImg from './image/상세페이지.png';
+import communityImg from './image/community.png';
+import detailImg from './image/detail.png';
 
 const HEADER_HEIGHT = 0; // 더 이상 필요 없음
 
@@ -33,27 +33,27 @@ const DetailPage = ({ num = 1 }) => {
       },
       {
         id: 'home',
-        title: '홈 화면',
-        description: '모든 스포츠 활동을 한눈에 볼 수 있는 메인 화면입니다. 축구, 농구, 배드민턴, 야구, 배구 등 다양한 스포츠 카테고리를 제공합니다.',
+        title: '주변에 뭐가 있지?',
+        description: '지도에 현재 위치를 기반으로 하여 주변에 어떤 운동시설이 있는지 알려줍니다. 보다 편리하게 시설을 찾을 수 있죠.',
         image: homeImg
       },
       {
         id: 'search',
-        title: '검색 & 필터',
-        description: '위치, 스포츠 종목, 시간대별로 빠르게 검색하고 필터링할 수 있습니다. 내 주변의 스포츠 모임을 쉽게 찾아보세요.',
+        title: '보다 간편한 용병 모집.',
+        description: '축구와 같은 팀 스포츠를 하는데 한번쯤 다들 인원이 부족했던 적이 있었죠? 이제는 SPOT으로 쉽게 용병을 모집해보세요. 현재 위치 주변에서 누가 몇명을 모집하는지 보다 편리하게 알려줍니다.',
         image: searchImg
       },
       {
         id: 'chat',
-        title: '실시간 채팅',
-        description: '모임 멤버들과 실시간으로 소통할 수 있는 채팅 기능입니다. 모임 일정, 장소, 규칙 등을 자유롭게 논의하세요.',
-        image: chatImg
+        title: '커뮤니티 기능도 지원',
+        description: '동호회 회원분들도 손쉽게 확인할 수 있도록 커뮤니티 기능도 지원합니다. 커뮤니티 공고를 확인하고 모집자와 컨택하여 운동을 즐겨보세요!',
+        image: communityImg
       },
       {
         id: 'payment',
-        title: '간편 정산',
-        description: '구장비, 장비비 등을 간편하게 정산할 수 있는 기능입니다. 투명하고 공정한 비용 분담을 도와드립니다.',
-        image: paymentImg
+        title: '시설에 대한 정보도 간편하게.',
+        description: '홈화면에서 고른 시설을 클릭하여 시설에 대한 정보와 실 사용자 리뷰, 시설 예약, 혼잡여부 등을 확인할 수 있습니다.',
+        image: detailImg
       }
     ]
   };
@@ -110,7 +110,7 @@ const DetailPage = ({ num = 1 }) => {
           <section
             key={section.id}
             ref={el => sectionsRef.current[index] = el}
-            className="detail-section"
+            className={`detail-section ${index % 2 === 0 ? 'even-section' : ''}`}
             id={section.id}
             style={getSectionStyle(index)}
           >
@@ -136,7 +136,7 @@ const DetailPage = ({ num = 1 }) => {
                     <img 
                       src={section.image} 
                       alt={section.title}
-                      className="phone-image"
+                      className={`phone-image ${section.id === 'chat' ? 'community-image' : ''} ${section.id === 'payment' ? 'detail-image' : ''} ${section.id === 'search' ? 'search-image' : ''} ${section.id === 'home' ? 'home-image' : ''}`}
                     />
                   </div>
                 </div>

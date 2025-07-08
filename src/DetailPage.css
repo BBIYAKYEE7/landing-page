@@ -125,7 +125,6 @@
 .section-content {
   background: transparent !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,13 +134,18 @@
   padding: 48px 32px;
 }
 
+/* 짝수 섹션의 이미지를 왼쪽으로 정렬 */
+.even-section .section-content {
+  flex-direction: row-reverse;
+}
+
 .section-image-right {
   max-width: 320px;
   width: 40%;
   height: auto;
   margin-left: 32px;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+
 }
 
 /* 텍스트 영역 */
@@ -197,11 +201,34 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18) !important;
   border-radius: 32px !important;
 }
 
-.phone-frame:hover .phone-image {
+/* 커뮤니티 이미지 크기 확대 및 위치 조정 */
+.community-image {
+  transform: scale(1.8) translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+/* 상세페이지 이미지 크기 확대 */
+.detail-image {
+  transform: scale(1.8);
+  transition: transform 0.3s ease;
+}
+
+/* 검색 이미지 크기 확대 */
+.search-image {
+  transform: scale(1.4);
+  transition: transform 0.3s ease;
+}
+
+/* 홈 이미지 크기 확대 */
+.home-image {
+  transform: scale(1.4);
+  transition: transform 0.3s ease;
+}
+
+.phone-frame:hover .phone-image:not(.community-image):not(.detail-image):not(.search-image):not(.home-image) {
   transform: none;
 }
 
@@ -255,6 +282,11 @@
     flex-direction: column;
     gap: 40px;
     padding: 32px 24px;
+  }
+  
+  /* 모바일에서도 짝수 섹션의 이미지를 위쪽에 배치 */
+  .even-section .section-content {
+    flex-direction: column-reverse;
   }
   
   .section-text {
