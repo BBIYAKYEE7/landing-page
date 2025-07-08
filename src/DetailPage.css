@@ -113,7 +113,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 0;
+  padding-top: 0;
+  padding-bottom: 0;
   scroll-snap-align: start;
   background: transparent;
   position: relative;
@@ -169,13 +170,6 @@
   position: relative;
   width: 300px;
   height: 600px;
-  background: #fff;
-  border-radius: 32px;
-  padding: 0;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  transform: none;
-  transition: none;
-  border: 1px solid #eee;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,9 +178,6 @@
 .phone-screen {
   width: 100%;
   height: 100%;
-  border-radius: 32px;
-  overflow: hidden;
-  background: #fff;
   position: relative;
   display: flex;
   align-items: center;
@@ -197,10 +188,8 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background: #fff;
-  padding: 20px 0;
-  box-sizing: border-box;
-  transition: none;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18) !important;
+  border-radius: 32px !important;
 }
 
 .phone-frame:hover .phone-image {

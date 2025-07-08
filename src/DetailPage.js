@@ -1,6 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DetailPage.css';
+import homeImg from './image/home.png';
+import searchImg from './image/주변탐색 스크롤 업.png';
+import chatImg from './image/커뮤니티 상세정보.png';
+import paymentImg from './image/상세페이지.png';
 
 const HEADER_HEIGHT = 0; // 더 이상 필요 없음
 
@@ -31,25 +35,25 @@ const DetailPage = ({ num = 1 }) => {
         id: 'home',
         title: '홈 화면',
         description: '모든 스포츠 활동을 한눈에 볼 수 있는 메인 화면입니다. 축구, 농구, 배드민턴, 야구, 배구 등 다양한 스포츠 카테고리를 제공합니다.',
-        image: '/home.png'
+        image: homeImg
       },
       {
         id: 'search',
         title: '검색 & 필터',
         description: '위치, 스포츠 종목, 시간대별로 빠르게 검색하고 필터링할 수 있습니다. 내 주변의 스포츠 모임을 쉽게 찾아보세요.',
-        image: '/search.png'
+        image: searchImg
       },
       {
         id: 'chat',
         title: '실시간 채팅',
         description: '모임 멤버들과 실시간으로 소통할 수 있는 채팅 기능입니다. 모임 일정, 장소, 규칙 등을 자유롭게 논의하세요.',
-        image: '/chat.png'
+        image: chatImg
       },
       {
         id: 'payment',
         title: '간편 정산',
         description: '구장비, 장비비 등을 간편하게 정산할 수 있는 기능입니다. 투명하고 공정한 비용 분담을 도와드립니다.',
-        image: '/payment.png'
+        image: paymentImg
       }
     ]
   };
@@ -129,13 +133,11 @@ const DetailPage = ({ num = 1 }) => {
                 </div>
                 <div className="phone-container">
                   <div className="phone-frame">
-                    <div className="phone-screen">
-                      <img 
-                        src={section.image} 
-                        alt={section.title}
-                        className="phone-image"
-                      />
-                    </div>
+                    <img 
+                      src={section.image} 
+                      alt={section.title}
+                      className="phone-image"
+                    />
                   </div>
                 </div>
               </div>
