@@ -5,6 +5,7 @@ import homeImg from './image/home.png';
 import searchImg from './image/scroll.png';
 import communityImg from './image/community.png';
 import detailImg from './image/detail.png';
+import instagramImg from './image/instagram.png';
 
 const HEADER_HEIGHT = 0; // 더 이상 필요 없음
 
@@ -176,20 +177,12 @@ const DetailPage = ({ num = 1 }) => {
           {/* 버튼 영역 */}
           <div style={{display: 'flex', gap: '1.2rem', marginTop: '1.7rem'}}>
             <a href="https://instagram.com/spot_uteed" target="_blank" rel="noopener noreferrer" className="footer-btn">
-              <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                <svg width="22" height="22" viewBox="0 0 448 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M224 202.7A53.3 53.3 0 1 0 224 309.3 53.3 53.3 0 1 0 224 202.7zm124.7-41c0-16.6-13.4-30-30-30H129.3c-16.6 0-30 13.4-30 30v193.9c0 16.6 13.4 30 30 30h189.4c16.6 0 30-13.4 30-30V161.7zm-28.7 193.9c0 8.3-6.7 15-15 15H143c-8.3 0-15-6.7-15-15V184h30.2c-2.1 7.1-3.2 14.6-3.2 22.4 0 53 43 96 96 96s96-43 96-96c0-7.8-1.1-15.3-3.2-22.4H348v161.9zM224 176c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zm80-32c0 8.8-7.2 16-16 16s-16-7.2-16-16 7.2-16 16-16 16 7.2 16 16z" fill="#6B7684"/>
-                </svg>
-              </span>
-              <span style={{verticalAlign: 'middle'}}></span>
+              <img src={instagramImg} alt="Instagram" width="16" height="16" />
             </a>
             <a href="mailto:admin@u-teed.co.kr" className="footer-btn">
-              <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm8 5l8-5H4l8 5zm0 2l-8-5v10h16V8l-8 5z" fill="#6B7684"/>
-                </svg>
-              </span>
-              <span style={{verticalAlign: 'middle'}}></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm8 5l8-5H4l8 5zm0 2l-8-5v10h16V8l-8 5z" fill="#fff"/>
+              </svg>
             </a>
           </div>
         </div>

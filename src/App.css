@@ -205,6 +205,52 @@ body, .App {
   margin: 0 auto;
 }
 
+/* ===== Footer Button Styles ===== */
+.footer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Pretendard', 'sans-serif';
+  background: #444;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.18s, border 0.18s, color 0.18s;
+  cursor: pointer;
+  box-shadow: none;
+  padding: 0.5rem;
+  width: 25px;
+  height: 25px;
+}
+
+.footer-btn:hover {
+  background: #e5e8eb;
+  color: #222;
+}
+
+.footer-btn img, .footer-btn svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-content.company-footer {
+  font-family: 'Pretendard', 'sans-serif';
+  color: #6B7684;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  text-align: left;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.footer-content.company-footer > div:first-child {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #222;
+  margin-bottom: 0.7rem;
+}
+
 .detail-page {
   min-height: 100vh;
   display: flex;
@@ -258,6 +304,17 @@ body, .App {
   }
   .footer-section .footer-content {
     font-size: 1rem;
+  }
+  
+  .footer-btn {
+    width: 22px;
+    height: 22px;
+    padding: 0.4rem;
+  }
+  
+  .footer-content.company-footer {
+    font-size: 0.95rem;
+    padding: 1.5rem 0.7rem;
   }
   .text-block h1 {
     font-size: 2.2rem;
