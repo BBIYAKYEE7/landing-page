@@ -133,6 +133,7 @@ function FooterSection({ visible, footerRef }) {
 function SurveyPopup({ isOpen, onClose }) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isConfirmClosing, setIsConfirmClosing] = useState(false);
 
   const handleSurveyClick = () => {
     // 설문조사 링크로 이동 (여기에 실제 설문조사 URL을 넣으세요)
@@ -144,16 +145,24 @@ function SurveyPopup({ isOpen, onClose }) {
   };
 
   const handleConfirmClose = () => {
-    setIsClosing(true);
+    setIsConfirmClosing(true);
     setTimeout(() => {
-      onClose();
-      setShowConfirmDialog(false);
-      setIsClosing(false);
-    }, 300); // 애니메이션 시간과 맞춤
+      setIsClosing(true);
+      setTimeout(() => {
+        onClose();
+        setShowConfirmDialog(false);
+        setIsClosing(false);
+        setIsConfirmClosing(false);
+      }, 300); // 메인 팝업 애니메이션 시간
+    }, 250); // 확인 다이얼로그 애니메이션 시간
   };
 
   const handleCancelClose = () => {
-    setShowConfirmDialog(false);
+    setIsConfirmClosing(true);
+    setTimeout(() => {
+      setShowConfirmDialog(false);
+      setIsConfirmClosing(false);
+    }, 250); // 확인 다이얼로그 애니메이션 시간
   };
 
   if (!isOpen) return null;
@@ -183,9 +192,10 @@ function SurveyPopup({ isOpen, onClose }) {
       
       {/* 확인 다이얼로그 */}
       {showConfirmDialog && (
-        <div className="confirm-dialog-overlay" onClick={handleCancelClose}>
-          <div className="confirm-dialog-content" onClick={(e) => e.stopPropagation()}>
+        <div className={`confirm-dialog-overlay ${isConfirmClosing ? 'closing' : ''}`} onClick={handleCancelClose}>
+          <div className={`confirm-dialog-content ${isConfirmClosing ? 'closing' : ''}`} onClick={(e) => e.stopPropagation()}>
             <div className="confirm-dialog-body">
+              <div className="confirm-dialog-icon">😢</div>
               <h3>🤔 정말 포기하시겠어요?</h3>
               <p>
                 이 특별한 혜택을 놓치시면<br/>

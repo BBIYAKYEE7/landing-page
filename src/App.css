@@ -506,7 +506,11 @@ body, .App {
   align-items: center;
   justify-content: center;
   z-index: 10001;
-  animation: fadeIn 0.2s ease-out;
+  animation: confirmFadeIn 0.25s ease-out;
+}
+
+.confirm-dialog-overlay.closing {
+  animation: confirmFadeOut 0.25s ease-out;
 }
 
 .confirm-dialog-content {
@@ -515,7 +519,12 @@ body, .App {
   max-width: 320px;
   width: 85%;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  animation: scaleIn 0.3s ease-out;
+  animation: confirmBounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.confirm-dialog-content.closing {
+  animation: confirmScaleOut 0.25s ease-in;
 }
 
 .confirm-dialog-body {
@@ -523,11 +532,20 @@ body, .App {
   text-align: center;
 }
 
+.confirm-dialog-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  animation: iconBounce 0.6s ease-out 0.2s;
+  animation-fill-mode: both;
+}
+
 .confirm-dialog-body h3 {
   font-size: 1.3rem;
   font-weight: 700;
   color: #000;
   margin: 0 0 16px 0;
+  animation: textSlideUp 0.4s ease-out 0.3s;
+  animation-fill-mode: both;
 }
 
 .confirm-dialog-body p {
@@ -535,12 +553,16 @@ body, .App {
   color: #666;
   line-height: 1.5;
   margin: 0 0 24px 0;
+  animation: textSlideUp 0.4s ease-out 0.4s;
+  animation-fill-mode: both;
 }
 
 .confirm-dialog-buttons {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  animation: buttonsSlideUp 0.4s ease-out 0.5s;
+  animation-fill-mode: both;
 }
 
 .confirm-btn-no {
@@ -631,6 +653,95 @@ body, .App {
   }
 }
 
+/* 확인 다이얼로그 전용 애니메이션 */
+@keyframes confirmFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+@keyframes confirmFadeOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes confirmBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  70% {
+    transform: scale(0.98) translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes confirmScaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes iconBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes textSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonsSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* 모바일 반응형 */
 @media (max-width: 600px) {
   .survey-popup-content {
@@ -668,6 +779,10 @@ body, .App {
   
   .confirm-dialog-body {
     padding: 28px 20px 20px;
+  }
+  
+  .confirm-dialog-icon {
+    font-size: 2rem;
   }
   
   .confirm-dialog-body h3 {
