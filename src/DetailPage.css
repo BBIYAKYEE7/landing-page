@@ -432,20 +432,20 @@ body {
 
 @media (max-width: 600px) {
   .project-title-main {
-    font-size: 0.8rem !important;
-    line-height: 1.1;
+    font-size: 1.3rem !important;
+    line-height: 1.2;
   }
   .project-title-highlight {
-    font-size: 1rem !important;
-    line-height: 1.1;
+    font-size: 2rem !important;
+    line-height: 1.2;
   }
   .project-title-hashtag {
-    font-size: 0.8rem !important;
-    line-height: 1.1;
+    font-size: 1.1rem !important;
+    line-height: 1.2;
   }
   .project-title-desc {
-    font-size: 0.8rem !important;
-    line-height: 1.1;
+    font-size: 1rem !important;
+    line-height: 1.2;
   }
 } 
 
