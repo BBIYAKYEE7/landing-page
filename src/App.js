@@ -111,6 +111,7 @@ function FooterSection({ visible, footerRef }) {
       <div className="footer-content company-footer" style={{fontFamily: 'Pretendard, sans-serif', color: '#6B7684', fontWeight: 400, fontSize: '1.05rem', lineHeight: 1.7, textAlign: 'left', maxWidth: 900, margin: '0 auto', padding: '2.5rem 1.5rem'}}>
         <div style={{fontWeight: 700, fontSize: '1.25rem', color: '#222', marginBottom: '0.7rem'}}>U-TEED</div>
         <div>사업자 등록번호 : 000-00-00000 | 대표 : 임태호</div>
+        <div>이메일: admin@u-teed.co.kr</div>
         <div>Copyright © 2025 U-TEED. All Rights Reserved.</div>
         <div></div>
         {/* 버튼 영역 */}
@@ -134,6 +135,7 @@ function SurveyPopup({ isOpen, onClose }) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isConfirmClosing, setIsConfirmClosing] = useState(false);
+  const [doNotShowToday, setDoNotShowToday] = useState(false);
 
   const handleSurveyClick = () => {
     // 설문조사 링크로 이동 (여기에 실제 설문조사 URL을 넣으세요)
@@ -149,6 +151,14 @@ function SurveyPopup({ isOpen, onClose }) {
     setTimeout(() => {
       setIsClosing(true);
       setTimeout(() => {
+        if (doNotShowToday) {
+          try {
+            const expireAt = Date.now() + 24 * 60 * 60 * 1000; // 24시간
+            window.localStorage.setItem('surveyPopupHideUntil', String(expireAt));
+          } catch (e) {
+            // ignore storage errors
+          }
+        }
         onClose();
         setShowConfirmDialog(false);
         setIsClosing(false);
@@ -201,6 +211,12 @@ function SurveyPopup({ isOpen, onClose }) {
                 이 특별한 혜택을 놓치시면<br/>
                 다시 받기 어려울 수 있어요!
               </p>
+              <div className="confirm-dialog-option" style={{marginTop: '0.5rem', marginBottom: '0.75rem'}}>
+                <label className="do-not-show-today" style={{display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer'}}>
+                  <input type="checkbox" checked={doNotShowToday} onChange={(e) => setDoNotShowToday(e.target.checked)} />
+                  오늘 하루 보지 않기
+                </label>
+              </div>
               <div className="confirm-dialog-buttons">
                 <button className="confirm-btn-no" onClick={handleCancelClose}>
                   아니요, 다시 볼게요
@@ -226,11 +242,20 @@ function MainPage({ sectionRefs }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // 하루 동안 보지 않기 체크 여부 확인
+    try {
+      const hideUntilStr = window.localStorage.getItem('surveyPopupHideUntil') || '0';
+      const hideUntil = parseInt(hideUntilStr, 10);
+      if (hideUntil > Date.now()) {
+        return;
+      }
+    } catch (e) {
+      // ignore storage errors
+    }
     // 페이지 로딩 후 1초 뒤에 팝업 표시
     const timer = setTimeout(() => {
       setShowSurveyPopup(true);
     }, 1000);
-    
     return () => clearTimeout(timer);
   }, []);
 
