@@ -29,7 +29,7 @@ export default function Header({ onNavClick }: HeaderProps) {
           U-TEED
         </span>
         <nav className="header-nav">
-          <button onClick={() => onNavClick('section-1')}>SPOT</button>
+          <button onClick={() => onNavClick('section-1')}>SITE</button>
           <button onClick={() => onNavClick('section-2')}>프로젝트 의뢰하기</button>
         </nav>
       </div>

@@ -443,11 +443,13 @@ export default function SiteLandingPage() {
               각자의 전문성을 바탕으로 더 나은 스포츠 경험을 설계합니다.
             </p>
 
-            {teamGroups.map((group, groupIndex) => (
-              <div key={groupIndex} className={styles.teamGroup}>
-                <h3 className={styles.teamCategoryTitle}>{group.category}</h3>
-                <div className={styles.teamGrid}>
-                  {group.members.map((member, index) => (
+            {/* 기획/마케팅과 디자인을 한 행에 배치 */}
+            <div className={styles.teamSplitRow}>
+              {/* 왼쪽: 기획/마케팅 */}
+              <div className={styles.teamGroup}>
+                <h3 className={styles.teamCategoryTitle}>기획 / 마케팅</h3>
+                <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
+                  {teamGroups[0].members.map((member, index) => (
                     <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
                       <div className={styles.teamAvatar}>
                         {member.name.charAt(0)}
@@ -465,7 +467,53 @@ export default function SiteLandingPage() {
                   ))}
                 </div>
               </div>
-            ))}
+              
+              {/* 오른쪽: 디자인 */}
+              <div className={styles.teamGroup}>
+                <h3 className={styles.teamCategoryTitle}>디자인</h3>
+                <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
+                  {teamGroups[2].members.map((member, index) => (
+                    <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
+                      <div className={styles.teamAvatar}>
+                        {member.name.charAt(0)}
+                      </div>
+                      <div className={styles.teamInfo}>
+                        <b className={styles.teamName}>{member.name}</b>
+                        <span className={styles.teamRole}>{member.role}</span>
+                      </div>
+                      <p className={styles.teamDesc}>{member.desc}</p>
+                      <div className={styles.teamSchool}>
+                        <span className={styles.schoolName}>{member.school}</span>
+                        <span className={styles.majorName}>{member.major}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 개발 그룹 */}
+            <div className={styles.teamGroup}>
+              <h3 className={styles.teamCategoryTitle}>{teamGroups[1].category}</h3>
+              <div className={styles.teamGrid}>
+                {teamGroups[1].members.map((member, index) => (
+                  <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
+                    <div className={styles.teamAvatar}>
+                      {member.name.charAt(0)}
+                    </div>
+                    <div className={styles.teamInfo}>
+                      <b className={styles.teamName}>{member.name}</b>
+                      <span className={styles.teamRole}>{member.role}</span>
+                    </div>
+                    <p className={styles.teamDesc}>{member.desc}</p>
+                    <div className={styles.teamSchool}>
+                      <span className={styles.schoolName}>{member.school}</span>
+                      <span className={styles.majorName}>{member.major}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
