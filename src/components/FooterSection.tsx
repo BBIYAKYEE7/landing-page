@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 interface FooterSectionProps {
   visible: boolean;
-  footerRef: RefObject<HTMLElement | null>;
+  footerRef: RefObject<HTMLElement>;
 }
 
 export default function FooterSection({ visible, footerRef }: FooterSectionProps) {

@@ -47,7 +47,7 @@ const teamGroups = [
 
 export default function SiteLandingPage() {
   const router = useRouter();
-  const footerRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement>(null!);
   const [activeSection, setActiveSection] = useState<string>('top');
   const [mounted, setMounted] = useState(false);
 

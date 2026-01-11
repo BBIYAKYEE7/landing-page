@@ -27,7 +27,7 @@ function MainContent({ sectionRefs }: { sectionRefs: MutableRefObject<HTMLElemen
   const [scrollY, setScrollY] = useState(0);
   const [footerInView, setFooterInView] = useState(false);
   const [showSurveyPopup, setShowSurveyPopup] = useState(false);
-  const footerRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement>(null!);
 
   useEffect(() => {
     window.scrollTo(0, 0);
