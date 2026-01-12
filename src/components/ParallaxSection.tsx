@@ -64,7 +64,7 @@ export default function ParallaxSection({
       {/* 첫 번째 섹션: 텍스트 위에만 로고 */}
       {index === 0 && (
         <Image
-          src="/images/logo.png"
+          src="/images/app_logo.png"
           alt="로고"
           width={320}
           height={320}
