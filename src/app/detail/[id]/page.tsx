@@ -10,7 +10,7 @@ const EMAIL = 'uteed.co@gmail.com';
 
 // 섹션 정의
 const sections = [
-  { id: 'top', label: 'Hero' },
+  { id: 'top', label: 'Intro' },
   { id: 'what', label: 'What' },
   { id: 'features', label: 'Features' },
   { id: 'partner', label: 'Partner' },
