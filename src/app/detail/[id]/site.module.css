@@ -798,13 +798,14 @@
 
 .teamAvatarImg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
   object-fit: cover;
   border-radius: 50%;
   background: #fff;
+  z-index: 1;
 }
 
 .teamInfo {
@@ -894,12 +895,13 @@
   
   .teamAvatarImg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
     object-fit: cover;
     background: #fff;
+    z-index: 1;
   }
   
   .teamGroup {
