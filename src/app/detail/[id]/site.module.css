@@ -804,7 +804,6 @@
   height: 110%;
   object-fit: cover;
   border-radius: 50%;
-  background: #fff;
   z-index: 1;
 }
 
@@ -900,7 +899,6 @@
     width: 110%;
     height: 110%;
     object-fit: cover;
-    background: #fff;
     z-index: 1;
   }
   
