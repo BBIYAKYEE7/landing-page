@@ -36,6 +36,7 @@ const teamGroups = [
       { name: '김진영', role: 'Backend', desc: '백엔드 개발, 서버 관리 및 운영', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김진영.png' },
       { name: '정민규', role: 'Frontend', desc: '프론트엔드 개발, 관리자용 앱 개발', school: '홍익대학교', major: '소프트웨어융합학과', profileImage: '/images/team/정민규.png' },
       { name: '김명준', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김명준.png' },
+      { name: '윤효빈', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/윤효빈.png' }
     ],
   },
   {
