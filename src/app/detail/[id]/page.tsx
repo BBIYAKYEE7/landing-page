@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import FooterSection from '@/components/FooterSection';
 import styles from './site.module.css';
@@ -24,23 +25,23 @@ const teamGroups = [
   {
     category: '기획 / 마케팅',
     members: [
-      { name: '임태호', role: '대표 / 기획', desc: '프로젝트 총괄 및 서비스 기획', school: '연세대학교', major: '신학과' },
-      { name: '홍예찬', role: '마케팅', desc: '마케팅 전략 및 커뮤니티 운영', school: '연세대학교', major: '물리학과' },
+      { name: '임태호', role: '대표 / 기획', desc: '프로젝트 총괄 및 서비스 기획', school: '연세대학교', major: '신학과', profileImage: '/images/team/임태호.png' },
+      { name: '홍예찬', role: '마케팅', desc: '마케팅 전략 및 커뮤니티 운영', school: '연세대학교', major: '물리학과', profileImage: '/images/team/홍예찬.png' },
     ],
   },
   {
     category: '개발',
     members: [
-      { name: '김재윤', role: 'Frontend', desc: '프론트엔드 개발, 유저 앱 개발', school: '고려대학교', major: '인공지능사이버보안학과' },
-      { name: '김진영', role: 'Backend', desc: '백엔드 개발, 서버 관리 및 운영', school: '고려대학교', major: '인공지능사이버보안학과' },
-      { name: '정민규', role: 'Frontend', desc: '프론트엔드 개발, 관리자용 앱 개발', school: '홍익대학교', major: '소프트웨어융합학과' },
-      { name: '김명준', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과' },
+      { name: '김재윤', role: 'Frontend', desc: '프론트엔드 개발, 유저 앱 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김재윤.png' },
+      { name: '김진영', role: 'Backend', desc: '백엔드 개발, 서버 관리 및 운영', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김진영.png' },
+      { name: '정민규', role: 'Frontend', desc: '프론트엔드 개발, 관리자용 앱 개발', school: '홍익대학교', major: '소프트웨어융합학과', profileImage: '/images/team/정민규.png' },
+      { name: '김명준', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김명준.png' },
     ],
   },
   {
     category: '디자인',
     members: [
-      { name: '최수진', role: 'UI/UX', desc: 'UI/UX 디자인', school: '홍익대학교', major: '시각디자인학과' },
+      { name: '최수진', role: 'UI/UX', desc: 'UI/UX 디자인', school: '홍익대학교', major: '시각디자인학과', profileImage: '/images/team/최수진.png' },
     ],
   },
 ];
@@ -452,7 +453,17 @@ export default function SiteLandingPage() {
                   {teamGroups[0].members.map((member, index) => (
                     <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
                       <div className={styles.teamAvatar}>
-                        {member.name.charAt(0)}
+                        {member.profileImage ? (
+                          <Image
+                            src={member.profileImage}
+                            alt={`${member.name} 프로필`}
+                            width={64}
+                            height={64}
+                            className={styles.teamAvatarImg}
+                          />
+                        ) : (
+                          member.name.charAt(0)
+                        )}
                       </div>
                       <div className={styles.teamInfo}>
                         <b className={styles.teamName}>{member.name}</b>
@@ -475,7 +486,17 @@ export default function SiteLandingPage() {
                   {teamGroups[2].members.map((member, index) => (
                     <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
                       <div className={styles.teamAvatar}>
-                        {member.name.charAt(0)}
+                        {member.profileImage ? (
+                          <Image
+                            src={member.profileImage}
+                            alt={`${member.name} 프로필`}
+                            width={64}
+                            height={64}
+                            className={styles.teamAvatarImg}
+                          />
+                        ) : (
+                          member.name.charAt(0)
+                        )}
                       </div>
                       <div className={styles.teamInfo}>
                         <b className={styles.teamName}>{member.name}</b>
@@ -499,7 +520,17 @@ export default function SiteLandingPage() {
                 {teamGroups[1].members.map((member, index) => (
                   <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
                     <div className={styles.teamAvatar}>
-                      {member.name.charAt(0)}
+                      {member.profileImage ? (
+                        <Image
+                          src={member.profileImage}
+                          alt={`${member.name} 프로필`}
+                          width={64}
+                          height={64}
+                          className={styles.teamAvatarImg}
+                        />
+                      ) : (
+                        member.name.charAt(0)
+                      )}
                     </div>
                     <div className={styles.teamInfo}>
                       <b className={styles.teamName}>{member.name}</b>
