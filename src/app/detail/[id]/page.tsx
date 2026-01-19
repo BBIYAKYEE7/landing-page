@@ -33,10 +33,10 @@ const teamGroups = [
     category: '개발',
     members: [
       { name: '김재윤', role: 'Frontend', desc: '프론트엔드 개발, 유저 앱 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김재윤.png' },
-      { name: '김진영', role: 'Backend', desc: '백엔드 개발, 서버 관리 및 운영', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김진영.png' },
       { name: '정민규', role: 'Frontend', desc: '프론트엔드 개발, 관리자용 앱 개발', school: '홍익대학교', major: '소프트웨어융합학과', profileImage: '/images/team/정민규.png' },
+      { name: '김진영', role: 'Backend', desc: '백엔드 개발, 서버 관리 및 운영', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김진영.png' },
       { name: '김명준', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/김명준.png' },
-      { name: '윤효빈', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/윤효빈.png' }
+      { name: '윤효빈', role: 'Backend', desc: '백엔드 개발', school: '고려대학교', major: '인공지능사이버보안학과', profileImage: '/images/team/윤효빈.png', inactive: true, inactiveReason: '군복무로 휴직' }
     ],
   },
   {
@@ -450,7 +450,9 @@ export default function SiteLandingPage() {
                 <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
                   {teamGroups[0].members.map((member, index) => (
                     <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
-                      <div className={styles.teamAvatar}>
+                      <div
+                        className={`${styles.teamAvatar} ${member.profileImage ? styles.teamAvatarWithImage : ''}`}
+                      >
                         {member.profileImage ? (
                           <Image
                             src={member.profileImage}
@@ -483,7 +485,9 @@ export default function SiteLandingPage() {
                 <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
                   {teamGroups[2].members.map((member, index) => (
                     <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
-                      <div className={styles.teamAvatar}>
+                      <div
+                        className={`${styles.teamAvatar} ${member.profileImage ? styles.teamAvatarWithImage : ''}`}
+                      >
                         {member.profileImage ? (
                           <Image
                             src={member.profileImage}
@@ -516,8 +520,16 @@ export default function SiteLandingPage() {
               <h3 className={styles.teamCategoryTitle}>{teamGroups[1].category}</h3>
               <div className={styles.teamGrid}>
                 {teamGroups[1].members.map((member, index) => (
-                  <div key={index} className={`${styles.teamCard} ${styles.reveal}`}>
-                    <div className={styles.teamAvatar}>
+                  <div
+                    key={index}
+                    className={`${styles.teamCard} ${styles.reveal} ${
+                      member.inactive ? styles.teamCardInactive : ''
+                    }`}
+                    data-inactive-reason={member.inactive ? member.inactiveReason : undefined}
+                  >
+                    <div
+                      className={`${styles.teamAvatar} ${member.profileImage ? styles.teamAvatarWithImage : ''}`}
+                    >
                       {member.profileImage ? (
                         <Image
                           src={member.profileImage}
