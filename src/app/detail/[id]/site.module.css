@@ -175,30 +175,6 @@
   align-items: center;
 }
 
-.kicker {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.65);
-  box-shadow: var(--shadow-soft);
-  color: rgba(11,13,18,.78);
-  font-size: 12.5px;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
-  font-family: var(--font-body);
-}
-
-.kDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(16,185,129,.92);
-  box-shadow: 0 0 0 4px rgba(16,185,129,.12);
-}
-
 .heroTitle {
   margin: 0 0 18px;
   font-size: clamp(32px, 3.8vw, 52px);

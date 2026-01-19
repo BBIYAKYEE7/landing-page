@@ -129,10 +129,7 @@ export default function SiteLandingPage() {
       <main id="top" className={styles.hero}>
         <div className={`${styles.container} ${styles.heroGrid}`}>
           <div className={`${styles.reveal}`} >
-            <div className={styles.kicker}>
-              <span className={styles.kDot} aria-hidden="true"></span>
-              <span>인스타 DM/메일 첨부용 — 한 장으로 끝나는 제품 소개</span>
-            </div>
+
 
             <h1 className={styles.heroTitle}>
               네이버 카페 &quot;게스트(용병) 모집 픽업게임&quot;을
