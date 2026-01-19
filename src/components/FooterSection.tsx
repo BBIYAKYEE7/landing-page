@@ -45,7 +45,7 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
         {/* 버튼 영역 */}
         <div style={{ display: 'flex', gap: '1.2rem', marginTop: '1.7rem' }}>
           <a
-            href="https://instagram.com/spot_uteed"
+            href="https://instagram.com/site_uteed"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-btn"
