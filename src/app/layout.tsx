@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'U-TEED',
-  description: '지금 당신 주변의 모든 운동 - U-TEED',
+  description: '플랫폼의 새로운 기준, U-TEED',
   icons: {
     icon: '/images/logo.png',
     apple: '/images/logo.png',

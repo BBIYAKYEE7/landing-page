@@ -15,7 +15,7 @@ export default function SurveyPopup({ isOpen, onClose }: SurveyPopupProps) {
 
   const handleSurveyClick = () => {
     window.open(
-      'https://docs.google.com/forms/d/e/1FAIpQLSdqQtfpAPCYGEEdrLw8C481TITGkscFc29dVmPOBBPsBx5fPA/viewform',
+      'https://docs.google.com/forms/d/e/1FAIpQLSePB2wt08eZymrTUKA3ZDGZV5vu5DTVhDH9kOCsEcGan6TcEQ/viewform?pli=1',
       '_blank'
     );
   };
