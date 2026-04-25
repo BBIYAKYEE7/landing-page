@@ -1,58 +1,106 @@
 'use client';
 
-import { useRef, useEffect, useState, MutableRefObject } from 'react';
+import { useRef, useEffect, useState, MutableRefObject, useCallback } from 'react';
 import Header from '@/components/Header';
+import IntroSection from '@/components/IntroSection';
 import ParallaxSection from '@/components/ParallaxSection';
 import FooterSection from '@/components/FooterSection';
-import SurveyPopup from '@/components/SurveyPopup';
 import { Section } from '@/types';
 
 const sections: Section[] = [
   {
-    title: '농구의 인사이트, SITE.',
+    title: 'AI 음성 통화 기반 경도인지장애 케어',
+    highlight: 'BeepBeep',
+    hashtag: '#고령_부모님의_인지기능_관리 #AI_음성_모니터링',
+    image: null,
+    detailLink: '/detail/2',
+  },
+  {
+    title: 'Your Game, Our SITE',
     highlight: 'SITE',
-    hashtag: '#축구뿐만 아니라 농구, 배드민턴, 야구, 배구 등 모든 스포츠를 위한',
+    hashtag: '#농구_픽업게임을_앱에서_손쉽게 #농구_대회_찾을_때는_SITE',
     image: null,
     detailLink: '/detail/1',
   },
-  {
-    title: '프로젝트 준비중...',
-    highlight: '다른 프로젝트도 의뢰해보세요!',
-    hashtag: '#내가_기획하는',
-    detailLink: 'mailto:uteed.co@gmail.com',
-  },
 ];
 
-function MainContent({ sectionRefs }: { sectionRefs: MutableRefObject<HTMLElement | null>[] }) {
+function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<HTMLElement | null>[], introRef: MutableRefObject<HTMLElement | null> }) {
   const [scrollY, setScrollY] = useState(0);
   const [footerInView, setFooterInView] = useState(false);
-  const [showSurveyPopup, setShowSurveyPopup] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const footerRef = useRef<HTMLElement>(null!);
+
+  const getAllSections = useCallback(() => {
+    const introSlides = document.querySelectorAll('.intro-slide');
+    const parallaxSections = document.querySelectorAll('.parallax-section');
+    const footer = document.querySelector('.footer-section');
+    
+    const allSections: Element[] = [];
+    introSlides.forEach(el => allSections.push(el));
+    parallaxSections.forEach(el => allSections.push(el));
+    if (footer) allSections.push(footer);
+    
+    return allSections;
+  }, []);
+
+  const getCurrentSectionIndex = useCallback(() => {
+    const allSections = getAllSections();
+    const windowHeight = window.innerHeight;
+    
+    for (let i = 0; i < allSections.length; i++) {
+      const rect = allSections[i].getBoundingClientRect();
+      if (rect.top >= -windowHeight / 2 && rect.top < windowHeight / 2) {
+        return i;
+      }
+    }
+    return 0;
+  }, [getAllSections]);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (isScrolling) {
+        e.preventDefault();
+        return;
+      }
+
+      const allSections = getAllSections();
+      const currentIndex = getCurrentSectionIndex();
+      
+      let nextIndex = currentIndex;
+      if (e.deltaY > 0 && currentIndex < allSections.length - 1) {
+        nextIndex = currentIndex + 1;
+      } else if (e.deltaY < 0 && currentIndex > 0) {
+        nextIndex = currentIndex - 1;
+      }
+
+      if (nextIndex !== currentIndex) {
+        e.preventDefault();
+        setIsScrolling(true);
+        allSections[nextIndex].scrollIntoView({ behavior: 'smooth' });
+        
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, 800);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [isScrolling, getAllSections, getCurrentSectionIndex]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // 하루 동안 보지 않기 체크 여부 확인
-    try {
-      const hideUntilStr = window.localStorage.getItem('surveyPopupHideUntil') || '0';
-      const hideUntil = parseInt(hideUntilStr, 10);
-      if (hideUntil > Date.now()) {
-        return;
-      }
-    } catch {
-      // ignore storage errors
-    }
-    // 페이지 로딩 후 1초 뒤에 팝업 표시
-    const timer = setTimeout(() => {
-      setShowSurveyPopup(true);
-    }, 1000);
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => {
+      setScrollY(window.scrollY);
+      setCurrentSectionIndex(getCurrentSectionIndex());
+    };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [getCurrentSectionIndex]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,13 +111,40 @@ function MainContent({ sectionRefs }: { sectionRefs: MutableRefObject<HTMLElemen
     return () => observer.disconnect();
   }, []);
 
-  const closeSurveyPopup = () => {
-    setShowSurveyPopup(false);
+  const sectionNames = [
+    'Fast to Act',
+    'Smart in Action',
+    'About U-TEED',
+    'Our Team',
+    'BeepBeep',
+    'SITE',
+  ];
+
+  const handleIndicatorClick = (index: number) => {
+    const allSections = getAllSections();
+    if (allSections[index]) {
+      setIsScrolling(true);
+      allSections[index].scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 800);
+    }
   };
 
   return (
     <div className="App snap-container">
-      <SurveyPopup isOpen={showSurveyPopup} onClose={closeSurveyPopup} />
+      <div className="side-indicator">
+        {sectionNames.map((name, i) => (
+          <div 
+            key={i} 
+            className={`indicator-dot ${currentSectionIndex === i ? 'active' : ''}`}
+            onClick={() => handleIndicatorClick(i)}
+          >
+            <span className="indicator-tooltip">{name}</span>
+          </div>
+        ))}
+      </div>
+      <IntroSection sectionRef={introRef} />
       {sections.map((sec, i) => (
         <ParallaxSection
           key={i}
@@ -77,7 +152,7 @@ function MainContent({ sectionRefs }: { sectionRefs: MutableRefObject<HTMLElemen
           index={i}
           scrollY={scrollY}
           sectionRef={sectionRefs[i]}
-          id={`section-${i + 1}`}
+          id={i === 0 ? 'service' : `section-${i + 1}`}
         />
       ))}
       <FooterSection visible={footerInView} footerRef={footerRef} />
@@ -86,25 +161,32 @@ function MainContent({ sectionRefs }: { sectionRefs: MutableRefObject<HTMLElemen
 }
 
 export default function Home() {
+  const introRef = useRef<HTMLElement | null>(null);
   const sectionRefs = [
-    useRef<HTMLElement | null>(null),
     useRef<HTMLElement | null>(null),
     useRef<HTMLElement | null>(null),
   ];
 
   const handleNavClick = (id: string) => {
-    const idx: Record<string, number> = {
-      'section-1': 0,
-      'section-2': 1,
-      'section-3': 2,
-    };
-    sectionRefs[idx[id]]?.current?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'contact') {
+      document.querySelector('.footer-section')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (id === 'intro') {
+      introRef?.current?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (id === 'service') {
+      sectionRefs[0]?.current?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    sectionRefs[0]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
       <Header onNavClick={handleNavClick} />
-      <MainContent sectionRefs={sectionRefs} />
+      <MainContent sectionRefs={sectionRefs} introRef={introRef} />
     </>
   );
 }

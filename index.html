@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <title>SITE 베타 | 농구 픽업 게임 모집/참여</title>
+  <meta name="description" content="농구 픽업 게임 모집/참여 전용 베타. 주최자와 게스트를 연결해 게임 성사율 70%+를 목표로 합니다. (시설 예약/결제/채팅 없음)" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SITE 베타 | 농구 픽업 게임 모집/참여" />
+  <meta property="og:description" content="단톡방 10개 뒤지지 말고, 오늘 뛸 게임을 5초 만에. (시설 예약은 추후)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=SITE+Beta+OG" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <style>
+    :root{
+      --bg: #0b0b0d;
+      --bg2:#101015;
+      --card:#12121a;
+      --text:#e9e9ee;
+      --muted:#a9a9b4;
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(255,255,255,.16);
+      --brand: #7c5cff;
+      --brand2:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f7fb;
+        --bg2:#ffffff;
+        --card:#ffffff;
+        --text:#0c0c10;
+        --muted:#4b4b5a;
+        --line: rgba(0,0,0,.10);
+        --line2: rgba(0,0,0,.14);
+        --shadow: 0 10px 22px rgba(0,0,0,.08);
+      }
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(700px 450px at 90% 0%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(900px 550px at 50% 120%, rgba(124,92,255,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit}
+    .skip{
+      position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:16px; top:16px; width:auto; height:auto; padding:10px 12px;
+      background:var(--card); border:1px solid var(--line2); border-radius:12px; z-index:9999;
+    }
+
+    /* Layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--bg2) 70%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px;
+      gap:14px;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;
+      text-decoration:none;
+    }
+    .mark{
+      width:30px; height:30px; border-radius:10px;
+      background:
+        linear-gradient(135deg, rgba(124,92,255,1), rgba(34,197,94,.95));
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .mark:after{
+      content:""; position:absolute; inset:7px; border-radius:8px;
+      border:1px solid rgba(255,255,255,.55);
+      opacity:.55;
+    }
+    .logo small{display:block; font-weight:700; color:var(--muted); margin-top:2px}
+    .menu{
+      display:none; gap:16px; align-items:center;
+    }
+    .menu a{
+      text-decoration:none; color:var(--muted);
+      padding:10px 10px; border-radius:12px;
+    }
+    .menu a:hover{color:var(--text); background:color-mix(in oklab, var(--card) 75%, transparent)}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      border:1px solid var(--line2);
+      background: color-mix(in oklab, var(--card) 88%, transparent);
+      color:var(--text);
+      padding:10px 14px; border-radius:14px;
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap:10px;
+      box-shadow:none;
+      cursor:pointer;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+      font-weight:700;
+    }
+    .btn:hover{transform:translateY(-1px); border-color: color-mix(in oklab, var(--brand) 35%, var(--line2));}
+    .btn.primary{
+      border:1px solid color-mix(in oklab, var(--brand) 65%, rgba(255,255,255,.18));
+      background: linear-gradient(135deg, rgba(124,92,255,.98), rgba(124,92,255,.62));
+      color:#fff;
+    }
+    .btn.ghost{background:transparent}
+    .hamburger{display:inline-flex}
+    .hamburger svg{width:20px; height:20px}
+    @media (min-width: 980px){
+      .menu{display:flex}
+      .hamburger{display:none}
+    }
+
+    /* Mobile drawer */
+    .drawer{
+      position:fixed; inset:0; z-index:60;
+      display:none;
+      background: rgba(0,0,0,.45);
+    }
+    .drawer[aria-hidden="false"]{display:block}
+    .panel{
+      position:absolute; right:0; top:0; height:100%; width:min(420px, 92vw);
+      background: var(--bg2);
+      border-left:1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding:18px;
+      transform:translateX(0);
+    }
+    .panel h3{margin:6px 0 10px}
+    .panel a{
+      display:block; padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      text-decoration:none;
+      color:var(--text);
+      margin-bottom:10px;
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+    }
+    .panel a span{display:block; color:var(--muted); font-size:13px; margin-top:3px}
+    .panel .row{display:flex; justify-content:space-between; align-items:center; gap:10px}
+    .panel .close{
+      width:40px; height:40px; border-radius:14px;
+      border:1px solid var(--line2);
+      background:transparent; color:var(--text); cursor:pointer;
+    }
+
+    /* Sections */
+    section{padding:72px 0}
+    .hero{padding:64px 0 36px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+    }
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 1.15fr .85fr; gap:26px}
+      .hero{padding:78px 0 40px}
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line2);
+      background: color-mix(in oklab, var(--card) 74%, transparent);
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+    .pill b{color:var(--text)}
+    h1{
+      margin:16px 0 12px;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing:-.6px;
+      line-height:1.12;
+    }
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size: clamp(15px, 1.6vw, 18px);
+    }
+    .hero-cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .note{
+      margin-top:12px; font-size:13px; color:var(--muted);
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .note .dot{
+      width:8px; height:8px; border-radius:99px;
+      background: var(--warn);
+      margin-top:6px;
+      box-shadow: 0 0 0 6px color-mix(in oklab, var(--warn) 20%, transparent);
+      flex:0 0 auto;
+    }
+
+    .card{
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{margin:0 0 10px; font-size:18px}
+    .muted{color:var(--muted)}
+    .kpi{
+      display:grid; grid-template-columns: 1fr; gap:12px;
+      margin-top:12px;
+    }
+    @media (min-width: 680px){
+      .kpi{grid-template-columns: repeat(2,1fr)}
+    }
+    .kpi .item{
+      padding:14px; border-radius:18px;
+      border:1px solid var(--line);
+      background: color-mix(in oklab, var(--bg2) 70%, transparent);
+    }
+    .kpi .item b{font-size:18px}
+    .kpi .item span{display:block; color:var(--muted); margin-top:6px; font-size:13px}
+
+    .sec-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom:16px;
+    }
+    .sec-title h2{
+      margin:0;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing:-.3px;
+    }
+    .sec-title p{margin:0; color:var(--muted)}
+    .tagrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      font-size:12px; font-weight:800;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid var(--line2);
+      color:var(--muted);
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+    }
+    .tag.good{border-color: color-mix(in oklab, var(--brand2) 40%, var(--line2)); color: color-mix(in oklab, var(--brand2) 70%, var(--text))}
+    .tag.bad{border-color: color-mix(in oklab, var(--bad) 40%, var(--line2)); color: color-mix(in oklab, var(--bad) 65%, var(--text))}
+    .tag.warn{border-color: color-mix(in oklab, var(--warn) 40%, var(--line2)); color: color-mix(in oklab, var(--warn) 70%, var(--text))}
+
+    /* Need tabs */
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin:12px 0 12px;
+    }
+    .tab{
+      border:1px solid var(--line2);
+      background: transparent;
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .tab[aria-selected="true"]{
+      color:var(--text);
+      background: color-mix(in oklab, var(--brand) 20%, var(--card));
+      border-color: color-mix(in oklab, var(--brand) 40%, var(--line2));
+    }
+    .tabpanels .panelcard{display:none}
+    .tabpanels .panelcard[aria-hidden="false"]{display:block}
+
+    /* Feature grid */
+    .features{
+      display:grid; grid-template-columns: 1fr; gap:12px;
+    }
+    @media (min-width: 760px){
+      .features{grid-template-columns: repeat(2, 1fr)}
+    }
+    @media (min-width: 1080px){
+      .features{grid-template-columns: repeat(3, 1fr)}
+    }
+    .feat{
+      padding:16px; border-radius:22px;
+      border:1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 78%, transparent);
+      min-height: 150px;
+    }
+    .feat .num{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      font-weight:900;
+      background: color-mix(in oklab, var(--brand) 25%, var(--bg2));
+      border:1px solid color-mix(in oklab, var(--brand) 35%, var(--line2));
+      margin-bottom:10px;
+    }
+    .feat h4{margin:0 0 6px; font-size:16px}
+    .feat ul{margin:8px 0 0; padding-left:18px; color:var(--muted); font-size:13px}
+    .feat p{margin:0; color:var(--muted); font-size:13px}
+
+    /* Screens */
+    .screenlist{
+      display:grid; grid-template-columns: 1fr; gap:10px;
+    }
+    @media (min-width: 860px){
+      .screenlist{grid-template-columns: 1fr 1fr}
+    }
+    .screen{
+      border:1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 76%, transparent);
+      border-radius:22px;
+      padding:14px;
+      display:flex; gap:12px;
+      align-items:flex-start;
+    }
+    .screen .idx{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      font-weight:900;
+      border:1px solid var(--line2);
+      background: color-mix(in oklab, var(--bg2) 70%, transparent);
+      flex:0 0 auto;
+    }
+    .screen h4{margin:0 0 4px}
+    .screen p{margin:0; color:var(--muted); font-size:13px}
+
+    /* Policy / risk */
+    .twocol{
+      display:grid; grid-template-columns: 1fr; gap:12px;
+    }
+    @media (min-width: 980px){
+      .twocol{grid-template-columns: 1fr 1fr}
+    }
+    .list{
+      margin:10px 0 0; padding-left:18px;
+      color:var(--muted);
+    }
+    .list li{margin:8px 0}
+    .risk{
+      border:1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 76%, transparent);
+      border-radius:22px;
+      padding:14px;
+    }
+    .risk .head{display:flex; justify-content:space-between; gap:10px; align-items:center}
+    .risk h4{margin:0; font-size:15px}
+    .badge{
+      font-size:12px; font-weight:900;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line2);
+      color:var(--muted);
+      background: color-mix(in oklab, var(--bg2) 75%, transparent);
+      white-space:nowrap;
+    }
+    .badge.high{border-color: color-mix(in oklab, var(--bad) 40%, var(--line2)); color: color-mix(in oklab, var(--bad) 70%, var(--text))}
+    .badge.mid{border-color: color-mix(in oklab, var(--warn) 40%, var(--line2)); color: color-mix(in oklab, var(--warn) 70%, var(--text))}
+    .badge.low{border-color: color-mix(in oklab, var(--brand2) 40%, var(--line2)); color: color-mix(in oklab, var(--brand2) 70%, var(--text))}
+    .risk p{margin:8px 0 0; color:var(--muted); font-size:13px}
+    .risk ul{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px}
+
+    /* FAQ */
+    .faq{
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      background: color-mix(in oklab, var(--card) 78%, transparent);
+    }
+    details{border-top:1px solid var(--line)}
+    details:first-child{border-top:none}
+    summary{
+      padding:16px 16px;
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary span{color:var(--muted); font-weight:800; font-size:13px}
+    details .ans{
+      padding:0 16px 16px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* CTA */
+    .cta{
+      position:relative;
+      overflow:hidden;
+    }
+    .cta:before{
+      content:"";
+      position:absolute; inset:-40px -80px auto auto;
+      width:320px; height:320px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,92,255,.55), transparent 60%);
+      filter: blur(10px);
+      pointer-events:none;
+    }
+    .cta-grid{
+      display:grid; grid-template-columns: 1fr; gap:12px;
+      align-items:start;
+    }
+    @media (min-width: 980px){
+      .cta-grid{grid-template-columns: 1.05fr .95fr}
+    }
+    form{
+      display:grid; gap:10px;
+    }
+    label{font-size:13px; color:var(--muted); font-weight:800}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line2);
+      background: color-mix(in oklab, var(--bg2) 80%, transparent);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:96px; resize:vertical}
+    .row2{display:grid; grid-template-columns: 1fr; gap:10px}
+    @media (min-width: 680px){ .row2{grid-template-columns: 1fr 1fr} }
+    .form-actions{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      margin-top:4px;
+    }
+    .hint{font-size:12px; color:var(--muted)}
+    .toast{
+      margin-top:10px;
+      font-size:13px;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid var(--line2);
+      display:none;
+      background: color-mix(in oklab, var(--bg2) 75%, transparent);
+    }
+    .toast.ok{border-color: color-mix(in oklab, var(--brand2) 40%, var(--line2))}
+    .toast.err{border-color: color-mix(in oklab, var(--bad) 40%, var(--line2))}
+
+    /* Footer */
+    footer{
+      padding:26px 0 40px;
+      border-top:1px solid var(--line);
+      background: color-mix(in oklab, var(--bg2) 70%, transparent);
+    }
+    .foot{
+      display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .links{display:flex; gap:10px; flex-wrap:wrap}
+    .links a{color:var(--muted); text-decoration:none}
+    .links a:hover{color:var(--text)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .mini{font-size:12px; color:var(--muted)}
+
+    /* Tiny helpers */
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">본문으로 바로가기</a>
+
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#top" aria-label="SITE 베타 홈으로">
+        <span class="mark" aria-hidden="true"></span>
+        <span>
+          SITE <small>농구 픽업 게임 베타</small>
+        </span>
+      </a>
+
+      <nav class="menu" aria-label="상단 내비게이션">
+        <a href="#problem">문제</a>
+        <a href="#solution">해결</a>
+        <a href="#features">기능</a>
+        <a href="#screens">화면</a>
+        <a href="#policy">운영</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="actions">
+        <a class="btn ghost" href="#cta" aria-label="베타 신청으로 이동">베타 신청</a>
+        <a class="btn primary" href="#cta" aria-label="베타 앱 다운로드(예정)">베타 앱 다운로드</a>
+        <button class="btn hamburger" id="openDrawer" aria-label="메뉴 열기" aria-controls="drawer" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="panel" role="dialog" aria-modal="true" aria-label="모바일 메뉴">
+      <div class="row">
+        <div>
+          <div style="font-weight:900; font-size:18px;">SITE 베타</div>
+          <div class="muted" style="font-size:13px; margin-top:2px;">픽업 모집/참여 전용</div>
+        </div>
+        <button class="close" id="closeDrawer" aria-label="메뉴 닫기">✕</button>
+      </div>
+      <div style="height:10px"></div>
+      <a href="#problem" class="drawerLink">문제 <span>단톡방 분산 / 노쇼 / 관리 피로</span></a>
+      <a href="#solution" class="drawerLink">해결 <span>빠른 모집 + 1클릭 신청 + 알림</span></a>
+      <a href="#features" class="drawerLink">기능 <span>베타 핵심 TOP 6</span></a>
+      <a href="#screens" class="drawerLink">화면 <span>최소 10개 화면 구성</span></a>
+      <a href="#policy" class="drawerLink">운영 <span>신뢰도/노쇼/신고 정책</span></a>
+      <a href="#cta" class="drawerLink">베타 신청 <span>대기열/초대/시드 유저</span></a>
+      <div style="height:6px"></div>
+      <a href="#cta" class="drawerLink" style="border-color: color-mix(in oklab, var(--brand) 35%, var(--line2));">
+        베타 앱 다운로드(예정) <span>링크 연결만 바꾸면 됨</span>
+      </a>
+      <div class="mini" style="margin-top:10px;">
+        * 시설 예약/결제/채팅은 베타에 없음.
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="wrap grid">
+        <div>
+          <div class="pill">
+            <b>베타 MVP</b> · 픽업 게임 모집/참여 전용 · <span class="mono">12주</span>
+          </div>
+
+          <h1>
+            오늘 뛸 농구 게임 찾기,<br />
+            이제 단톡방 뒤질 필요 없게.
+          </h1>
+          <p class="lead">
+            SITE는 <b>주최자</b>와 <b>게스트</b>를 연결해서<br />
+            “주 1회 이상 매칭 성공률 70%+”를 목표로 하는 픽업 게임 베타야.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#cta">베타 앱 다운로드(예정)</a>
+            <a class="btn" href="#features">베타 기능 6개 보기</a>
+            <button class="btn ghost" id="copyLink" type="button" aria-label="공유 링크 복사">공유 링크 복사</button>
+          </div>
+
+          <div class="note" role="note">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>중요:</b> 베타는 <b>시설 예약/결제/채팅 없음</b>.<br />
+              딱 “모집/참여/인원관리/노쇼 방지”에만 집중.
+            </div>
+          </div>
+
+          <div class="tagrow" aria-label="핵심 문장">
+            <span class="tag good">“오늘 뛸 게임, 5초컷”</span>
+            <span class="tag warn">“게스트 1명 모자라서 무산? 여기서 채움”</span>
+            <span class="tag">“실력/지역/날짜 필터로 빠르게”</span>
+          </div>
+        </div>
+
+        <aside class="card" aria-label="베타 목표 카드">
+          <h3>베타 목표(측정 가능)</h3>
+          <p class="muted" style="margin:0;">
+            한 문장: <b>주최자와 게스트를 연결해서</b><br />
+            <b>주 1회 이상</b> / <b>매칭 성공률 70%+</b> 달성.
+          </p>
+
+          <div class="kpi" aria-label="KPI">
+            <div class="item">
+              <b>성사율 70%+</b>
+              <span>게시된 게임 중, 필요 인원 충원 완료 비율</span>
+            </div>
+            <div class="item">
+              <b>주최자 주 1회+</b>
+              <span>주최자 1명당 평균 모집글 게시</span>
+            </div>
+            <div class="item">
+              <b>게스트 월 2회+</b>
+              <span>게스트 1명당 참여 신청/참여 빈도</span>
+            </div>
+            <div class="item">
+              <b>목표 유저</b>
+              <span>주최자 30+ / 게스트 200+ (12주)</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; border-top:1px solid var(--line); padding-top:12px;">
+            <div class="muted" style="font-size:13px;">
+              시드 전략: <b>론칭 첫 주 게임 10개</b>는 무조건 깔고 간다.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section id="problem">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>지금 문제는 딱 이거</h2>
+            <p>모집은 흩어져 있고, 관리는 수동이고, 신뢰는 애매함.</p>
+          </div>
+          <div class="pill"><b>베타 포커스</b> · 모집/참여/관리</div>
+        </div>
+
+        <div class="card">
+          <div class="tabs" role="tablist" aria-label="역할별 니즈 탭">
+            <button class="tab" role="tab" id="tab-host" aria-selected="true" aria-controls="panel-host">주최자</button>
+            <button class="tab" role="tab" id="tab-guest" aria-selected="false" aria-controls="panel-guest">게스트</button>
+          </div>
+
+          <div class="tabpanels">
+            <div class="panelcard" id="panel-host" role="tabpanel" aria-labelledby="tab-host" aria-hidden="false">
+              <h3 style="margin-top:0;">주최자 니즈 / 불편</h3>
+              <ul class="list">
+                <li><b>빠르게 인원 충원</b> → 단톡/인스타/카페 흩어짐, 응답 느림</li>
+                <li><b>노쇼 방지</b> → “간다” 해놓고 당일 잠수, 게임 무산</li>
+                <li><b>실력/성향 맞는 사람 선별</b> → 정보 부족해서 뽑기</li>
+                <li><b>모집 공지 반복 피로</b> → 매번 타이핑, 템플릿 없음</li>
+                <li><b>확정자 관리</b> → 누가 확정인지 수동 체크로 헷갈림</li>
+              </ul>
+            </div>
+
+            <div class="panelcard" id="panel-guest" role="tabpanel" aria-labelledby="tab-guest" aria-hidden="true">
+              <h3 style="margin-top:0;">게스트 니즈 / 불편</h3>
+              <ul class="list">
+                <li><b>오늘/이번주 뛸 게임 찾기</b> → 여러 채널 뒤지느라 시간 낭비</li>
+                <li><b>레벨/일정 맞는 게임 필터링</b> → 초/중/상 모르면 가서 눈치</li>
+                <li><b>참여 신청 간편화</b> → 댓글→DM→연락처… 절차 귀찮음</li>
+                <li><b>게임 전 정보 확인</b> → 주소/주차/준비물 매번 질문</li>
+                <li><b>신뢰 가능한 주최자</b> → “이거 진짜 열리나?” 불안</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tagrow" aria-label="베타에서 안 하는 것">
+            <span class="tag bad">시설 예약/결제 없음</span>
+            <span class="tag bad">채팅 없음(댓글로 대체)</span>
+            <span class="tag warn">평점/별점 없음(악용 우려)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section id="solution">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>해결 방식: “모집 → 신청 → 승인 → 알림”을 한 곳에</h2>
+            <p>단톡방 대신, 게임 단위로 상태가 굴러가게 만들기.</p>
+          </div>
+        </div>
+
+        <div class="twocol">
+          <div class="card">
+            <h3>핵심 사용자 경험(베타)</h3>
+            <ol class="list" style="padding-left:20px;">
+              <li><b>주최자</b>는 5분 안에 모집글 등록(템플릿화)</li>
+              <li><b>게스트</b>는 조건 필터로 게임 찾고 <b>1클릭 신청</b></li>
+              <li><b>주최자 승인제</b>로 확정/거절이 즉시 반영</li>
+              <li>인원 현황(3/10)이 실시간으로 보이고, 마감 자동 처리</li>
+              <li>중요 이벤트는 <b>푸시/인앱 알림</b>으로 놓치지 않게</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>베타 성공 정의</h3>
+            <p class="muted" style="margin:0;">
+              “빈 앱” 느낌만 없애면, 베타는 굴러가기 시작함.
+            </p>
+            <ul class="list">
+              <li><b>첫 주 게임 최소 10개</b> 보장 (운영이 직접 열어도 됨)</li>
+              <li><b>게임 성사율 70%+</b> 달성</li>
+              <li>오프라인 커뮤니티에서 “일단 SITE 켜봄” 습관</li>
+              <li>주최자 피드백: “단톡보다 편하다”</li>
+            </ul>
+            <div class="tagrow">
+              <span class="tag good">빈 앱 느낌 방지</span>
+              <span class="tag good">운영 주최 게임 운영</span>
+              <span class="tag warn">시드 주최자 30명 확보</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>베타 핵심 기능 TOP 6</h2>
+            <p>“실행 가능” 수준으로 최소 구현 범위까지.</p>
+          </div>
+        </div>
+
+        <div class="features" role="list">
+          <div class="feat" role="listitem">
+            <div class="num">1</div>
+            <h4>픽업 게임 모집글 등록</h4>
+            <p>주최자가 5분 안에 게임 올리는 게 목표.</p>
+            <ul>
+              <li>필수: 날짜/시간/장소/인원/레벨/비용</li>
+              <li>선택: 메모/규칙 + 사진 1장</li>
+            </ul>
+          </div>
+
+          <div class="feat" role="listitem">
+            <div class="num">2</div>
+            <h4>게임 탐색 & 필터</h4>
+            <p>게스트가 조건 맞는 게임만 빠르게 보게.</p>
+            <ul>
+              <li>필터: 날짜/지역/레벨</li>
+              <li>리스트 + 카드형 UI</li>
+              <li>지도뷰는 베타 제외</li>
+            </ul>
+          </div>
+
+          <div class="feat" role="listitem">
+            <div class="num">3</div>
+            <h4>참여 신청 (1클릭)</h4>
+            <p>댓글/DM 왔다갔다 없애기.</p>
+            <ul>
+              <li>참여하기 버튼 → 주최자 알림</li>
+              <li>주최자 승인제 + 자동확정 옵션</li>
+            </ul>
+          </div>
+
+          <div class="feat" role="listitem">
+            <div class="num">4</div>
+            <h4>실시간 인원 현황</h4>
+            <p>“3/10 모집 완료” 상태가 핵심.</p>
+            <ul>
+              <li>모집글에 현황 표시</li>
+              <li>마감 자동 “모집 마감”</li>
+            </ul>
+          </div>
+
+          <div class="feat" role="listitem">
+            <div class="num">5</div>
+            <h4>주최자/게스트 프로필</h4>
+            <p>신뢰도 + 레벨 감 잡기.</p>
+            <ul>
+              <li>닉네임/사진(선택)/소개 50자</li>
+              <li>레벨(초/중/상) 자가 선택</li>
+              <li>참여/주최 이력 횟수 표시</li>
+            </ul>
+          </div>
+
+          <div class="feat" role="listitem">
+            <div class="num">6</div>
+            <h4>알림(푸시/인앱)</h4>
+            <p>확정/취소/리마인더 놓치면 끝.</p>
+            <ul>
+              <li>신청 → 주최자 알림</li>
+              <li>승인/거절 → 게스트 알림</li>
+              <li>D-1 리마인더</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3 style="margin:0 0 10px;">베타에서 뺀 기능(명확히)</h3>
+          <div class="tagrow">
+            <span class="tag bad">시설 예약/결제</span>
+            <span class="tag bad">채팅(댓글로 대체)</span>
+            <span class="tag warn">평점/별점(악용 우려)</span>
+            <span class="tag">참가비: 현장 수납</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENS -->
+    <section id="screens">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>화면 구성(최소 10개)</h2>
+            <p>이대로 만들면 MVP 플로우가 끊기지 않음.</p>
+          </div>
+        </div>
+
+        <div class="screenlist" aria-label="화면 목록">
+          <div class="screen">
+            <div class="idx">1</div>
+            <div>
+              <h4>로그인/회원가입</h4>
+              <p>소셜 로그인(카카오/구글) + 닉네임/레벨/지역 입력</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">2</div>
+            <div>
+              <h4>홈(게임 탐색)</h4>
+              <p>날짜/지역/레벨 필터 + 카드 리스트 + “게임 만들기”</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">3</div>
+            <div>
+              <h4>게임 상세</h4>
+              <p>정보/인원현황 + 참여하기 + 주최자 미리보기 + 댓글</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">4</div>
+            <div>
+              <h4>게임 만들기</h4>
+              <p>폼(날짜/시간/장소/인원/레벨/비용/메모) + 사진1장</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">5</div>
+            <div>
+              <h4>내 게임 관리</h4>
+              <p>내가 만든 게임 목록 + 신청자 승인/거절</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">6</div>
+            <div>
+              <h4>내 참여 목록</h4>
+              <p>신청 대기/확정(D-day)/과거 이력</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">7</div>
+            <div>
+              <h4>프로필</h4>
+              <p>닉네임/사진/레벨/소개 + 참여/주최 횟수 + 설정</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">8</div>
+            <div>
+              <h4>알림</h4>
+              <p>신청/승인/거절 + D-1 리마인더</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">9</div>
+            <div>
+              <h4>설정</h4>
+              <p>알림 설정/회원 탈퇴/약관/개인정보처리방침</p>
+            </div>
+          </div>
+          <div class="screen">
+            <div class="idx">10</div>
+            <div>
+              <h4>댓글/Q&A</h4>
+              <p>게임 상세 내 댓글로 간단 소통(주차/준비물 등)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3 style="margin:0 0 10px;">플로우(텍스트)</h3>
+          <div class="mono" style="font-size:12.5px; color:var(--muted); white-space:pre-wrap; border:1px solid var(--line); padding:12px; border-radius:18px; background: color-mix(in oklab, var(--bg2) 70%, transparent);">
+[유저 진입] 로그인/회원가입 → 프로필 입력 → 홈
+
+[게스트] 홈(필터) → 게임 상세 → 참여하기 → 내 참여 목록(대기)
+        → 주최자 승인 알림 → 내 참여 목록(확정)
+
+[주최자] 홈 → 게임 만들기 → 등록 → 내 게임 관리
+        → 신청 알림 → 승인/거절
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLICY + RISK -->
+    <section id="policy">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>운영 정책(베타 초안)</h2>
+            <p>신뢰도/노쇼/신고를 “최소 규칙”으로 잡아두기.</p>
+          </div>
+        </div>
+
+        <div class="twocol">
+          <div class="card">
+            <h3>모집글 검수</h3>
+            <ul class="list">
+              <li><b>추천(베타 초기):</b> 사전 검수 없음 → 신고 기반 사후 조치</li>
+              <li>허위/욕설/광고성 → 삭제 + 경고</li>
+              <li><b>향후:</b> 주최자 인증/첫 게임 검수 옵션</li>
+            </ul>
+            <div class="tagrow">
+              <span class="tag good">빠른 등록 우선</span>
+              <span class="tag warn">신뢰 타격은 빠르게 대응</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>신뢰도 / 노쇼 방지</h3>
+            <ul class="list">
+              <li>프로필 필수: 닉네임 + 레벨(초/중/상) / 사진은 선택</li>
+              <li>이력 표시: 참여 00회 / 주최 00회 (별점 없음)</li>
+              <li>D-1 리마인더 푸시 필수</li>
+              <li>노쇼 2회 누적 → 계정 일시 정지(수동 검토)</li>
+              <li>게임 종료 후 “진행 완료” 체크(주최자)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="twocol" style="margin-top:12px;">
+          <div class="card">
+            <h3>참가비/취소 정책(베타)</h3>
+            <ul class="list">
+              <li>참가비는 <b>현장 수납</b> (앱 결제 없음)</li>
+              <li>24시간 전: 자유 취소</li>
+              <li>24시간 이내: 주최자 알림 + 프로필 “최근 취소”(1주 유지)</li>
+              <li>당일 노쇼: 주최자 신고 → 노쇼 1회 누적</li>
+            </ul>
+            <div class="tagrow">
+              <span class="tag">결제는 추후 도입</span>
+              <span class="tag warn">노쇼 대응 장치만 확보</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>베타 론칭 체크리스트</h3>
+            <ul class="list">
+              <li>핵심 기능 6개 QA 완료</li>
+              <li>시드 유저: 주최자 30+ / 게스트 100+ 사전 확보</li>
+              <li>첫 주 게임 10개 보장(운영 주최 포함)</li>
+              <li>신고/문의 24시간 내 대응 채널 공지</li>
+              <li>약관/개인정보처리방침 앱/웹 게시</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sec-title" style="margin-top:22px;">
+          <div>
+            <h2>리스크 & 대응</h2>
+            <p>베타에서 실제로 터질 것만 먼저 막기.</p>
+          </div>
+        </div>
+
+        <div class="twocol">
+          <div class="risk">
+            <div class="head">
+              <h4>게임 모집 후 인원 미달로 무산</h4>
+              <span class="badge high">높음</span>
+            </div>
+            <ul>
+              <li>최소 인원 미달 시 자동 취소 옵션</li>
+              <li>D-2 인원 미달 게임 → 추가 푸시</li>
+              <li>추천 게임 배지로 노출 우선</li>
+            </ul>
+          </div>
+
+          <div class="risk">
+            <div class="head">
+              <h4>노쇼(확정 후 무단 불참)</h4>
+              <span class="badge mid">중간</span>
+            </div>
+            <ul>
+              <li>D-1 리마인더 필수</li>
+              <li>노쇼 신고 → 기록 누적, 2회 정지</li>
+              <li>향후: 선결제로 강화</li>
+            </ul>
+          </div>
+
+          <div class="risk">
+            <div class="head">
+              <h4>허위 게임 등록(장난/광고)</h4>
+              <span class="badge low">낮음</span>
+            </div>
+            <ul>
+              <li>신고 기능 명확히 노출</li>
+              <li>24시간 내 검토/삭제</li>
+              <li>반복 위반자 영구 정지</li>
+            </ul>
+          </div>
+
+          <div class="risk">
+            <div class="head">
+              <h4>초기 유저 부족(빈 앱 느낌)</h4>
+              <span class="badge high">높음</span>
+            </div>
+            <ul>
+              <li>론칭 전 주최자 30명 선확보</li>
+              <li>운영이 주 1회 픽업 직접 운영</li>
+              <li>지역 커뮤니티 대표와 협업</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>FAQ</h2>
+            <p>외부에 던졌을 때 제일 많이 나올 질문들.</p>
+          </div>
+        </div>
+
+        <div class="faq" role="region" aria-label="자주 묻는 질문">
+          <details open>
+            <summary>
+              시설 예약도 되나요?
+              <span>베타 범위</span>
+            </summary>
+            <div class="ans">
+              베타에서는 <b>시설 예약/결제는 안 해</b>. 지금은 “픽업 게임 모집/참여”에만 집중하고,
+              예약은 다음 단계에서 붙일 계획이야.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              채팅은 없나요?
+              <span>대체 수단</span>
+            </summary>
+            <div class="ans">
+              베타에서는 <b>채팅 없음</b>. 대신 게임 상세에 <b>댓글/Q&A</b>로 “주차/준비물/주소” 같은 것만 가볍게 처리하게 설계했어.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              노쇼는 어떻게 막아요?
+              <span>신뢰도</span>
+            </summary>
+            <div class="ans">
+              D-1 리마인더 + 노쇼 신고 + 2회 누적 정지(수동 검토)로 최소 장치부터 시작.
+              결제(선결제)는 베타에서 데이터 보고 다음 단계로.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              레벨은 누가 판단하나요?
+              <span>초/중/상</span>
+            </summary>
+            <div class="ans">
+              베타는 <b>자가 선택</b>이 기본. 대신 주최자가 “실력 제한”을 명확히 걸 수 있게 하고,
+              이후에 피드백 기반으로 개선해.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              참가비는 앱에서 결제하나요?
+              <span>베타</span>
+            </summary>
+            <div class="ans">
+              <b>현장 수납</b>만. 모집글에 금액을 명시하고, 결제는 추후 도입 검토.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta" class="cta">
+      <div class="wrap">
+        <div class="sec-title">
+          <div>
+            <h2>베타 참여 / 시드 유저 모집</h2>
+            <p>주최자 30명 + 게스트 200명. 일단 굴러가게 만들자.</p>
+          </div>
+          <div class="pill"><b>CTA</b> · 다운로드/신청</div>
+        </div>
+
+        <div class="cta-grid">
+          <div class="card">
+            <h3>베타 신청 폼</h3>
+            <p class="muted" style="margin-top:0;">
+              지금은 데모용이라 <b>로컬 저장 + 메일 전송</b> 방식으로 만들어놨어.
+              (백엔드 붙이면 API로 바꾸면 됨)
+            </p>
+
+            <form id="betaForm">
+              <div class="row2">
+                <div>
+                  <label for="name">이름/닉네임</label>
+                  <input id="name" name="name" type="text" placeholder="예: 태호 / 00볼러" autocomplete="name" required />
+                </div>
+                <div>
+                  <label for="email">연락 받을 이메일</label>
+                  <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="role">역할</label>
+                  <select id="role" name="role" required>
+                    <option value="">선택</option>
+                    <option value="host">주최자(게임 여는 편)</option>
+                    <option value="guest">게스트(게임 찾는 편)</option>
+                    <option value="both">둘 다</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="region">주 활동 지역</label>
+                  <input id="region" name="region" type="text" placeholder="예: 신촌/홍대/강남/분당" required />
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="level">레벨(자가)</label>
+                  <select id="level" name="level" required>
+                    <option value="">선택</option>
+                    <option value="beginner">초급</option>
+                    <option value="intermediate">중급</option>
+                    <option value="advanced">상급</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="availability">주로 가능한 시간대</label>
+                  <input id="availability" name="availability" type="text" placeholder="예: 평일 저녁 / 주말 오전" />
+                </div>
+              </div>
+
+              <div>
+                <label for="memo">한 줄 메모(선택)</label>
+                <textarea id="memo" name="memo" placeholder="예: 주 1회는 제가 게임 열 수 있어요 / 오늘 당장 뛸 게임 찾는 편"></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">신청 저장 + 메일로 보내기</button>
+                <button class="btn" type="button" id="downloadCsv">내 신청 정보 CSV 저장</button>
+                <span class="hint">* 실제 운영 연결 시, 이 폼은 API로 교체</span>
+              </div>
+
+              <div class="toast ok" id="toastOk" role="status" aria-live="polite"></div>
+              <div class="toast err" id="toastErr" role="alert"></div>
+            </form>
+          </div>
+
+          <aside class="card">
+            <h3>베타 다운로드 버튼(연결만 바꾸면 됨)</h3>
+            <p class="muted" style="margin-top:0;">
+              아직 스토어/테스트플라이트 링크 없으면, 지금은 대기열로 돌려도 됨.
+            </p>
+
+            <div class="tagrow" style="margin-bottom:12px;">
+              <span class="tag warn">다운로드 링크 자리</span>
+              <span class="tag">초대/테스트플라이트</span>
+              <span class="tag">구글 플레이(내부 테스트)</span>
+            </div>
+
+            <a class="btn primary" id="downloadBtn" href="javascript:void(0)" aria-label="베타 앱 다운로드 링크 자리">
+              베타 앱 다운로드(링크 교체)
+            </a>
+            <div class="mini" style="margin-top:10px;">
+              <!-- TODO: 여기에 실제 다운로드 링크 넣기 -->
+              예: <span class="mono">href="https://testflight.apple.com/join/XXXX"</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 style="margin-top:0;">외부 공지용 한 줄</h3>
+            <div class="mono" style="font-size:12.5px; color:var(--muted); white-space:pre-wrap; border:1px solid var(--line); padding:12px; border-radius:18px; background: color-mix(in oklab, var(--bg2) 70%, transparent);">
+농구 픽업 게임 모집/참여 전용 앱 SITE 베타 오픈.
+인원 관리 / 노쇼 방지 / 실력별 필터링 지원 (시설 예약은 추후)
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 style="margin-top:0;">연락 채널(자리)</h3>
+            <ul class="list">
+              <li>문의: <span class="mono">site@u-teed.co.kr</span> (예시)</li>
+              <li>CS: 카톡 채널/이메일 중 하나로 통일 추천</li>
+              <li>응답 SLA: 24시간 내 1차 응답</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot">
+          <div>
+            <b>SITE</b> · 농구 픽업 게임 베타 MVP
+            <div class="mini">© <span id="year"></span> U-TEED (placeholder)</div>
+          </div>
+          <div class="links" aria-label="푸터 링크">
+            <a href="#top">위로</a>
+            <a href="javascript:void(0)" id="policyLink">이용약관(자리)</a>
+            <a href="javascript:void(0)" id="privacyLink">개인정보처리방침(자리)</a>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="mini">
+          * 이 페이지는 “SITE 베타 MVP 구상안” 기반 기획안/랜딩 초안입니다. (시설 예약/결제/채팅 제외)
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ===== Drawer =====
+    const drawer = document.getElementById('drawer');
+    const openDrawer = document.getElementById('openDrawer');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawerLinks = Array.from(document.querySelectorAll('.drawerLink'));
+
+    function setDrawer(open){
+      drawer.setAttribute('aria-hidden', String(!open));
+      openDrawer?.setAttribute('aria-expanded', String(open));
+      if(open){
+        // focus first link
+        setTimeout(() => drawerLinks[0]?.focus(), 0);
+      }
+    }
+    openDrawer?.addEventListener('click', () => setDrawer(true));
+    closeDrawer?.addEventListener('click', () => setDrawer(false));
+    drawer?.addEventListener('click', (e) => {
+      if(e.target === drawer) setDrawer(false);
+    });
+    drawerLinks.forEach(a => a.addEventListener('click', () => setDrawer(false)));
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && drawer.getAttribute('aria-hidden') === 'false') setDrawer(false);
+    });
+
+    // ===== Tabs =====
+    const tabHost = document.getElementById('tab-host');
+    const tabGuest = document.getElementById('tab-guest');
+    const panelHost = document.getElementById('panel-host');
+    const panelGuest = document.getElementById('panel-guest');
+
+    function selectTab(which){
+      const isHost = which === 'host';
+      tabHost.setAttribute('aria-selected', String(isHost));
+      tabGuest.setAttribute('aria-selected', String(!isHost));
+      panelHost.setAttribute('aria-hidden', String(!isHost));
+      panelGuest.setAttribute('aria-hidden', String(isHost));
+    }
+    tabHost.addEventListener('click', () => selectTab('host'));
+    tabGuest.addEventListener('click', () => selectTab('guest'));
+
+    // ===== Copy link =====
+    const copyBtn = document.getElementById('copyLink');
+    copyBtn?.addEventListener('click', async () => {
+      const url = location.href.split('#')[0] + '#top';
+      try{
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = '복사 완료';
+        setTimeout(() => copyBtn.textContent = '공유 링크 복사', 1200);
+      }catch(_){
+        alert('복사 실패. 주소창 링크를 직접 복사해줘.');
+      }
+    });
+
+    // ===== Footer year =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== Terms / Privacy placeholder =====
+    document.getElementById('policyLink').addEventListener('click', () => {
+      alert('이용약관 링크를 연결해줘 (placeholder)');
+    });
+    document.getElementById('privacyLink').addEventListener('click', () => {
+      alert('개인정보처리방침 링크를 연결해줘 (placeholder)');
+    });
+
+    // ===== Beta form =====
+    const form = document.getElementById('betaForm');
+    const toastOk = document.getElementById('toastOk');
+    const toastErr = document.getElementById('toastErr');
+
+    function showToast(el, msg){
+      toastOk.style.display = 'none';
+      toastErr.style.display = 'none';
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function toCsvRow(values){
+      // Basic CSV escaping
+      return values.map(v => {
+        const s = String(v ?? '');
+        if(/[",\n]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+        return s;
+      }).join(',');
+    }
+
+    function getFormData(){
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        role: form.role.value,
+        region: form.region.value.trim(),
+        level: form.level.value,
+        availability: form.availability.value.trim(),
+        memo: form.memo.value.trim(),
+        createdAt: new Date().toISOString()
+      };
+      return data;
+    }
+
+    function validate(data){
+      if(!data.name) return '이름/닉네임을 입력해줘.';
+      if(!data.email) return '이메일을 입력해줘.';
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return '이메일 형식이 이상함.';
+      if(!data.role) return '역할을 선택해줘.';
+      if(!data.region) return '주 활동 지역을 입력해줘.';
+      if(!data.level) return '레벨을 선택해줘.';
+      return null;
+    }
+
+    function saveLocal(data){
+      const key = 'site_beta_applicants';
+      const prev = JSON.parse(localStorage.getItem(key) || '[]');
+      prev.push(data);
+      localStorage.setItem(key, JSON.stringify(prev));
+      return prev.length;
+    }
+
+    function openMail(data){
+      const subject = encodeURIComponent('[SITE 베타 신청] ' + data.name);
+      const body = encodeURIComponent(
+`아래 내용으로 SITE 베타 신청합니다.
+
+- 이름/닉네임: ${data.name}
+- 이메일: ${data.email}
+- 역할: ${data.role}
+- 지역: ${data.region}
+- 레벨: ${data.level}
+- 가능 시간대: ${data.availability || '-'}
+- 메모: ${data.memo || '-'}
+
+- 신청 시각(ISO): ${data.createdAt}
+
+(이 메일은 랜딩 페이지 폼에서 자동 생성됨)`
+      );
+
+      // TODO: 실제 수신 메일로 변경
+      const to = 'site@u-teed.co.kr';
+      location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = getFormData();
+      const err = validate(data);
+      if(err){
+        showToast(toastErr, err);
+        return;
+      }
+      try{
+        const count = saveLocal(data);
+        showToast(toastOk, `저장 완료. (로컬 누적 ${count}건) 이제 메일 앱 열어줄게.`);
+        openMail(data);
+        form.reset();
+      }catch(ex){
+        showToast(toastErr, '저장 중 오류. 브라우저 저장공간/설정 확인해줘.');
+      }
+    });
+
+    // CSV download
+    document.getElementById('downloadCsv').addEventListener('click', () => {
+      const key = 'site_beta_applicants';
+      const rows = JSON.parse(localStorage.getItem(key) || '[]');
+      if(!rows.length){
+        showToast(toastErr, '저장된 신청 정보가 아직 없어.');
+        return;
+      }
+      const header = ['name','email','role','region','level','availability','memo','createdAt'];
+      const csv = [
+        toCsvRow(header),
+        ...rows.map(r => toCsvRow(header.map(h => r[h] ?? '')))
+      ].join('\n');
+
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'site_beta_applicants.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      showToast(toastOk, 'CSV 저장 완료.');
+    });
+  </script>
+</body>
+</html>

@@ -45,11 +45,13 @@ export default function ParallaxSection({
 
   // 버튼 클릭 핸들러
   const handleDetailClick = () => {
-    if (index === 0) {
-      router.push(detailLink);
-    } else {
-      window.location.href = 'mailto:admin@u-teed.co.kr';
-    }
+    router.push(detailLink);
+  };
+
+  // 프로젝트별 로고 경로 (BeepBeep -> SITE 순서)
+  const logoImages: { [key: number]: string } = {
+    0: '/images/beepbeep_logo.svg',
+    1: '/images/app_logo.png',
   };
 
   return (
@@ -61,11 +63,11 @@ export default function ParallaxSection({
       }}
       id={id}
     >
-      {/* 첫 번째 섹션: 텍스트 위에만 로고 */}
-      {index === 0 && (
+      {/* 각 섹션별 로고 */}
+      {logoImages[index] && (
         <Image
-          src="/images/app_logo.png"
-          alt="로고"
+          src={logoImages[index]}
+          alt={`${highlight} 로고`}
           width={320}
           height={320}
           className="parallax-logo-img"
@@ -77,7 +79,7 @@ export default function ParallaxSection({
         <h1>{highlight}</h1>
         <p className="hashtag">{hashtag}</p>
         <button className="detail-btn" onClick={handleDetailClick}>
-          {index === 1 ? '의뢰하기' : '자세히 보기'}
+          자세히 보기
         </button>
       </div>
       {/* 두 번째, 세 번째 섹션: 아래 큰 이미지만 */}

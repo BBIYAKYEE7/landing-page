@@ -1,0 +1,722 @@
+/* Team section styles aligned with SITE detail page */
+
+.teamSection {
+  --bg: #ffffff;
+  --text: #0b0d12;
+  --muted: rgba(11, 13, 18, 0.62);
+  --muted2: rgba(11, 13, 18, 0.46);
+  --line: rgba(11, 13, 18, 0.1);
+  --line-strong: rgba(11, 13, 18, 0.16);
+  --card: rgba(255, 255, 255, 0.7);
+  --shadow-soft: 0 12px 30px rgba(11, 13, 18, 0.06);
+  --shadow: 0 18px 50px rgba(11, 13, 18, 0.08);
+  --radius: 18px;
+  --radius-lg: 26px;
+  --accent: #2185ff;
+  --max: 1120px;
+  --font-title: 'Paperlogy', 'Pretendard', sans-serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-family: var(--font-body);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+  padding: clamp(40px, 5vw, 80px) 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.sectionSoft::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  pointer-events: none;
+  opacity: 1;
+}
+
+.sectionContent {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--muted2);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-family: var(--font-body);
+}
+
+.h2 {
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 800;
+  font-family: var(--font-title);
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0 0 14px 0;
+}
+
+.lead {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--muted);
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* Team layout */
+.teamGroup {
+  margin-top: 40px;
+}
+
+.teamGroup:first-of-type {
+  margin-top: 32px;
+}
+
+.teamSplitRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.teamSplitRow .teamGroup {
+  margin-top: 0;
+}
+
+.teamCategoryTitle {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: var(--font-title);
+  color: var(--text);
+  letter-spacing: 0;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line);
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.teamGridTwo {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.teamGridOne {
+  grid-template-columns: 1fr;
+}
+
+.teamCard {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.teamCardInactive {
+  opacity: 0.55;
+  filter: grayscale(0.85);
+  box-shadow: none;
+  position: relative;
+}
+
+.teamCardInactive .teamRole {
+  background: rgba(11, 13, 18, 0.06);
+  color: rgba(11, 13, 18, 0.6);
+}
+
+.teamCardInactive .teamAvatar {
+  background: rgba(11, 13, 18, 0.12);
+}
+
+.teamCardInactive:hover {
+  transform: none;
+}
+
+.teamCardInactive::after {
+  content: attr(data-inactive-reason);
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  transform: translate(-50%, -100%);
+  background: rgba(11, 13, 18, 0.9);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 8px 20px rgba(11, 13, 18, 0.2);
+}
+
+.teamCardInactive:hover::after {
+  opacity: 1;
+}
+
+.teamCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.teamAvatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: var(--font-title);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: none;
+  filter: none;
+}
+
+.teamAvatarWithImage {
+  background: transparent;
+}
+
+.teamAvatarImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  z-index: 1;
+  box-shadow: none;
+  filter: none;
+}
+
+.teamInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.teamName {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.teamRole {
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: #fff;
+  font-weight: 500;
+  padding: 4px 10px;
+  background: #2185ff;
+  border-radius: 999px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.teamDesc {
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.teamSchool {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.schoolName {
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--muted);
+}
+
+.majorName {
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--muted2);
+}
+
+/* ── Card flip modal ── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 13, 18, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: overlayIn 0.3s ease forwards;
+}
+
+.modalOverlayClosing {
+  animation: overlayOut 0.3s ease forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.flipCardWrapper {
+  perspective: 1200px;
+  width: 320px;
+  height: 420px;
+  transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(var(--origin-scale, 0.4));
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.3s ease;
+}
+
+.flipCardFlipped {
+  transform: translate(0, 0) scale(1);
+  opacity: 1;
+}
+
+.flipCardClosing {
+  transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(var(--origin-scale, 0.4));
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.55, 0, 1, 0.45),
+              opacity 0.3s ease 0.15s;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flipCardFlipped .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.flipCardClosing .flipCardInner {
+  transform: rotateY(0deg);
+  transition: transform 0.45s cubic-bezier(0.55, 0, 1, 0.45);
+}
+
+.flipCardFace {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.flipCardFront {
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px rgba(11, 13, 18, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.flipCardBack {
+  background: linear-gradient(145deg, #1a1f2e 0%, #0b0d12 100%);
+  transform: rotateY(180deg);
+  box-shadow: 0 24px 60px rgba(11, 13, 18, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 28px 24px 40px;
+  text-align: left;
+  color: #fff;
+}
+
+.flipAvatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+  border: 3px solid var(--line);
+  flex-shrink: 0;
+}
+
+.flipCardBack .flipAvatar {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.flipAvatarImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.flipAvatarFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: var(--font-title);
+}
+
+.flipName {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.flipCardFront .flipName {
+  color: var(--text);
+}
+
+.flipRole {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.flipCardFront .flipRole {
+  background: var(--accent);
+  color: #fff;
+}
+
+.flipCardBack .flipRole {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.flipDesc {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.flipCardFront .flipDesc {
+  color: var(--muted);
+}
+
+.flipCardBack .flipDesc {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.flipSchoolInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.flipCardFront .flipSchoolInfo {
+  border-top: 1px solid var(--line);
+}
+
+.flipCardBack .flipSchoolInfo {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flipSchoolName {
+  font-size: 13px;
+}
+
+.flipCardFront .flipSchoolName {
+  color: var(--muted);
+}
+
+.flipCardBack .flipSchoolName {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.flipMajorName {
+  font-size: 12px;
+}
+
+.flipCardFront .flipMajorName {
+  color: var(--muted2);
+}
+
+.flipCardBack .flipMajorName {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Back card layout ── */
+.backHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.backAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.backHeaderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.backName {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.backNameEn {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.backRole {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.backCTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.backDivider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 18px 0;
+  flex-shrink: 0;
+}
+
+.backBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.backBody::-webkit-scrollbar {
+  display: none;
+}
+
+.backSectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.backCareerSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.backCareerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.backCareerItem {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+  padding-left: 12px;
+  position: relative;
+}
+
+.backCareerItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.backEducation {
+  display: flex;
+  flex-direction: column;
+}
+
+.backEducationText {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+}
+
+.backEmailSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.backEmail {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.backEmail:hover {
+  opacity: 0.8;
+}
+
+.flipHint {
+  position: absolute;
+  bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.flipCardFront .flipHint {
+  color: var(--muted2);
+}
+
+.flipCardBack .flipHint {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.teamCard {
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teamSplitRow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .teamCategoryTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .teamCard {
+    padding: 20px;
+  }
+
+  .teamAvatar {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+  }
+
+  .teamAvatarImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .teamGroup {
+    margin-top: 32px;
+  }
+}

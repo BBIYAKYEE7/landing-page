@@ -30,17 +30,18 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
       >
         <div
           style={{
-            fontWeight: 700,
+            fontWeight: 900,
             fontSize: '1.25rem',
             color: '#222',
+            fontFamily: 'Paperlogy, Pretendard, sans-serif',
             marginBottom: '0.7rem',
           }}
         >
           U-TEED
         </div>
         <div>사업자 등록번호 : 000-00-00000 | 대표 : 임태호</div>
-        <div>이메일: admin@u-teed.co.kr</div>
-        <div>Copyright © 2025 U-TEED. All Rights Reserved.</div>
+        <div>이메일: site@u-teed.co.kr</div>
+        <div>Copyright © 2025 ~ 2026 U-TEED. All Rights Reserved.</div>
         <div></div>
         {/* 버튼 영역 */}
         <div style={{ display: 'flex', gap: '1.2rem', marginTop: '1.7rem' }}>
