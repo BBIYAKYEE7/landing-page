@@ -48,10 +48,10 @@ export default function ParallaxSection({
     router.push(detailLink);
   };
 
-  // 프로젝트별 로고 경로 (BeepBeep -> SITE 순서)
+  // 프로젝트별 로고 경로 (MCI Link -> SITE 순서)
   const logoImages: { [key: number]: string } = {
-    0: '/images/beepbeep_logo.svg',
-    1: '/images/app_logo.png',
+    0: '/images/MCI_Link_logo.png',
+    1: '/images/SITE_logo.png',
   };
 
   return (

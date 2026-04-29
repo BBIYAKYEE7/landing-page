@@ -154,7 +154,7 @@ const beepbeepTeamGroups = [
         profileImage: '/images/team/임태호.png',
         email: 'alex0613lim@gmail.com',
         career: ['U-TEED 대표', 
-          'BeepBeep 서비스 기획 총괄', 
+          'MCI Link 서비스 기획 총괄', 
           '2024 경희대학교 창업경진대회 최우수상 수상',
           '2024 경희대학교 지식재산권 활용 특허캠프 우수상 수상',
           '2025 KORES LBS 스타트업 챌린지 아이디어 부문 최종 단계 진출',
@@ -171,7 +171,7 @@ const beepbeepTeamGroups = [
         major: '불어불문학과',
         profileImage: '/images/team/박규원.png',
         email: 'pkw0110@gmail.com',
-        career: ['BeepBeep 공동대표', '서비스 총괄', 
+        career: ['MCI Link 공동대표', '서비스 총괄', 
           'UN Hult Prize 국제창업대회 세미파이널 진출', 
           '한국경제연구원 경제 연합 단체 YLC 운영진 활동 및 우수상 수상',
           '하나금융그룹 대학생 멘토 우수상 수상',
@@ -204,12 +204,12 @@ const beepbeepTeamGroups = [
         name: '정민규',
         nameEn: 'Mingyu Jeong',
         role: 'Algorithm',
-        desc: 'BeepBeep AI 개발',
+        desc: 'MCI Link AI 개발',
         school: '홍익대학교',
         major: '소프트웨어융합학과',
         profileImage: '/images/team/정민규.png',
         email: 'pauljjang410@gmail.com',
-        career: ['BeepBeep AI 알고리즘 개발', '2022 현대오토에버·함께일하는재단 화이트해커 경진대회 우수상', 
+        career: ['MCI Link AI 알고리즘 개발', '2022 현대오토에버·함께일하는재단 화이트해커 경진대회 우수상', 
           'KITRI Best of the Best 12기 취약점분석 수료',
           '2023 대구 AI·Big Data·Blockchain 해커톤 최우수상',
           '2024 충청북도 생성형 인공지능 전국 경진대회 우수상',
@@ -291,7 +291,7 @@ interface TeamSectionProps {
 
 const projectDescriptions = {
   site: 'SITE는 스포츠를 사랑하는 팀원들이 모여 만들고 있습니다. 각자의 전문성을 바탕으로 더 나은 스포츠 경험을 설계합니다.',
-  beepbeep: 'BeepBeep은 가족의 건강을 소중히 여기는 팀원들이 모여 만들고 있습니다. 각자의 전문성을 바탕으로 의료 연계형 돌봄 보조 솔루션을 설계합니다.',
+  beepbeep: 'MCI Link는 가족의 건강을 소중히 여기는 팀원들이 모여 만들고 있습니다. 각자의 전문성을 바탕으로 의료 연계형 돌봄 보조 솔루션을 설계합니다.',
 };
 
 function TeamCardContent({ member }: { member: TeamMember }) {

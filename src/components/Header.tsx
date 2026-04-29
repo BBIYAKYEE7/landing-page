@@ -69,7 +69,7 @@ export default function Header({ onNavClick }: HeaderProps) {
                       <span className="dropdown-desc">픽업게임 운영 플랫폼</span>
                     </button>
                     <button onClick={() => { router.push('/detail/2'); setShowDropdown(false); }}>
-                      BeepBeep
+                      MCI Link
                       <span className="dropdown-desc">경도인지장애 조기 발견</span>
                     </button>
                   </div>
@@ -119,7 +119,7 @@ export default function Header({ onNavClick }: HeaderProps) {
               <span className="mobile-menu-desc">픽업게임 운영 플랫폼</span>
             </button>
             <button onClick={() => handleMobileRouteClick('/detail/2')}>
-              BeepBeep
+              MCI Link
               <span className="mobile-menu-desc">경도인지장애 조기 발견</span>
             </button>
           </div>

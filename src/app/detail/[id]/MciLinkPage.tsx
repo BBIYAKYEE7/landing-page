@@ -17,7 +17,7 @@ const serviceSections = [
     title: '부모님을 매일 챙기고 싶지만, 현실은 어렵습니다.',
     description:
       '경도인지장애(MCI) 또는 초기 인지저하 단계에서는 매일의 복약, 식사, 컨디션, 일정 인지가 중요합니다. 하지만 보호자가 매일 직접 전화해 상태를 확인하기에는 시간적 부담이 큽니다.',
-    image: '/images/beepbeep_logo.svg',
+    image: '/images/MCI_Link_logo.png',
     ctaLabel: '문제 정의 더 보기',
   },
   {
@@ -26,7 +26,7 @@ const serviceSections = [
     title: 'AI가 보호자 목소리로 매일 전화해 일상을 확인합니다.',
     description:
       '보호자 앱에서 시간과 항목을 설정하면 AI가 정해진 시간에 부모님께 전화를 겁니다. 대화 응답은 복약, 식사, 컨디션, 병원 일정 인지 항목으로 구조화되어 보호자가 핵심만 빠르게 확인할 수 있습니다.',
-    image: '/images/beepbeep_logo.svg',
+    image: '/images/MCI_Link_logo.png',
     ctaLabel: '제품 흐름 보기',
   },
   {
@@ -34,8 +34,8 @@ const serviceSections = [
     eyebrow: '주요 기능',
     title: '이상 신호를 감지하고 의료 기관 연계까지 이어집니다.',
     description:
-      '3일 연속 미복약, 일정 혼동 반복, 컨디션 저하 같은 패턴을 기반으로 조기 알림을 제공합니다. BeepBeep은 비의료 대체 서비스가 아니라 보호자와 병원·의료 시스템을 연결하는 의료 연계형 돌봄 보조 서비스입니다.',
-    image: '/images/beepbeep_logo.svg',
+      '3일 연속 미복약, 일정 혼동 반복, 컨디션 저하 같은 패턴을 기반으로 조기 알림을 제공합니다. MCI Link는 비의료 대체 서비스가 아니라 보호자와 병원·의료 시스템을 연결하는 의료 연계형 돌봄 보조 서비스입니다.',
+    image: '/images/MCI_Link_logo.png',
     ctaLabel: '기능 더 보기',
   },
 ];
@@ -56,7 +56,7 @@ const snapSectionIds = [
   'team',
 ];
 
-export default function BeepBeepPage() {
+export default function MciLinkPage() {
   const footerRef = useRef<HTMLElement>(null!);
   const heroRef = useRef<HTMLElement>(null!);
   const heroLogoRef = useRef<HTMLDivElement>(null!);
@@ -302,7 +302,7 @@ export default function BeepBeepPage() {
           <div className={`${styles.container} ${styles.heroGrid}`}>
             <div className={`${styles.heroContent} ${styles.reveal}`}>
               <h1 className={styles.heroTitle}>
-                AI 전화로 부모님의 일상을 확인하고 의료 연계를 돕는 서비스, BeepBeep.
+                AI 전화로 부모님의 일상을 확인하고 의료 연계를 돕는 서비스, MCI Link.
               </h1>
 
               <p className={styles.sub}>
@@ -314,7 +314,7 @@ export default function BeepBeepPage() {
               <div className={styles.ctaRow}>
                 <a
                   className={`${styles.btn} ${styles.btnPrimary}`}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[BeepBeep] 서비스 문의')}`}
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 서비스 문의')}`}
                   aria-label="서비스 문의하기"
                 >
                   서비스 문의
@@ -322,7 +322,7 @@ export default function BeepBeepPage() {
                 </a>
                 <a
                   className={styles.btn}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[BeepBeep] 미팅/데모 문의')}`}
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 미팅/데모 문의')}`}
                   aria-label="미팅/데모 문의하기"
                 >
                   미팅/데모 문의
@@ -336,8 +336,8 @@ export default function BeepBeepPage() {
             </div>
             <div className={`${styles.heroLogoPanel} ${styles.reveal}`} ref={heroLogoRef}>
               <Image
-                src="/images/beepbeep_logo.svg"
-                alt="BeepBeep 앱 로고"
+                src="/images/MCI_Link_logo.png"
+                alt="MCI Link 앱 로고"
                 width={240}
                 height={240}
                 className={styles.heroLogo}
@@ -455,7 +455,7 @@ export default function BeepBeepPage() {
               <div className={styles.ctaRow}>
                 <a
                   className={`${styles.btn} ${styles.btnPrimary}`}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[BeepBeep] 파일럿 참여 문의')}`}
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 파일럿 참여 문의')}`}
                   aria-label="파일럿 참여 문의하기"
                 >
                   파일럿 참여 문의
@@ -480,7 +480,7 @@ export default function BeepBeepPage() {
               <div className={styles.ctaRow}>
                 <a
                   className={`${styles.btn} ${styles.btnPrimary}`}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[BeepBeep] 파트너/파일럿 협력 문의')}`}
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 파트너/파일럿 협력 문의')}`}
                   aria-label="파트너/파일럿 협력 문의하기"
                 >
                   파트너/파일럿 협력 문의
@@ -488,7 +488,7 @@ export default function BeepBeepPage() {
                 </a>
                 <a
                   className={styles.btn}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[BeepBeep] 간단 문의')}`}
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 간단 문의')}`}
                   aria-label="간단 문의 보내기"
                 >
                   가볍게 문의하기

@@ -10,15 +10,15 @@ import { Section } from '@/types';
 const sections: Section[] = [
   {
     title: 'AI 음성 통화 기반 경도인지장애 케어',
-    highlight: 'BeepBeep',
-    hashtag: '#고령_부모님의_인지기능_관리 #AI_음성_모니터링',
+    highlight: 'MCI Link',
+    hashtag: '#부모님의 인지기능 관리 #AI 음성 모니터링',
     image: null,
     detailLink: '/detail/2',
   },
   {
     title: 'Your Game, Our SITE',
     highlight: 'SITE',
-    hashtag: '#농구_픽업게임을_앱에서_손쉽게 #농구_대회_찾을_때는_SITE',
+    hashtag: '#픽업게임을 앱에서 손쉽게 #농구 대회 찾을 때는 SITE',
     image: null,
     detailLink: '/detail/1',
   },
@@ -116,7 +116,7 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
     'Smart in Action',
     'About U-TEED',
     'Our Team',
-    'BeepBeep',
+    'MCI Link',
     'SITE',
   ];
 
