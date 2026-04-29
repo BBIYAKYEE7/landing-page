@@ -33,8 +33,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const licenseUrl = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
+
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <link rel="license" href={licenseUrl} />
+      </head>
       <body suppressHydrationWarning>{children}</body>
     </html>
   );
