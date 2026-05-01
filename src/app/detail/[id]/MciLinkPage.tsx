@@ -302,13 +302,15 @@ export default function MciLinkPage() {
           <div className={`${styles.container} ${styles.heroGrid}`}>
             <div className={`${styles.heroContent} ${styles.reveal}`}>
               <h1 className={styles.heroTitle}>
-                AI 전화로 부모님의 일상을 확인하고 의료 연계를 돕는 서비스, MCI Link.
+                부모님의 일상을 확인하는 AI 케어,
+                <br />
+                MCI Link.
               </h1>
 
               <p className={styles.sub}>
-                보호자 목소리를 닮은 AI가 매일 전화해 복약·식사·컨디션·일정을 확인하고,
+                AI가 매일 복약·식사·컨디션·일정을 확인하고,
                 <br />
-                결과를 구조화해 이상 신호 발생 시 의료 연계 판단을 빠르게 돕습니다.
+                이상 신호를 빠르게 정리해 의료 연계를 돕습니다.
               </p>
 
               <div className={styles.ctaRow}>

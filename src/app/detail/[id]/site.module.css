@@ -200,9 +200,9 @@
   width: clamp(140px, 20vw, 240px);
   height: clamp(140px, 20vw, 240px);
   border-radius: 28px;
-  box-shadow: none;
-  border: none;
-  background: transparent;
+  box-shadow: 0 10px 24px rgba(11, 13, 18, 0.08);
+  border: 1px solid rgba(11, 13, 18, 0.14);
+  background: #fff;
   object-fit: contain;
   transform:
     translate3d(var(--logo-shift-x), var(--logo-shift-y), 0)
