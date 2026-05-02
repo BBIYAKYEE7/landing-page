@@ -294,7 +294,7 @@ export default function SiteLandingPage() {
           </div>
           <div className={`${styles.heroLogoPanel} ${styles.reveal}`} ref={heroLogoRef}>
             <Image
-              src="/images/site_logo.png"
+              src="/images/SITE_logo.png"
               alt="SITE 앱 로고"
               width={240}
               height={240}

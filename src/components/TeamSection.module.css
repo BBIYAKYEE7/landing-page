@@ -14,8 +14,8 @@
   --radius-lg: 26px;
   --accent: #2185ff;
   --max: 1120px;
-  --font-title: 'Paperlogy', 'Pretendard', sans-serif;
-  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-title: 'Google Sans Flex', 'IBM Plex Sans', 'Pretendard', sans-serif;
+  --font-body: 'Google Sans Flex', 'IBM Plex Sans', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.55;

@@ -17,7 +17,7 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
       <div
         className="footer-content company-footer"
         style={{
-          fontFamily: 'Pretendard, sans-serif',
+          fontFamily: "'Pretendard', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
           color: '#6B7684',
           fontWeight: 400,
           fontSize: '1.05rem',
@@ -30,10 +30,10 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
       >
         <div
           style={{
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: '1.25rem',
             color: '#222',
-            fontFamily: 'Paperlogy, Pretendard, sans-serif',
+            fontFamily: "'Pretendard', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             marginBottom: '0.7rem',
           }}
         >

@@ -43,8 +43,8 @@
   --max: 1120px;
 
   /* 폰트 변수 */
-  --font-title: 'Paperlogy', 'Pretendard', sans-serif;
-  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-title: 'Google Sans Flex', 'IBM Plex Sans', 'Pretendard', sans-serif;
+  --font-body: 'Google Sans Flex', 'IBM Plex Sans', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 
   background: var(--bg);
   color: var(--text);

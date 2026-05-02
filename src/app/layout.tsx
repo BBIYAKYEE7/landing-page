@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://u-teed.co.kr'),
   title: 'U-TEED',
   description: '플랫폼의 새로운 기준, U-TEED',
   icons: {

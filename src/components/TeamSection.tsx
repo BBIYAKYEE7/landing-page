@@ -246,7 +246,7 @@ const beepbeepTeamGroups = [
         major: '인공지능사이버보안학과',
         profileImage: '/images/team/김진영.png',
         email: '',
-        career: ['MCI Link AI 및 서버 개발'],
+        career: ['MCI Link AI 및 서버 개발', '2022~2024 정보보호 영재원 이수'],
       },
     ],
   },
