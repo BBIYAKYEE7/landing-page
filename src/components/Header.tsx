@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 interface HeaderProps {
   onNavClick: (id: string) => void;
@@ -47,13 +48,25 @@ export default function Header({ onNavClick }: HeaderProps) {
     <>
       <header className="main-header">
         <div className="header-content">
-          <span 
-            className="header-logo" 
-            style={{ cursor: 'pointer' }} 
+          <div
+            className="header-logo"
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              height: '17px'
+            }}
             onClick={handleLogoClick}
           >
-            U-TEED
-          </span>
+            <Image
+              src="/images/U-TEED.svg"
+              alt="U-TEED"
+              width={84}
+              height={17}
+              priority
+              style={{ width: 'auto', height: '100%' }}
+            />
+          </div>
           <nav className="header-nav">
             <div 
               className="header-dropdown"
@@ -88,7 +101,7 @@ export default function Header({ onNavClick }: HeaderProps) {
           <div className="header-cta">
             <a
               className="header-cta-btn"
-              href="mailto:site@u-teed.co.kr"
+              href="mailto:u-teed@u-teed.co.kr"
             >
               이메일 보내기
             </a>
@@ -136,7 +149,7 @@ export default function Header({ onNavClick }: HeaderProps) {
           <div className="mobile-menu-section">
             <a
               className="mobile-cta-btn"
-              href="mailto:site@u-teed.co.kr"
+              href="mailto:u-teed@u-teed.co.kr"
               onClick={() => setMobileMenuOpen(false)}
             >
               이메일 보내기

@@ -30,19 +30,25 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
       >
         <div
           style={{
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            color: '#222',
-            fontFamily: "'Pretendard', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             marginBottom: '0.7rem',
+            display: 'flex',
+            alignItems: 'center',
+            height: '12px'
           }}
         >
-          U-TEED
+          <Image
+            src="/images/U-TEED.svg"
+            alt="U-TEED"
+            width={59}
+            height={12}
+            priority
+            style={{ width: 'auto', height: '100%' }}
+          />
         </div>
         <div>사업자 등록번호 : 772-88-04055 | 대표 : 임태호</div>
-        <div>서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)</div>
-        <div>이메일: contact@u-teed.co.kr</div>
-        <div>Copyright © 2025 ~ 2026 U-TEED. All Rights Reserved.</div>
+        <div>03777 서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)</div>
+        <div>이메일: u-teed@u-teed.co.kr</div>
+        <div>Copyright © 2026 U-TEED. All Rights Reserved.</div>
         {/* 버튼 영역 */}
         <div style={{ display: 'flex', gap: '1.2rem', marginTop: '1.7rem' }}>
           <a
@@ -58,7 +64,7 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
               height={16}
             />
           </a>
-          <a href="mailto:contact@u-teed.co.kr" target="_blank" rel="noopener noreferrer" className="footer-btn">
+          <a href="mailto:u-teed@u-teed.co.kr" target="_blank" rel="noopener noreferrer" className="footer-btn">
             <svg
               width="16"
               height="16"
