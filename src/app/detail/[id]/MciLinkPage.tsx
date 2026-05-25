@@ -40,10 +40,30 @@ const serviceSections = [
   },
 ];
 
+const awardSections = [
+  {
+    id: 'award-1',
+    title: '2026년 업종특화(돌봄·사회서비스) 사회적기업 창업지원사업',
+    description:
+      'MCI Link의 노력과 혁신이 인정받아 사회적기업 창업지원사업에 선정되었습니다. AI 기반 의료 연계형 돌봄 서비스로서 사회적 가치 창출에 기여하고 있습니다.',
+    image: '/images/MCI_Link_logo.png',
+    sponsorLogos: [
+      { src: '/images/logo/MOEL.svg', alt: 'MOEL' },
+      { src: '/images/logo/KSEPA.svg', alt: 'KSEPA' },
+    ],
+    operatorLogo: { src: '/images/logo/seempower.png', alt: 'Seempower' },
+    date: '2026년 05월',
+    sponsor: '주관: 고용노동부, 한국사회적기업진흥원',
+    operator: '운영: SE Empower',
+    badge: '선정',
+  },
+];
+
 const sections = [
   { id: 'top', label: 'Intro' },
   { id: 'service', label: '서비스' },
   { id: 'beta', label: '현황' },
+  { id: 'awards', label: '수상' },
   { id: 'partner', label: '협력' },
   { id: 'team', label: '팀' },
 ];
@@ -52,6 +72,8 @@ const snapSectionIds = [
   'top',
   ...serviceSections.map(s => s.id),
   'beta',
+  'awards',
+  ...awardSections.map(s => s.id),
   'partner',
   'team',
 ];
@@ -443,30 +465,88 @@ export default function MciLinkPage() {
           </div>
         )}
 
-        <section id="beta" className={`${styles.section} ${styles.sectionSoft}`}>
+        <section id="awards" className={`${styles.section} ${styles.sectionSoft}`}>
           <div className={`${styles.container} ${styles.sectionContent}`}>
             <div className={styles.reveal}>
-              <p className={styles.eyebrow}>사업 현황</p>
-              <h2 className={styles.h2}>현재 단계와 목표</h2>
+              <p className={styles.eyebrow}>수상 실적</p>
+              <h2 className={styles.h2}>인정받은 혁신과 가치</h2>
               <p className={styles.lead}>
-                실제 보호자 인터뷰를 바탕으로 서비스 흐름을 검증하고 있으며,
+                MCI Link의 노력과 성과가 다양한 분야에서 인정받고 있습니다.
                 <br />
-                소규모 파일럿을 통해 의료 연계 프로세스를 구체화하고 있습니다.
+                의료 혁신과 케어 기술 분야의 주요 상을 수상했습니다.
               </p>
-
-              <div className={styles.ctaRow}>
-                <a
-                  className={`${styles.btn} ${styles.btnPrimary}`}
-                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('[MCI Link] 파일럿 참여 문의')}`}
-                  aria-label="파일럿 참여 문의하기"
-                >
-                  파일럿 참여 문의
-                  <span className={styles.hint}>↗</span>
-                </a>
-              </div>
             </div>
           </div>
         </section>
+
+        {awardSections.map((award, index) => (
+          <section
+            key={award.id}
+            id={award.id}
+            className={`${styles.section} ${styles.sectionSoft}`}
+          >
+            <div className={`${styles.container} ${styles.sectionContent}`}>
+              <div
+                className={`${styles.serviceShowcase} ${
+                  index % 2 === 1 ? styles.serviceShowcaseReverse : ''
+                } ${styles.reveal}`}
+              >
+                <div className={styles.serviceText}>
+                  <p className={styles.eyebrow}>{award.badge}</p>
+                  <h2 className={styles.h2}>{award.title}</h2>
+                  <p className={styles.lead}>{award.description}</p>
+                  <div style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: '#333', fontWeight: 700 }}>
+                    <p style={{ margin: '0.5rem 0' }}>
+                      <strong>선정일:</strong> {award.date}
+                    </p>
+                  </div>
+                  
+                  {award.sponsorLogos && award.sponsorLogos.length > 0 && (
+                    <div style={{ marginTop: '1.5rem' }}>
+                      <p style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem', color: '#333' }}>주관/주관협력</p>
+                      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                        {award.sponsorLogos.map((logo, idx) => (
+                          <Image
+                            key={idx}
+                            src={logo.src}
+                            alt={logo.alt}
+                            width={120}
+                            height={60}
+                            style={{ objectFit: 'contain' }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {award.operatorLogo && (
+                    <div style={{ marginTop: '1.5rem' }}>
+                      <p style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem', color: '#333' }}>운영</p>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Image
+                          src={award.operatorLogo.src}
+                          alt={award.operatorLogo.alt}
+                          width={120}
+                          height={60}
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className={styles.serviceImageWrap}>
+                  <Image
+                    src={award.image}
+                    alt={award.title}
+                    width={520}
+                    height={360}
+                    className={styles.serviceImage}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        ))}
 
         <section id="partner" className={styles.section}>
           <div className={`${styles.container} ${styles.sectionContent}`}>
