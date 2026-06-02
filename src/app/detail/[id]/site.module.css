@@ -1469,13 +1469,30 @@
 }
 
 .indicatorDotActive {
-  background: #2185FF;
-  border-color: #2185FF;
-  box-shadow: 0 0 0 4px #2185FF;
+  background: #000;
+  border-color: #000;
 }
 
 .indicatorDotActive:hover {
-  background: #2185FF;
+  background: #000;
+}
+
+/* Dark mode indicator */
+:global([data-theme="dark"]) .indicatorDot {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+:global([data-theme="dark"]) .indicatorDot:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:global([data-theme="dark"]) .indicatorDotActive {
+  background: #fff;
+  border-color: #fff;
+}
+
+:global([data-theme="dark"]) .indicatorDotActive:hover {
+  background: #fff;
 }
 
 /* Tooltip */
@@ -1602,5 +1619,24 @@
   .tile, .f, .pbox, .step, .threeLines, .meta, .heroDevice {
     box-shadow: none !important;
   }
+}
+
+/* Dark Mode */
+:global([data-theme="dark"]) .siteWrapper {
+  --bg: #0f1117;
+  --text: #eaeaea;
+  --muted: rgba(234,234,234,.60);
+  --muted2: rgba(234,234,234,.42);
+  --line: rgba(255,255,255,.10);
+  --line-strong: rgba(255,255,255,.16);
+  --card: rgba(26,29,39,.80);
+  --shadow-soft: 0 12px 30px rgba(0,0,0,.20);
+  --shadow: 0 18px 50px rgba(0,0,0,.30);
+}
+
+:global([data-theme="dark"]) .serviceImageWrap,
+:global([data-theme="dark"]) .heroLogo {
+  border-color: rgba(255,255,255,.12);
+  background: rgba(26,29,39,.80);
 }
 

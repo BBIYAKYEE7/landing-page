@@ -20,6 +20,19 @@
   color: var(--text);
   line-height: 1.55;
   font-family: var(--font-body);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+:global([data-theme="dark"]) .teamSection {
+  --bg: #0f1117;
+  --text: #eaeaea;
+  --muted: rgba(234, 234, 234, 0.6);
+  --muted2: rgba(234, 234, 234, 0.4);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --card: rgba(26, 29, 39, 0.8);
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.3);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
 }
 
 .container {
@@ -104,6 +117,16 @@
 
 .teamSplitRow .teamGroup {
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamSplitRow .teamGrid {
+  flex: 1;
+}
+
+.teamSplitRow .teamCard {
+  height: 100%;
 }
 
 .teamCategoryTitle {
@@ -121,6 +144,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+  align-items: stretch;
 }
 
 .teamGridTwo {
@@ -134,11 +158,13 @@
 .teamCard {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.64);
+  background: var(--card);
   box-shadow: var(--shadow-soft);
   padding: 24px;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .teamCardInactive {
@@ -146,6 +172,7 @@
   filter: grayscale(0.85);
   box-shadow: none;
   position: relative;
+  border-style: dashed;
 }
 
 .teamCardInactive .teamRole {
@@ -159,6 +186,26 @@
 
 .teamCardInactive:hover {
   transform: none;
+}
+
+:global([data-theme="dark"]) .teamCardInactive {
+  opacity: 1;
+  filter: grayscale(1);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-style: dashed;
+}
+
+:global([data-theme="dark"]) .teamCardInactive .teamRole {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
+}
+
+:global([data-theme="dark"]) .teamCardInactive .teamName,
+:global([data-theme="dark"]) .teamCardInactive .teamDesc,
+:global([data-theme="dark"]) .teamCardInactive .schoolName,
+:global([data-theme="dark"]) .teamCardInactive .majorName {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .teamCardInactive::after {
@@ -258,6 +305,7 @@
   color: var(--muted);
   line-height: 1.5;
   margin: 0 0 12px 0;
+  flex: 1;
 }
 
 .teamSchool {

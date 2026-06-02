@@ -5,9 +5,10 @@ import Header from '@/components/Header';
 import IntroSection from '@/components/IntroSection';
 import ParallaxSection from '@/components/ParallaxSection';
 import FooterSection from '@/components/FooterSection';
+import { useThemeLang } from '@/components/ThemeLanguageProvider';
 import { Section } from '@/types';
 
-const sections: Section[] = [
+const sectionsKo: Section[] = [
   {
     title: 'AI 음성 통화 기반 경도인지장애 케어',
     highlight: 'MCI Link',
@@ -24,7 +25,26 @@ const sections: Section[] = [
   },
 ];
 
+const sectionsEn: Section[] = [
+  {
+    title: 'AI Voice Call-Based MCI Care',
+    highlight: 'MCI Link',
+    hashtag: '#Cognitive Health Monitoring #AI Voice Check-In',
+    image: null,
+    detailLink: '/detail/2',
+  },
+  {
+    title: 'Your Game, Our SITE',
+    highlight: 'SITE',
+    hashtag: '#Easy Pickup Games #Find Basketball Tournaments',
+    image: null,
+    detailLink: '/detail/1',
+  },
+];
+
 function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<HTMLElement | null>[], introRef: MutableRefObject<HTMLElement | null> }) {
+  const { lang } = useThemeLang();
+  const sections = lang === 'ko' ? sectionsKo : sectionsEn;
   const [scrollY, setScrollY] = useState(0);
   const [footerInView, setFooterInView] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);

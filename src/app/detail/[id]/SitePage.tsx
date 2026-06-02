@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import FooterSection from '@/components/FooterSection';
+import { useThemeLang } from '@/components/ThemeLanguageProvider';
 import TeamSection from '@/components/TeamSection';
 import { useFullPageScroll } from './useFullPageScroll';
 import styles from './site.module.css';
@@ -16,42 +17,57 @@ const serviceSections = [
   {
     id: 'service',
     eyebrow: '문제 정의',
+    eyebrowEn: 'Problem',
     title: '픽업게임 운영은 “모집-참여-관리”가 분산되어 있습니다.',
+    titleEn: 'Pickup game operations are fragmented across recruitment, participation, and management.',
     description:
       '모집글은 여러 채널에 흩어져 있고, 인원 현황·확정자 관리는 수동으로 반복됩니다. 이 과정이 길어질수록 게임 성사율이 떨어지고 운영 부담이 커집니다.',
+    descriptionEn:
+      'Recruitment posts are scattered across multiple channels, and roster management is done manually and repeatedly. The longer this takes, the lower the game fulfillment rate and the heavier the operational burden.',
     image: '/images/community.png',
     ctaLabel: '문제 정의 더 보기',
+    ctaLabelEn: 'Learn More',
     ctaHref: BETA_FORM_URL,
   },
   {
     id: 'service-reserve',
     eyebrow: '제품 개요',
+    eyebrowEn: 'Overview',
     title: '모집 → 신청 → 승인 → 알림을 하나의 흐름으로 통합합니다.',
+    titleEn: 'Recruitment → Application → Approval → Notification, unified in one flow.',
     description:
       '주최자는 템플릿으로 게임을 등록하고, 게스트는 조건 필터로 찾아 1클릭 신청합니다. 승인/거절과 인원 현황이 즉시 반영되도록 설계해 운영 체계를 단순화했습니다.',
+    descriptionEn:
+      'Organizers register games using templates, and guests find them via condition filters and apply in one click. Approvals and roster status are reflected instantly, simplifying the entire operation.',
     image: '/images/detail.png',
     ctaLabel: '제품 흐름 보기',
+    ctaLabelEn: 'See Product Flow',
     ctaHref: BETA_FORM_URL,
   },
   {
     id: 'service-operator',
     eyebrow: '범위·로드맵',
+    eyebrowEn: 'Scope & Roadmap',
     title: '지금은 운영 효율에 집중하고, 이후 확장을 준비합니다.',
+    titleEn: 'Focused on operational efficiency now, preparing for expansion ahead.',
     description:
       '현재 단계에서는 모집/참여/현황/알림 중심으로 안정적인 운영을 만드는 데 집중합니다. 시설 예약/결제/채팅은 파트너십과 운영 데이터가 확보되는 단계에서 확장할 계획입니다.',
+    descriptionEn:
+      'At this stage, we focus on building stable operations around recruitment, participation, status, and notifications. Facility reservations, payments, and chat will be expanded once partnership and operational data are secured.',
     image: '/images/home.png',
     ctaLabel: '로드맵 더 보기',
+    ctaLabelEn: 'View Roadmap',
     ctaHref: BETA_FORM_URL,
   },
 ];
 
 // 섹션 정의
 const sections = [
-  { id: 'top', label: 'Intro' },
-  { id: 'service', label: '서비스' },
-  { id: 'beta', label: '현황' },
-  { id: 'partner', label: '협력' },
-  { id: 'team', label: '팀' },
+  { id: 'top', label: 'Intro', labelEn: 'Intro' },
+  { id: 'service', label: '서비스', labelEn: 'Services' },
+  { id: 'beta', label: '현황', labelEn: 'Status' },
+  { id: 'partner', label: '협력', labelEn: 'Partners' },
+  { id: 'team', label: '팀', labelEn: 'Team' },
 ];
 
 const snapSectionIds = [
@@ -75,6 +91,7 @@ export default function SiteLandingPage() {
 
   const stableSectionIds = useMemo(() => snapSectionIds, []);
   const { scrollToSection } = useFullPageScroll(scrollContainerRef, stableSectionIds);
+  const { lang } = useThemeLang();
 
   useEffect(() => {
     setMounted(true);
@@ -260,36 +277,42 @@ export default function SiteLandingPage() {
         <div className={`${styles.container} ${styles.heroGrid}`}>
           <div className={`${styles.heroContent} ${styles.reveal}`} >
             <h1 className={styles.heroTitle}>
-              픽업게임 운영을 더 쉽게 만드는 서비스, SITE.
+              {lang === 'ko' ? (
+                <>픽업게임 운영을 더 쉽게 만드는 서비스, SITE.</>
+              ) : (
+                <>The Service That Makes Pickup Game Management Easier, SITE.</>
+              )}
             </h1>
 
             <p className={styles.sub}>
-              분산된 모집과 수동 관리로 발생하는 운영 비용을 줄이고,
-              <br />
-              안정적인 게임 성사율을 만드는 데 집중합니다.
+              {lang === 'ko' ? (
+                <>분산된 모집과 수동 관리로 발생하는 운영 비용을 줄이고,<br />안정적인 게임 성사율을 만드는 데 집중합니다.</>
+              ) : (
+                <>We reduce operational costs from scattered recruitment and manual management,<br />and focus on achieving reliable game fulfillment rates.</>
+              )}
             </p>
 
             <div className={styles.ctaRow}>
               <a
                 className={`${styles.btn} ${styles.btnPrimary}`}
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent('[SITE] 사업 소개서 요청')}`}
-                aria-label="사업 소개서 요청하기"
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent(lang === 'ko' ? '[SITE] 사업 소개서 요청' : '[SITE] Pitch Deck Request')}`}
+                aria-label={lang === 'ko' ? '사업 소개서 요청하기' : 'Request Pitch Deck'}
               >
-                사업 소개서 요청
+                {lang === 'ko' ? '사업 소개서 요청' : 'Request Pitch Deck'}
                 <span className={styles.hint}>↗</span>
               </a>
               <a
                 className={styles.btn}
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent('[SITE] 미팅/데모 문의')}`}
-                aria-label="미팅/데모 문의하기"
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent(lang === 'ko' ? '[SITE] 미팅/데모 문의' : '[SITE] Meeting/Demo Inquiry')}`}
+                aria-label={lang === 'ko' ? '미팅/데모 문의하기' : 'Schedule a Meeting / Demo'}
               >
-                미팅/데모 문의
+                {lang === 'ko' ? '미팅/데모 문의' : 'Meeting / Demo'}
                 <span className={styles.hint}>↗</span>
               </a>
             </div>
 
             <div className={styles.tiny}>
-              현재는 사업 소개 및 파일럿 파트너 논의를 중심으로 운영하고 있습니다.
+              {lang === 'ko' ? '현재는 사업 소개 및 파일럿 파트너 논의를 중심으로 운영하고 있습니다.' : 'Currently focused on business presentations and pilot partner discussions.'}
             </div>
           </div>
           <div className={`${styles.heroLogoPanel} ${styles.reveal}`} ref={heroLogoRef}>
@@ -318,9 +341,9 @@ export default function SiteLandingPage() {
               } ${styles.reveal}`}
             >
               <div className={styles.serviceText}>
-                <p className={styles.eyebrow}>{section.eyebrow}</p>
-                <h2 className={styles.h2}>{section.title}</h2>
-                <p className={styles.lead}>{section.description}</p>
+                <p className={styles.eyebrow}>{lang === 'ko' ? section.eyebrow : section.eyebrowEn}</p>
+                <h2 className={styles.h2}>{lang === 'ko' ? section.title : section.titleEn}</h2>
+                <p className={styles.lead}>{lang === 'ko' ? section.description : section.descriptionEn}</p>
               </div>
               <div className={styles.serviceImageWrap}>
                 <Image
@@ -343,11 +366,11 @@ export default function SiteLandingPage() {
           aria-live="polite"
         >
           <div className={styles.serviceCtaText}>
-            <span className={styles.serviceCtaTitle}>{activeService.ctaLabel}</span>
+            <span className={styles.serviceCtaTitle}>{lang === 'ko' ? activeService.ctaLabel : activeService.ctaLabelEn}</span>
           </div>
           <button
             className={styles.serviceCtaButton}
-            aria-label={`${activeService.ctaLabel} 열기`}
+            aria-label={lang === 'ko' ? `${activeService.ctaLabel} 열기` : `Open ${activeService.ctaLabelEn}`}
             type="button"
             onClick={() => setServiceModalOpen(true)}
           >
@@ -379,18 +402,18 @@ export default function SiteLandingPage() {
           >
             <div className={styles.serviceModalHeader}>
               <h3 id="service-modal-title" className={styles.serviceModalTitle}>
-                {activeService.ctaLabel}
+                {lang === 'ko' ? activeService.ctaLabel : activeService.ctaLabelEn}
               </h3>
               <button
                 type="button"
                 className={styles.serviceModalClose}
                 onClick={handleCloseServiceModal}
-                aria-label="닫기"
+                aria-label={lang === 'ko' ? '닫기' : 'Close'}
               >
                 ×
               </button>
             </div>
-            <p className={styles.serviceModalBody}>{activeService.description}</p>
+            <p className={styles.serviceModalBody}>{lang === 'ko' ? activeService.description : activeService.descriptionEn}</p>
           </div>
         </div>
       )}
@@ -399,21 +422,23 @@ export default function SiteLandingPage() {
       <section id="beta" className={`${styles.section} ${styles.sectionSoft}`}>
         <div className={`${styles.container} ${styles.sectionContent}`}>
           <div className={styles.reveal} >
-            <p className={styles.eyebrow}>사업 현황</p>
-            <h2 className={styles.h2}>현재 단계와 목표</h2>
+            <p className={styles.eyebrow}>{lang === 'ko' ? '사업 현황' : 'Business Status'}</p>
+            <h2 className={styles.h2}>{lang === 'ko' ? '현재 단계와 목표' : 'Current Stage & Goals'}</h2>
             <p className={styles.lead}>
-              픽업게임 운영 효율을 증명하기 위한 베타를 준비 중이며,
-              <br />
-              초기 파트너와 함께 운영 데이터를 축적하는 단계입니다.
+              {lang === 'ko' ? (
+                <>픽업게임 운영 효율을 증명하기 위한 베타를 준비 중이며,<br />초기 파트너와 함께 운영 데이터를 축적하는 단계입니다.</>
+              ) : (
+                <>SITE is preparing a beta to prove pickup game operational efficiency,<br />and is in the stage of accumulating operational data with early partners.</>
+              )}
             </p>
 
             <div className={styles.ctaRow}>
               <a
                 className={`${styles.btn} ${styles.btnPrimary}`}
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent('[SITE] 사업 소개 자료 요청')}`}
-                aria-label="사업 소개 자료 요청하기"
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent(lang === 'ko' ? '[SITE] 사업 소개 자료 요청' : '[SITE] Pitch Deck Request')}`}
+                aria-label={lang === 'ko' ? '사업 소개 자료 요청하기' : 'Request Pitch Deck'}
               >
-                사업 소개 자료 요청
+                {lang === 'ko' ? '사업 소개 자료 요청' : 'Request Pitch Deck'}
                 <span className={styles.hint}>↗</span>
               </a>
             </div>
@@ -425,29 +450,31 @@ export default function SiteLandingPage() {
       <section id="partner" className={styles.section}>
         <div className={`${styles.container} ${styles.sectionContent}`}>
           <div className={styles.reveal} >
-            <p className={styles.eyebrow}>협력/파일럿</p>
-            <h2 className={styles.h2}>파일럿 운영 및 파트너십</h2>
+            <p className={styles.eyebrow}>{lang === 'ko' ? '협력/파일럿' : 'Partners / Pilot'}</p>
+            <h2 className={styles.h2}>{lang === 'ko' ? '파일럿 운영 및 파트너십' : 'Pilot Operations & Partnerships'}</h2>
             <p className={styles.lead}>
-              지역 커뮤니티, 시설 운영자와의 협업을 통해 실제 운영 흐름을 검증합니다.
-              <br />
-              초기 파트너와 함께 문제 정의·정산·운영 정책을 구체화할 예정입니다.
+              {lang === 'ko' ? (
+                <>지역 커뮤니티, 시설 운영자와의 협업을 통해 실제 운영 흐름을 검증합니다.<br />초기 파트너와 함께 문제 정의·정산·운영 정책을 구체화할 예정입니다.</>
+              ) : (
+                <>We verify real operational flows through collaboration with local communities and facility operators.<br />With early partners, we will refine problem definition, settlement, and operational policies.</>
+              )}
             </p>
 
             <div className={styles.ctaRow}>
               <a
                 className={`${styles.btn} ${styles.btnPrimary}`}
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent('[SITE] 파트너/파일럿 협력 문의')}`}
-                aria-label="파트너/파일럿 협력 문의하기"
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent(lang === 'ko' ? '[SITE] 파트너/파일럿 협력 문의' : '[SITE] Partner/Pilot Inquiry')}`}
+                aria-label={lang === 'ko' ? '파트너/파일럿 협력 문의하기' : 'Partner / Pilot Inquiry'}
               >
-                파트너/파일럿 협력 문의
+                {lang === 'ko' ? '파트너/파일럿 협력 문의' : 'Partner / Pilot Inquiry'}
                 <span className={styles.hint}>↗</span>
               </a>
               <a
                 className={styles.btn}
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent('[SITE] 간단 문의')}`}
-                aria-label="간단 문의 보내기"
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent(lang === 'ko' ? '[SITE] 간단 문의' : '[SITE] Quick Inquiry')}`}
+                aria-label={lang === 'ko' ? '간단 문의 보내기' : 'Quick Inquiry'}
               >
-                가볍게 문의하기
+                {lang === 'ko' ? '가볍게 문의하기' : 'Quick Inquiry'}
                 <span className={styles.hint}>↗</span>
               </a>
             </div>
@@ -461,14 +488,14 @@ export default function SiteLandingPage() {
       </div>
 
       {/* Section Indicator */}
-      <nav className={styles.indicator} aria-label="섹션 네비게이션">
+      <nav className={styles.indicator} aria-label={lang === 'ko' ? '섹션 네비게이션' : 'Section Navigation'}>
         {sections.map((section) => (
           <button
             key={section.id}
             className={`${styles.indicatorDot} ${activeSection === section.id ? styles.indicatorDotActive : ''}`}
             onClick={() => scrollToSection(section.id)}
-            data-label={section.label}
-            aria-label={`${section.label} 섹션으로 이동`}
+            data-label={lang === 'ko' ? section.label : section.labelEn}
+            aria-label={lang === 'ko' ? `${section.label} 섹션으로 이동` : `Go to ${section.labelEn}`}
             aria-current={activeSection === section.id ? 'true' : undefined}
           />
         ))}

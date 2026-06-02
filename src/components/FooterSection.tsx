@@ -2,6 +2,7 @@
 
 import { RefObject } from 'react';
 import Image from 'next/image';
+import { useThemeLang } from './ThemeLanguageProvider';
 
 interface FooterSectionProps {
   visible: boolean;
@@ -9,6 +10,7 @@ interface FooterSectionProps {
 }
 
 export default function FooterSection({ visible, footerRef }: FooterSectionProps) {
+  const { theme, lang } = useThemeLang();
   return (
     <section
       ref={footerRef}
@@ -18,7 +20,6 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
         className="footer-content company-footer"
         style={{
           fontFamily: "'Pretendard', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-          color: '#6B7684',
           fontWeight: 400,
           fontSize: '1.05rem',
           lineHeight: 1.7,
@@ -37,7 +38,7 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
           }}
         >
           <Image
-            src="/images/U-TEED.svg"
+            src={theme === 'dark' ? '/images/U-TEED(d).svg' : '/images/U-TEED.svg'}
             alt="U-TEED"
             width={59}
             height={12}
@@ -45,9 +46,9 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
             style={{ width: 'auto', height: '100%' }}
           />
         </div>
-        <div>사업자 등록번호 : 772-88-04055 | 대표 : 임태호</div>
-        <div>03777 서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)</div>
-        <div>이메일: u-teed@u-teed.co.kr</div>
+        <div>{lang === 'ko' ? '사업자 등록번호 : 772-88-04055 | 대표 : 임태호' : 'Business Reg. No.: 772-88-04055 | CEO: Taeho Lim'}</div>
+        <div>{lang === 'ko' ? '03777 서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)' : '1F, 61, Yonsei-ro 2-na-gil, Seodaemun-gu, Seoul 03777, Korea'}</div>
+        <div>{lang === 'ko' ? '이메일: u-teed@u-teed.co.kr' : 'Email: u-teed@u-teed.co.kr'}</div>
         <div>Copyright © 2026 U-TEED. All Rights Reserved.</div>
         {/* 버튼 영역 */}
         <div style={{ display: 'flex', gap: '1.2rem', marginTop: '1.7rem' }}>

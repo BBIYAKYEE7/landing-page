@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState, MutableRefObject } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useThemeLang } from './ThemeLanguageProvider';
 
 interface ParallaxSectionProps {
   title: string;
@@ -30,6 +31,7 @@ export default function ParallaxSection({
   const ref = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
   const router = useRouter();
+  const { lang } = useThemeLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +81,7 @@ export default function ParallaxSection({
         <h1>{highlight}</h1>
         <p className="hashtag">{hashtag}</p>
         <button className="detail-btn" onClick={handleDetailClick}>
-          자세히 보기
+          {lang === 'ko' ? '자세히 보기' : 'Learn More'}
         </button>
       </div>
       {/* 두 번째, 세 번째 섹션: 아래 큰 이미지만 */}

@@ -2,27 +2,37 @@
 
 import { useEffect, useState, useRef, RefObject } from 'react';
 import Image from 'next/image';
+import { useThemeLang } from './ThemeLanguageProvider';
 
 interface IntroSectionProps {
   sectionRef: RefObject<HTMLElement | null>;
 }
 
-const phrases = [
+const phrasesKo = [
   { text: 'Fast to Act.', sub: '빠르게 행동하고' },
   { text: 'Smart in Action.', sub: '똑똑하게 실행합니다' },
 ];
+const phrasesEn = [
+  { text: 'Fast to Act.', sub: 'We act first.' },
+  { text: 'Smart in Action.', sub: 'We execute with precision.' },
+];
 
-const stats = [
+const statsKo = [
   { target: 2, suffix: '+', label: '서비스 운영 중' },
   { target: 6, suffix: '+', label: '팀원' },
   { target: 2025, suffix: '', label: '설립년도' },
 ];
+const statsEn = [
+  { target: 2, suffix: '+', label: 'Services Running' },
+  { target: 6, suffix: '+', label: 'Team Members' },
+  { target: 2025, suffix: '', label: 'Founded' },
+];
 
 const schoolImages = [
   { src: '/images/school/korea.png', name: '고려대학교' },
-  { src: '/images/school/yonsei.jpg', name: '연세대학교' },
+  { src: '/images/school/yonsei.png', name: '연세대학교' },
   { src: '/images/school/kyunghee.png', name: '경희대학교' },
-  { src: '/images/school/hongik.png', name: '홍익대학교' },
+  { src: '/images/school/hongik.png', srcDark: '/images/school/hongik(d).png', name: '홍익대학교' },
 ];
 
 function CountUp({ target, suffix, start }: { target: number; suffix: string; start: boolean }) {
@@ -73,6 +83,9 @@ function CountUp({ target, suffix, start }: { target: number; suffix: string; st
 }
 
 export default function IntroSection({ sectionRef }: IntroSectionProps) {
+  const { lang, theme } = useThemeLang();
+  const phrases = lang === 'ko' ? phrasesKo : phrasesEn;
+  const stats = lang === 'ko' ? statsKo : statsEn;
   const [visibleSlides, setVisibleSlides] = useState<boolean[]>(new Array(phrases.length + 2).fill(false));
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -116,7 +129,7 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
           </div>
           {i === 0 && (
             <div className="intro-scroll-indicator">
-              <span>스크롤 하여 자세히 알아보기</span>
+              <span>{lang === 'ko' ? '스크롤 하여 자세히 알아보기' : 'Scroll to explore'}</span>
               <div className="scroll-arrow">↓</div>
             </div>
           )}
@@ -130,12 +143,20 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
         <div className={`intro-content ${visibleSlides[aboutIndex] ? 'visible' : ''}`}>
           <span className="intro-eyebrow">About U-TEED</span>
           <h1 className="intro-title">
-            기술로 일상의 문제를<br />
-            해결합니다
+            {lang === 'ko' ? (
+              <>기술로 일상의 문제를<br />해결합니다</>
+            ) : (
+              <>We solve daily problems<br />with technology.</>
+            )}
           </h1>
           <p className="intro-description">
-            U-TEED는 사람들의 일상 속 불편함을 기술로 해결하는 팀입니다.<br />
-            스포츠, 헬스케어 등 다양한 영역에서 실질적인 가치를 만들어갑니다.
+            {lang === 'ko' ? (
+              <>U-TEED는 사람들의 일상 속 불편함을 기술로 해결하는 팀입니다.<br />
+              스포츠, 헬스케어 등 다양한 영역에서 실질적인 가치를 만들어갑니다.</>
+            ) : (
+              <>U-TEED is a team that solves everyday inconveniences with technology.<br />
+              We create real value across sports, healthcare, and more.</>
+            )}
           </p>
           <div className="intro-stats">
             {stats.map((stat, i) => (
@@ -161,12 +182,18 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
         <div className={`intro-content ${visibleSlides[schoolIndex] ? 'visible' : ''}`}>
           <span className="intro-eyebrow">Our Team</span>
           <h1 className="intro-title">
-            학교는 모두 달라도<br />
-            같은 사명으로 모였습니다
+            {lang === 'ko' ? (
+              <>학교는 모두 달라도<br />같은 사명으로 모였습니다</>
+            ) : (
+              <>Different schools,<br />one shared mission.</>
+            )}
           </h1>
           <p className="intro-description">
-            더 나은 사회를 위한 서비스를 만든다는 사명 아래,<br />
-            다양한 배경의 팀원들이 함께합니다.
+            {lang === 'ko' ? (
+              <>더 나은 사회를 위한 서비스를 만든다는 사명 아래,<br />다양한 배경의 팀원들이 함께합니다.</>
+            ) : (
+              <>Under the mission to build services for a better society,<br />team members of diverse backgrounds come together.</>
+            )}
           </p>
         </div>
         <div className="marquee-container">
@@ -174,7 +201,7 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
             {[...schoolImages, ...schoolImages, ...schoolImages, ...schoolImages, ...schoolImages, ...schoolImages, ...schoolImages, ...schoolImages].map((img, i) => (
               <div key={i} className="marquee-item">
                 <Image
-                  src={img.src}
+                  src={theme === 'dark' && img.srcDark ? img.srcDark : img.src}
                   alt={img.name}
                   width={240}
                   height={120}
