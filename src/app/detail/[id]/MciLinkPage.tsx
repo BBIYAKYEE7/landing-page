@@ -492,7 +492,27 @@ export default function MciLinkPage() {
                 } ${styles.reveal}`}
               >
                 <div className={styles.serviceText}>
-                  <p className={styles.eyebrow}>{award.badge}</p>
+                  <span
+                    className={styles.awardBadge}
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = ((e.clientX - rect.left) / rect.width) * 100;
+                      const y = ((e.clientY - rect.top) / rect.height) * 100;
+                      const hl = e.currentTarget.querySelector('.' + styles.awardBadgeHighlight) as HTMLElement | null;
+                      if (hl) {
+                        hl.style.setProperty('--mx', `${x}%`);
+                        hl.style.setProperty('--my', `${y}%`);
+                        hl.style.opacity = '1';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      const hl = e.currentTarget.querySelector('.' + styles.awardBadgeHighlight) as HTMLElement | null;
+                      if (hl) hl.style.opacity = '0';
+                    }}
+                  >
+                    🏆 {award.badge}
+                    <span className={styles.awardBadgeHighlight} aria-hidden="true" />
+                  </span>
                   <h2 className={styles.h2}>{award.title}</h2>
                   <p className={styles.lead}>{award.description}</p>
                   <div style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: '#333', fontWeight: 700 }}>
@@ -533,15 +553,6 @@ export default function MciLinkPage() {
                       </div>
                     </div>
                   )}
-                </div>
-                <div className={styles.serviceImageWrap}>
-                  <Image
-                    src={award.image}
-                    alt={award.title}
-                    width={520}
-                    height={360}
-                    className={styles.serviceImage}
-                  />
                 </div>
               </div>
             </div>

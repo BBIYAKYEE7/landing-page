@@ -382,6 +382,46 @@
   font-weight: 600;
 }
 
+.awardBadge {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2185FF 0%, #38bdf8 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+  box-shadow: 0 4px 14px rgba(33, 133, 255, 0.25);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.awardBadge:hover {
+  box-shadow: 0 6px 20px rgba(33, 133, 255, 0.38);
+}
+
+.awardBadgeHighlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.22) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.awardBadgeText {
+  color: inherit;
+}
+
 .h2 {
   margin: 0 0 18px;
   font-size: clamp(26px, 2.8vw, 38px);
@@ -560,6 +600,8 @@
   background: rgba(255,255,255,.7);
   padding: 16px;
   box-shadow: var(--shadow);
+  max-width: 280px;
+  margin: 0 auto;
 }
 
 .serviceImage {
@@ -1495,6 +1537,13 @@
 @media (max-width: 980px) {
   .heroGrid {
     grid-template-columns: 1fr;
+  }
+  .heroLogoPanel {
+    order: -1;
+    justify-content: center;
+  }
+  .heroContent {
+    order: 1;
   }
   .bento {
     grid-template-columns: 1fr;
