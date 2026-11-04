@@ -57,13 +57,20 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
             target="_blank"
             rel="noopener noreferrer"
             className="footer-btn"
+            aria-label="Instagram"
           >
-            <Image
-              src="/images/instagram.png"
-              alt="Instagram"
-              width={16}
-              height={16}
-            />
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+              <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+              <circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" />
+            </svg>
           </a>
           <a href="mailto:u-teed@u-teed.co.kr" target="_blank" rel="noopener noreferrer" className="footer-btn">
             <svg

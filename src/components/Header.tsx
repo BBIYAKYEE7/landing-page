@@ -13,7 +13,6 @@ export default function Header({ onNavClick }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
   const isDetailPage = pathname?.startsWith('/detail');
-  const [showDropdown, setShowDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, lang, toggleTheme, toggleLang } = useThemeLang();
 
@@ -41,11 +40,6 @@ export default function Header({ onNavClick }: HeaderProps) {
     onNavClick(id);
   };
 
-  const handleMobileRouteClick = (path: string) => {
-    setMobileMenuOpen(false);
-    router.push(path);
-  };
-
   return (
     <>
       <header className="main-header">
@@ -70,27 +64,6 @@ export default function Header({ onNavClick }: HeaderProps) {
             />
           </div>
           <nav className="header-nav">
-            <div 
-              className="header-dropdown"
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
-            >
-              <button className="header-dropdown-btn">{lang === 'ko' ? '서비스' : 'Services'}</button>
-              {showDropdown && (
-                <div className="header-dropdown-menu">
-                  <div className="header-dropdown-menu-inner">
-                    <button onClick={() => { router.push('/detail/1'); setShowDropdown(false); }}>
-                      SITE
-                      <span className="dropdown-desc">{lang === 'ko' ? '픽업게임 운영 플랫폼' : 'Pickup Game Platform'}</span>
-                    </button>
-                    <button onClick={() => { router.push('/detail/2'); setShowDropdown(false); }}>
-                      MCI Link
-                      <span className="dropdown-desc">{lang === 'ko' ? '경도인지장애 조기 발견' : 'Early MCI Detection'}</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
             {isDetailPage ? (
               <>
                 <button onClick={() => onNavClick('beta')}>{lang === 'ko' ? '베타' : 'Beta'}</button>
@@ -143,17 +116,6 @@ export default function Header({ onNavClick }: HeaderProps) {
       />
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
-          <div className="mobile-menu-section">
-            <h3 className="mobile-menu-title">{lang === 'ko' ? '서비스' : 'Services'}</h3>
-            <button onClick={() => handleMobileRouteClick('/detail/1')}>
-              SITE
-              <span className="mobile-menu-desc">{lang === 'ko' ? '픽업게임 운영 플랫폼' : 'Pickup Game Platform'}</span>
-            </button>
-            <button onClick={() => handleMobileRouteClick('/detail/2')}>
-              MCI Link
-              <span className="mobile-menu-desc">{lang === 'ko' ? '경도인지장애 조기 발견' : 'Early MCI Detection'}</span>
-            </button>
-          </div>
           <div className="mobile-menu-section">
             {isDetailPage ? (
               <>
