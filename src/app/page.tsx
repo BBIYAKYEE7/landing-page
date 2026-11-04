@@ -8,39 +8,9 @@ import FooterSection from '@/components/FooterSection';
 import { useThemeLang } from '@/components/ThemeLanguageProvider';
 import { Section } from '@/types';
 
-const sectionsKo: Section[] = [
-  {
-    title: 'AI 음성 통화 기반 경도인지장애 케어',
-    highlight: 'MCI Link',
-    hashtag: '#부모님의 인지기능 관리 #AI 음성 모니터링',
-    image: null,
-    detailLink: '/detail/2',
-  },
-  {
-    title: 'Your Game, Our SITE',
-    highlight: 'SITE',
-    hashtag: '#픽업게임을 앱에서 손쉽게 #농구 대회 찾을 때는 SITE',
-    image: null,
-    detailLink: '/detail/1',
-  },
-];
+const sectionsKo: Section[] = [];
 
-const sectionsEn: Section[] = [
-  {
-    title: 'AI Voice Call-Based MCI Care',
-    highlight: 'MCI Link',
-    hashtag: '#Cognitive Health Monitoring #AI Voice Check-In',
-    image: null,
-    detailLink: '/detail/2',
-  },
-  {
-    title: 'Your Game, Our SITE',
-    highlight: 'SITE',
-    hashtag: '#Easy Pickup Games #Find Basketball Tournaments',
-    image: null,
-    detailLink: '/detail/1',
-  },
-];
+const sectionsEn: Section[] = [];
 
 function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<HTMLElement | null>[], introRef: MutableRefObject<HTMLElement | null> }) {
   const { lang } = useThemeLang();
@@ -131,14 +101,7 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
     return () => observer.disconnect();
   }, []);
 
-  const sectionNames = [
-    'Fast to Act',
-    'Smart in Action',
-    'About U-TEED',
-    'Our Team',
-    'MCI Link',
-    'SITE',
-  ];
+  const sectionNames: string[] = [];
 
   const handleIndicatorClick = (index: number) => {
     const allSections = getAllSections();
@@ -188,7 +151,7 @@ export default function Home() {
   ];
 
   const handleNavClick = (id: string) => {
-    if (id === 'contact') {
+    if (id === 'contact' || id === 'section-2') {
       document.querySelector('.footer-section')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
@@ -197,10 +160,10 @@ export default function Home() {
       return;
     }
     if (id === 'service') {
-      sectionRefs[0]?.current?.scrollIntoView({ behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    sectionRefs[0]?.current?.scrollIntoView({ behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
