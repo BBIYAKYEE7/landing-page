@@ -1,0 +1,18 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-4);
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-block: var(--section-y);
+}
+
+.title {
+  font-size: var(--fs-h2-fluid);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+.text {
+  color: var(--text-2);
+}

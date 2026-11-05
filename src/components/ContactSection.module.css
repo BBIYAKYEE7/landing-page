@@ -1,0 +1,27 @@
+.body {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+  max-width: var(--measure);
+}
+
+.text {
+  font-size: var(--fs-lead);
+  color: var(--text-2);
+}
+
+.email {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-w);
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+
+.email:hover {
+  text-decoration-thickness: var(--focus-w);
+}

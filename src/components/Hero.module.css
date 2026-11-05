@@ -1,0 +1,79 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--hero-dots);
+  background-size: var(--hero-dots-size);
+  background-position: center;
+  -webkit-mask-image: var(--hero-dots-mask);
+  mask-image: var(--hero-dots-mask);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pattern {
+    animation: pattern-in var(--motion-hero) ease-out both;
+  }
+}
+
+@keyframes pattern-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-block: calc(var(--section-y) * 1.5) var(--section-y);
+}
+
+.title {
+  max-width: 100%;
+  font-size: var(--fs-display-fluid);
+  font-weight: var(--fw-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  text-wrap: balance;
+}
+
+/* 리드는 점 패턴 위에 놓이므로 주 텍스트색(점과 겹쳐도 대비 14:1 이상). 위계는 크기(64px ↔ 20px)로 */
+.lead {
+  max-width: var(--measure);
+  margin-top: var(--sp-5);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* 데스크톱: 문장마다 한 줄(리드 2줄). 768px 이하: 이어서 흘려 줄 수를 줄인다 */
+.leadLine {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .leadLine {
+    display: inline;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  margin-top: var(--sp-6);
+}

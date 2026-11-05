@@ -1,0 +1,74 @@
+.groups {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+/* 3열 행: 연도 / 내용 / 관련 사업 */
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 1.4fr);
+  gap: var(--sp-2) var(--sp-5);
+  align-items: baseline;
+}
+
+.columns {
+  font-size: var(--fs-caption);
+  color: var(--text-2);
+  margin-bottom: calc(-1 * var(--sp-4));
+}
+
+.group {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+/* 섹션 맨 끝 행의 아래선은 생략: 바로 아래 문의 섹션의 위선과 함께 이중선으로 보이지 않게(구획선은 하나) */
+.group:last-child li:last-child {
+  border-bottom: 0;
+}
+
+.groupLabel {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-body);
+}
+
+/* 날짜가 '2026.0 / 5'처럼 갈리지 않게 */
+.year {
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.product {
+  justify-self: start;
+}
+
+/* 필형 칩. 높이는 4px 그리드(24px)로 고정 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: var(--sp-5);
+  padding-inline: var(--sp-3);
+  border: var(--line-w) solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-heading);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .columns {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-1);
+  }
+
+  .tag {
+    margin-top: var(--sp-1);
+  }
+}

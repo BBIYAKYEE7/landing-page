@@ -1,0 +1,50 @@
+.footer {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-body);
+  color: var(--text-2);
+}
+
+.inner {
+  display: grid;
+  gap: var(--sp-4);
+  padding-block: var(--sp-7);
+  border-top: var(--line-w) solid var(--line);
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-5);
+}
+
+.item {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.item dd {
+  margin: 0;
+}
+
+.email {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-5);
+}
+
+.privacy {
+  color: var(--text);
+  font-weight: var(--fw-heading);
+  text-decoration: none;
+}
+
+.privacy:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

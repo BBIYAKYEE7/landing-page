@@ -1,0 +1,70 @@
+/* /request와 같은 축(가운데, 640px) */
+.article {
+  display: grid;
+  gap: var(--sp-6);
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-block: var(--sp-7) var(--section-y);
+}
+
+.head {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.title {
+  font-size: var(--fs-h2-fluid);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+.meta {
+  color: var(--text-2);
+}
+
+.block {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.blockTitle {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+/* 수탁자·이전받는 자처럼 이름 아래에 항목·내용 쌍을 두는 묶음 */
+.group {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.groupTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-body);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 5fr);
+  gap: var(--sp-1) var(--sp-5);
+}
+
+.row dt {
+  color: var(--text-2);
+}
+
+/* 긴 주소(URL)가 좁은 화면에서 넘치지 않게. 한 줄에 다 들어가는 낱말은 그대로 둔다 */
+.row dd {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}

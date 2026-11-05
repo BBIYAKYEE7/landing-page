@@ -1,0 +1,88 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: var(--bg);
+  border-bottom: var(--line-w) solid var(--line);
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+/* 누르는 영역을 세로로 넓힌다(보이는 로고 크기는 그대로) */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding-block: var(--sp-3);
+  border-radius: var(--r-control);
+  color: var(--text);
+}
+
+/* 워드마크 비율 213:43 */
+.logoImg {
+  display: block;
+  height: var(--logo-h);
+  width: auto;
+  aspect-ratio: 213 / 43;
+}
+
+.nav {
+  margin-left: auto;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-h);
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-w);
+  text-underline-offset: 0.25em;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: none;
+}
+
+@media (min-width: 769px) {
+  .actionsNoCta {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .actions {
+    margin-left: auto;
+  }
+}
+
+/* 세로가 아주 짧은 화면(가로 모드·큰 확대)에서는 헤더가 내용을 덮지 않게 고정을 푼다 */
+@media (max-height: 480px) {
+  .header {
+    position: relative;
+  }
+}

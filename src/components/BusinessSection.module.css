@@ -1,0 +1,105 @@
+.head {
+  display: grid;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-7);
+}
+
+.intro {
+  max-width: var(--measure);
+  font-size: var(--fs-lead);
+  color: var(--text-2);
+}
+
+.list {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+/* 대형 패널: --surface, --r-panel, 내부 24px. 미디어 + 텍스트 좌우 분할(세로 가운데 정렬) */
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-6);
+  padding: var(--sp-5);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.name {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+.definition {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+}
+
+.features {
+  margin-top: var(--sp-2);
+  color: var(--text-2);
+}
+
+/* 외부 링크: 밑줄은 글자(span)에만 그리고 화살표는 밑줄 없이 */
+.link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding-top: var(--sp-2);
+  color: var(--text);
+  font-weight: var(--fw-heading);
+  text-decoration: none;
+}
+
+.linkText {
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-w);
+  text-underline-offset: 0.25em;
+}
+
+.link:hover .linkText {
+  text-decoration-thickness: var(--focus-w);
+}
+
+.media {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-card);
+  background: var(--bg);
+  object-fit: cover;
+}
+
+/* 대체 면의 제품명은 제품 제목(h3)보다 크지 않게 */
+.mediaName {
+  padding: var(--sp-5);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-2);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+
+  .media {
+    aspect-ratio: 16 / 9;
+  }
+}

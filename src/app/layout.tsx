@@ -1,57 +1,53 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import HashLink from '@/components/HashLink';
+import { meta } from '@/content/site';
+// Pretendard 하나로 한글·라틴 모두. 쓰는 굵기(400·600·700)의 @font-face와 글꼴 파일(public/fonts)을 모두 사이트에서 제공한다
+import './pretendard.css';
 import './globals.css';
-import ThemeLanguageProvider from '@/components/ThemeLanguageProvider';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://u-teed.co.kr'),
-  title: 'U-TEED',
-  description: '플랫폼의 새로운 기준, U-TEED',
+  // 실제 주소는 www다(u-teed.co.kr는 www로 308 리디렉트). canonical·공유 미리보기 주소가 리디렉트를 거치지 않게
+  metadataBase: new URL('https://www.u-teed.co.kr'),
+  title: {
+    default: meta.homeTitle,
+    template: '%s | U-TEED',
+  },
+  description: meta.homeDescription,
+  alternates: { canonical: '/' },
   icons: {
     icon: '/images/U-TEED.svg',
-    apple: '/images/U-TEED.svg',
   },
   openGraph: {
-    title: 'U-TEED',
-    description: '플랫폼의 새로운 기준, U-TEED',
-    images: [
-      {
-        url: '/images/U-TEED.svg',
-        width: 1200,
-        height: 630,
-        alt: 'U-TEED',
-      },
-    ],
+    type: 'website',
+    locale: 'ko_KR',
+    siteName: 'U-TEED',
+    url: '/',
+    title: meta.homeTitle,
+    description: meta.homeDescription,
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'U-TEED',
-    description: '플랫폼의 새로운 기준, U-TEED',
-    images: ['/images/U-TEED.svg'],
+    card: 'summary',
+    title: meta.homeTitle,
+    description: meta.homeDescription,
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const licenseUrl = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
 
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko">
       <head>
         <link rel="license" href={licenseUrl} />
-        {/* 페이지 로드 시 깜빡임 없이 테마 적용 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
-          }}
-        />
       </head>
-      <body suppressHydrationWarning>
-        <ThemeLanguageProvider>{children}</ThemeLanguageProvider>
+      <body>
+        {/* 기본 해시 이동은 Next 라우터가 모르는 히스토리 항목을 만들어 뒤로 가기를 멈추게 하므로 HashLink로 */}
+        <HashLink href="#main" className="skip-link">
+          본문 바로가기
+        </HashLink>
+        {children}
       </body>
     </html>
   );
 }
-
