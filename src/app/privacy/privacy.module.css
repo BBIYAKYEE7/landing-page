@@ -1,70 +1,117 @@
-/* /request와 같은 축(가운데, 640px) */
-.article {
-  display: grid;
-  gap: var(--sp-6);
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding-block: var(--sp-7) var(--section-y);
+.page {
+  min-height: 100vh;
+  padding: clamp(2rem, 6vw, 5rem) 1.5rem;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
-.head {
-  display: grid;
-  gap: var(--sp-2);
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
-.title {
-  font-size: var(--fs-h2-fluid);
-  font-weight: var(--fw-heading);
-  line-height: var(--lh-heading);
-  letter-spacing: var(--ls-heading);
+.back {
+  color: var(--color-muted);
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.meta {
-  color: var(--text-2);
+.back:hover {
+  color: var(--color-text);
 }
 
-.block {
-  display: grid;
-  gap: var(--sp-3);
+.header {
+  margin: 3rem 0 2rem;
 }
 
-.blockTitle {
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-heading);
-  line-height: var(--lh-heading);
-  letter-spacing: var(--ls-heading);
+.header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.2;
 }
 
-/* 수탁자·이전받는 자처럼 이름 아래에 항목·내용 쌍을 두는 묶음 */
-.group {
-  display: grid;
-  gap: var(--sp-2);
+.header p {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
 }
 
-.groupTitle {
-  font-size: var(--fs-body);
-  font-weight: var(--fw-heading);
-  line-height: var(--lh-body);
+.notice {
+  margin-bottom: 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-card);
+  font-weight: 600;
+}
+
+.intro p + p {
+  margin-top: 0.75rem;
+}
+
+.toc {
+  margin: 2.5rem 0 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-card);
+}
+
+.toc h2 {
+  font-size: 1.1rem;
+}
+
+.toc ol {
+  margin: 0.75rem 0 0 1.3rem;
+}
+
+.toc a,
+.section a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.section {
+  margin-top: 3rem;
+  scroll-margin-top: 2rem;
+}
+
+.section h2 {
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+}
+
+.section > p,
+.section > ul,
+.rows {
+  margin-top: 1rem;
+}
+
+.section ul {
+  padding-left: 1.5rem;
+}
+
+.rows h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
 }
 
 .row {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 5fr);
-  gap: var(--sp-1) var(--sp-5);
+  grid-template-columns: minmax(8rem, 1fr) 3fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .row dt {
-  color: var(--text-2);
+  font-weight: 600;
 }
 
-/* 긴 주소(URL)가 좁은 화면에서 넘치지 않게. 한 줄에 다 들어가는 낱말은 그대로 둔다 */
-.row dd {
-  overflow-wrap: anywhere;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .row {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
   }
 }

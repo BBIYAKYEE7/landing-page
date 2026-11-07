@@ -1,13 +1,9 @@
-/**
- * /privacy 개인정보 처리방침 본문 (초안 — 게시 전에 회사가 확인할 것은 PR 설명에 있다).
- *
- * 실제 처리 흐름(의뢰 폼 → Vercel /api/request → Google Apps Script → 비공개 스프레드시트·운영자 메일,
- * 회사 메일함은 메일플러그)과 「개인정보 보호법」, 개인정보보호위원회 「개인정보 처리방침 작성지침」(2026.4.)을 바탕으로 썼다.
- * 보유 기간·파기 문구는 integrations/google-apps-script/README.md '운영할 때' 절차와 같아야 한다. 한쪽을 바꾸면 다른 쪽도 고친다.
- * 회사 연락처는 site.ts, 보유 기간 문구는 의뢰 폼 안내(request.ts RETENTION)에서 가져온다.
- */
-import { RETENTION } from '@/content/request';
-import { company } from '@/content/site';
+const RETENTION = '보유 기간 문구 확인 필요';
+const company = {
+  email: 'u-teed@u-teed.co.kr',
+  ceo: '임태호',
+  address: '03777 서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)',
+};
 
 export type PolicyRow = { term: string; detail: string; href?: string };
 export type PolicyBlock =
