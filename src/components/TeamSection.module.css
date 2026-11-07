@@ -167,6 +167,32 @@
   flex-direction: column;
 }
 
+.teamCard[role="button"] {
+  cursor: pointer;
+}
+
+.teamCard[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.schoolTeamCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min(100%, 240px));
+  grid-auto-rows: minmax(410px, auto);
+  gap: 14px;
+  background: transparent;
+}
+
+.schoolTeamCards .teamCard {
+  padding-right: 18px;
+  padding-left: 18px;
+}
+
+.schoolTeamCards .teamRole {
+  white-space: nowrap;
+}
+
 .teamCardInactive {
   opacity: 0.55;
   filter: grayscale(0.85);
@@ -182,6 +208,12 @@
 
 .teamCardInactive .teamAvatar {
   background: rgba(11, 13, 18, 0.12);
+}
+
+.inactiveLabel {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .teamCardInactive:hover {
@@ -627,6 +659,7 @@
   gap: 14px;
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }

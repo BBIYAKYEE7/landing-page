@@ -22,16 +22,7 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
   const footerRef = useRef<HTMLElement>(null!);
 
   const getAllSections = useCallback(() => {
-    const introSlides = document.querySelectorAll('.intro-slide');
-    const parallaxSections = document.querySelectorAll('.parallax-section');
-    const footer = document.querySelector('.footer-section');
-    
-    const allSections: Element[] = [];
-    introSlides.forEach(el => allSections.push(el));
-    parallaxSections.forEach(el => allSections.push(el));
-    if (footer) allSections.push(footer);
-    
-    return allSections;
+    return Array.from(document.querySelectorAll('.intro-slide, .parallax-section, .footer-section'));
   }, []);
 
   const getCurrentSectionIndex = useCallback(() => {
@@ -49,13 +40,34 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      if (document.querySelector('.school-team-dialog[open]')) return;
+
+      const allSections = getAllSections();
+      const currentIndex = getCurrentSectionIndex();
+      const currentSection = allSections[currentIndex];
+
+      if (!isScrolling && (currentSection?.classList.contains('intro-history-slide') || currentSection?.classList.contains('intro-request-slide'))) {
+        const scrollable = currentSection.querySelector<HTMLElement>('.history-timeline, .request-content');
+        if (scrollable) {
+          if (e.target instanceof HTMLTextAreaElement) {
+            const textarea = e.target;
+            if ((e.deltaY > 0 && textarea.scrollTop + textarea.clientHeight < textarea.scrollHeight - 1) || (e.deltaY < 0 && textarea.scrollTop > 0)) return;
+          }
+          const canScrollDown = e.deltaY > 0 && scrollable.scrollTop + scrollable.clientHeight < scrollable.scrollHeight - 1;
+          const canScrollUp = e.deltaY < 0 && scrollable.scrollTop > 0;
+          if (canScrollDown || canScrollUp) {
+            e.preventDefault();
+            const delta = e.deltaY * (e.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : e.deltaMode === WheelEvent.DOM_DELTA_PAGE ? scrollable.clientHeight : 1);
+            scrollable.scrollTop += delta;
+            return;
+          }
+        }
+      }
+
       if (isScrolling) {
         e.preventDefault();
         return;
       }
-
-      const allSections = getAllSections();
-      const currentIndex = getCurrentSectionIndex();
       
       let nextIndex = currentIndex;
       if (e.deltaY > 0 && currentIndex < allSections.length - 1) {
@@ -152,7 +164,7 @@ export default function Home() {
 
   const handleNavClick = (id: string) => {
     if (id === 'contact' || id === 'section-2') {
-      document.querySelector('.footer-section')?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector('#project-request')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
     if (id === 'intro') {
@@ -173,4 +185,3 @@ export default function Home() {
     </>
   );
 }
-

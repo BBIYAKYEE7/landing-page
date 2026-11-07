@@ -25,9 +25,10 @@ const majorTranslations: Record<string, string> = {
 const descTranslations: Record<string, string> = {
   '서비스 총괄 및 기획': 'Service Planning & Management',
   '마케팅 전략 및 커뮤니티 운영': 'Marketing Strategy & Community',
-  '프론트엔드 개발, 유저 앱 개발': 'Frontend Dev, User App',
-  '프론트엔드 개발, 관리자용 앱 개발': 'Frontend Dev, Admin App',
+  '프론트엔드 개발, 앱 개발': 'Frontend Dev, App Dev',
+  '프론트엔드 개발, 앱 개발, AI 개발': 'Frontend Dev, App Dev, AI Development',
   '백엔드 개발, 서버 관리 및 운영': 'Backend Dev, Server Management',
+  '백엔드 개발, 서버 관리 및 운영, AI·서버 개발': 'Backend Dev, Server Management / AI & Server Development',
   '백엔드 개발': 'Backend Development',
   'UI/UX 디자인': 'UI/UX Design',
   'SNS 마케팅 자료 제작': 'SNS Marketing Content',
@@ -92,6 +93,11 @@ const careerTranslations: Record<string, string> = {
   '2024, 2025 동국대 과학영재원 재학': 'Dongguk University Science Gifted Institute, 2024–2025',
   '2022~2024 정보보호 영재원 이수': '2022–2024 Information Security Gifted Program',
   '2022 현대오토에버·함께일하는재단 화이트해커 경진대회 우수상': '2022 Hyundai AutoEver White Hacker Competition Excellence Award',
+  'U-TEED 메인 페이지 개발': 'U-TEED Main Page Development',
+  'SITE 프로젝트 프론트엔드 구현': 'SITE Project Frontend Implementation',
+  '2026.06 ~ 2028.03 대한민국 공군 지능정보체계단 SW개발병 병장 만기전역(예정)': 'Jun 2026 – Mar 2028 ROKAF Intelligent Information Systems Management Group, SW Development Soldier (Expected Discharge)',
+  '2026.05 ~ 2027.11 대한민국 육군 5사단 병장 만기전역(예정)': 'May 2026 – Nov 2027 ROK Army 5th Division, Sergeant (Expected Discharge)',
+  '2026.01 ~ 2027.07 대한민국 육군 5사단 병장 만기전역(예정)': 'Jan 2026 – Jul 2027 ROK Army 5th Division, Sergeant (Expected Discharge)',
 };
 
 const roleTranslations: Record<string, string> = {
@@ -110,18 +116,12 @@ const categoryTranslations: Record<string, string> = {
   'R&D': 'R&D',
 };
 
-const projectDescriptions = {
-  site: {
-    ko: 'SITE는 스포츠를 사랑하는 팀원들이 모여 만들고 있습니다. 각자의 전문성을 바탕으로 더 나은 스포츠 경험을 설계합니다.',
-    en: 'SITE is built by a team passionate about sports. We leverage our expertise to design a better sports experience.',
-  },
-  beepbeep: {
-    ko: 'MCI Link는 가족의 건강을 소중히 여기는 팀원들이 모여 만들고 있습니다. 각자의 전문성을 바탕으로 의료 연계형 돌으 보조 솔루션을 설계합니다.',
-    en: 'MCI Link is built by a team that values family health. We design a care-assist solution connected to medical services.',
-  },
+const teamDescription = {
+  ko: 'SITE와 MCI Link 팀원들이 각자의 전문성을 바탕으로 더 나은 서비스를 함께 만들어갑니다.',
+  en: 'The SITE and MCI Link teams bring their expertise together to create better services.',
 };
 
-const siteTeamGroups = [
+const teamGroups = [
   {
     category: '기획 / 마케팅',
     members: [
@@ -135,7 +135,12 @@ const siteTeamGroups = [
         major: '신학과',
         profileImage: '/images/team/임태호.png',
         email: 'alex0613lim@gmail.com',
-        career: ['U-TEED 대표', 'SITE 서비스 기획 총괄'],
+        career: ['U-TEED 대표', 'SITE 서비스 기획 총괄', 'MCI Link 서비스 기획 총괄',
+          '2024 경희대학교 창업경진대회 최우수상 수상',
+          '2024 경희대학교 지식재산권 활용 특허캠프 우수상 수상',
+          '2025 KORES LBS 스타트업 챌린지 아이디어 부문 최종 단계 진출',
+          '농구 중심 스포츠 커뮤니티 플랫폼 기획, 운영',
+          '(mvp 기능 정의 및 서비스 구조 설게, 픽업 게임 매칭 구조 설계, 외부 협업 및 제휴)'],
       },
       {
         name: '홍예찬',
@@ -148,6 +153,17 @@ const siteTeamGroups = [
         email: '',
         career: ['마케팅 전략 수립', '커뮤니티 운영 관리'],
       },
+      {
+        name: '송지호',
+        nameEn: 'Jiho Song',
+        role: '마케팅',
+        desc: '마케팅 전략 및 커뮤니티 운영',
+        school: '연세대학교',
+        major: 'ISED',
+        profileImage: '/images/team/유동준.png',
+        email: '',
+        career: ['마케팅 전략 수립', '커뮤니티 운영 관리'],
+      },
     ],
   },
   {
@@ -157,29 +173,33 @@ const siteTeamGroups = [
         name: '김재윤',
         nameEn: 'Jaeyoon Kim',
         role: 'Frontend',
-        desc: '프론트엔드 개발, 유저 앱 개발',
+        desc: '프론트엔드 개발, 앱 개발',
         school: '고려대학교',
         major: '인공지능사이버보안학과',
         profileImage: '/images/team/김재윤.png',
+        inactive: true,
+        inactiveReason: '군복무로 휴직',
         email: 'bbiyakyee7@gmail.com',
-        career: ['프론트엔드 개발', '유저 앱 UI/UX 구현',
+        career: ['U-TEED 메인 페이지 개발', 'SITE 프로젝트 프론트엔드 구현',
           '제 5회 한국코드페어 대상 (국무총리상 수상)',
           '제 1회 경기창고 수상 (크리에이티브상, 공감상)',
           '2024년 국제과학기술경진대회 대한민국 대표 발탁',
           '2024년 국제과학기술경진대회 임베디드 부문 본상 2등상 수상',
-          '2024년 대한민국 인재상 수상'
+          '2024년 대한민국 인재상 수상',
+          '2026.06 ~ 2028.03 대한민국 공군 지능정보체계단 SW개발병 병장 만기전역(예정)'
         ],
       },
       {
         name: '정민규',
         nameEn: 'Mingyu Jeong',
-        role: 'Frontend',
-        desc: '프론트엔드 개발, 관리자용 앱 개발',
+        role: 'Frontend/AI',
+        desc: '프론트엔드 개발, 앱 개발, AI 개발',
         school: '홍익대학교',
         major: '소프트웨어융합학과',
         profileImage: '/images/team/정민규.png',
         email: 'pauljjang410@gmail.com',
-        career: ['프론트엔드 개발', '관리자용 앱 개발',
+        career: ['프론트엔드 개발', '관리자용 앱 개발', 'MCI Link AI 알고리즘 개발',
+          '2022 현대오토에버·함께일하는재단 화이트해커 경진대회 우수상',
           'KITRI Best of the Best 12기 취약점분석 수료',
           '2023 대구 AI·Big Data·Blockchain 해커톤 최우수상',
           '2024 충청북도 생성형 인공지능 전국 경진대회 우수상',
@@ -193,13 +213,13 @@ const siteTeamGroups = [
       {
         name: '김진영',
         nameEn: 'Jinyoung Kim',
-        role: 'Backend',
-        desc: '백엔드 개발, 서버 관리 및 운영',
+        role: 'Backend / AI / Server',
+        desc: '백엔드 개발, 서버 관리 및 운영 / AI·서버 개발',
         school: '고려대학교',
         major: '인공지능사이버보안학과',
         profileImage: '/images/team/김진영.png',
         email: '',
-        career: ['백엔드 개발', '서버 인프라 관리 및 운영'],
+        career: ['백엔드 개발', '서버 인프라 관리 및 운영', 'MCI Link AI 및 서버 개발', '2022~2024 정보보호 영재원 이수'],
       },
       {
         name: '김명준',
@@ -209,8 +229,12 @@ const siteTeamGroups = [
         school: '고려대학교',
         major: '인공지능사이버보안학과',
         profileImage: '/images/team/김명준.png',
+        inactive: true,
+        inactiveReason: '군복무로 휴직',
         email: '',
-        career: ['백엔드 개발'],
+        career: ['백엔드 개발',
+          '2026.05 ~ 2027.11 대한민국 육군 5사단 병장 만기전역(예정)'
+        ],
       },
       {
         name: '윤효빈',
@@ -223,7 +247,26 @@ const siteTeamGroups = [
         inactive: true,
         inactiveReason: '군복무로 휴직',
         email: '',
-        career: ['백엔드 개발'],
+        career: ['백엔드 개발',
+          '2026.01 ~ 2027.07 대한민국 육군 5사단 병장 만기전역(예정)'
+        ],
+      },
+      {
+        name: '유동준',
+        nameEn: 'Dong Jun Yu',
+        role: 'AI / Algorithm',
+        desc: 'AI/알고리즘 개발',
+        school: '',
+        major: '',
+        profileImage: '/images/team/유동준.png',
+        email: '1qpalzmaa@gmail.com',
+        career: [
+          'AI/알고리즘 개발',
+          '제 6회 한국코드페어 금상 (과기부장관상 수상)',
+          '2024학년도 동국대 과학영재교육원 사사과정 논문 발표',
+          '대학부설 과학영재교육원 사사연구과정 성과발표대회 논문 발표',
+          '2024, 2025 동국대 과학영재원 재학',
+        ],
       },
     ],
   },
@@ -254,119 +297,6 @@ const siteTeamGroups = [
       },
     ],
   },
-];
-
-const beepbeepTeamGroups = [
-  {
-    category: '기획',
-    members: [
-      {
-        name: '임태호',
-        nameEn: 'Taeho Lim',
-        role: '공동대표 / 기획',
-        cTitle: 'CEO / CFO',
-        desc: '서비스 총괄 및 기획',
-        school: '연세대학교',
-        major: '신학과',
-        profileImage: '/images/team/임태호.png',
-        email: 'alex0613lim@gmail.com',
-        career: ['U-TEED 대표', 
-          'MCI Link 서비스 기획 총괄', 
-          '2024 경희대학교 창업경진대회 최우수상 수상',
-          '2024 경희대학교 지식재산권 활용 특허캠프 우수상 수상',
-          '2025 KORES LBS 스타트업 챌린지 아이디어 부문 최종 단계 진출',
-          '농구 중심 스포츠 커뮤니티 플랫폼 기획, 운영',
-          '(mvp 기능 정의 및 서비스 구조 설게, 픽업 게임 매칭 구조 설계, 외부 협업 및 제휴)'],
-      },
-      {
-        name: '박규원',
-        nameEn: 'Gyuwon Park',
-        role: '공동대표',
-        cTitle: 'COO / CMO',
-        desc: '서비스 총괄',
-        school: '연세대학교',
-        major: '불어불문학과',
-        profileImage: '/images/team/박규원.png',
-        email: 'pkw0110@gmail.com',
-        career: ['MCI Link 공동대표', '서비스 총괄', 
-          'UN Hult Prize 국제창업대회 세미파이널 진출', 
-          '한국경제연구원 경제 연합 단체 YLC 운영진 활동 및 우수상 수상',
-          '하나금융그룹 대학생 멘토 우수상 수상',
-          '한영회계법인 Assurance(ADC) 인턴 근무',
-          'IXL Korea Consulting Action Project 2025 인턴십 수료',],
-      },
-    ],
-  },
-  {
-    category: '개발',
-    members: [
-      {
-        name: '김재윤',
-        nameEn: 'Jaeyoon Kim',
-        role: 'Frontend',
-        desc: '프론트엔드 개발, 유저 앱 개발',
-        school: '고려대학교',
-        major: '인공지능사이버보안학과',
-        profileImage: '/images/team/김재윤.png',
-        email: 'bbiyakyee7@gmail.com',
-        career: ['프론트엔드 개발', '유저 앱 UI/UX 구현', 
-          '제 5회 한국코드페어 대상 (국무총리상 수상)',
-          '제 1회 경기창고 수상 (크리에이티브상, 공감상)',
-          '2024년 국제과학기술경진대회 대한민국 대표 발탁',
-          '2024년 국제과학기술경진대회 임베디드 부문 본상 2등상 수상',
-          '2024년 대한민국 인재상 수상',
-        ],
-      },
-      {
-        name: '정민규',
-        nameEn: 'Mingyu Jeong',
-        role: 'Frontend/AI',
-        desc: 'MCI Link AI 개발',
-        school: '홍익대학교',
-        major: '소프트웨어융합학과',
-        profileImage: '/images/team/정민규.png',
-        email: 'pauljjang410@gmail.com',
-        career: ['MCI Link AI 알고리즘 개발', '2022 현대오토에버·함께일하는재단 화이트해커 경진대회 우수상', 
-          'KITRI Best of the Best 12기 취약점분석 수료',
-          '2023 대구 AI·Big Data·Blockchain 해커톤 최우수상',
-          '2024 충청북도 생성형 인공지능 전국 경진대회 우수상',
-          '2024 제1회 스마트 AI 콘텐츠 대회 입상',
-          '2024 제30회 전국 창의성 IT코딩 경시대회: 빅데이터 영역 경기도지회장상',
-          '2024 제30회 전국 창의성 IT코딩 경시대회: 정보처리 전문가 영역 국회의원상',
-          '2025.7.21 ~ 9.5 이노그리드 하이브리드 플랫폼팀 인턴',
-          '2025 구미시 정책제안 공모전 은상',
-        ],
-      },
-      {
-        name: '유동준',
-        nameEn: 'Dong Jun Yu',
-        role: 'AI / Algorithm',
-        desc: 'AI/알고리즘 개발',
-        school: '',
-        major: '',
-        profileImage: '/images/team/유동준.png',
-        email: '1qpalzmaa@gmail.com',
-        career: [
-          'AI/알고리즘 개발',
-          '제 6회 한국코드페어 금상 (과기부장관상 수상)',
-          '2024학년도 동국대 과학영재교육원 사사과정 논문 발표',
-          '대학부설 과학영재교육원 사사연구과정 성과발표대회 논문 발표',
-          '2024, 2025 동국대 과학영재원 재학',
-        ],
-      },
-      {
-        name: '김진영',
-        nameEn: 'Jinyoung Kim',
-        role: 'AI / Server',
-        desc: 'AI·서버 개발',
-        school: '고려대학교',
-        major: '인공지능사이버보안학과',
-        profileImage: '/images/team/김진영.png',
-        email: '',
-        career: ['MCI Link AI 및 서버 개발', '2022~2024 정보보호 영재원 이수'],
-      },
-    ],
-  },
   {
     category: 'R&D',
     members: [
@@ -379,17 +309,11 @@ const beepbeepTeamGroups = [
         major: '의예과',
         profileImage: '/images/team/최아인.png',
         email: 'ain0721.choi@gmail.com',
-        career: ['경도인지장애 연구 및 분석', 
-          '세종과고 전교 1등 졸업', '대학전쟁 시즌 3 출연'],
+        career: ['경도인지장애 연구 및 분석', '세종과고 전교 1등 졸업', '대학전쟁 시즌 3 출연'],
       },
     ],
   },
 ];
-
-const teamGroupsByProject = {
-  site: siteTeamGroups,
-  beepbeep: beepbeepTeamGroups,
-};
 
 interface TeamMember {
   name: string;
@@ -411,19 +335,52 @@ interface TeamGroup {
   members: TeamMember[];
 }
 
+export function getSchoolTeamMembers() {
+  return teamGroups.flatMap(group => group.members);
+}
+
 interface TeamSectionProps {
   sectionRef?: MutableRefObject<HTMLElement | null>;
   id: string;
-  project?: 'site' | 'beepbeep';
+}
+
+function useMemberDisplay(member: TeamMember) {
+  const { lang } = useThemeLang();
+  return {
+    lang,
+    displayName: lang === 'ko' ? member.name : (member.nameEn || member.name),
+    displayDesc: lang === 'ko' ? member.desc : (descTranslations[member.desc] || member.desc),
+    displaySchool: lang === 'ko' ? member.school : (schoolTranslations[member.school] || member.school),
+    displayMajor: lang === 'ko' ? member.major : (majorTranslations[member.major] || member.major),
+    displayRole: lang === 'ko' ? member.role : (roleTranslations[member.role] || member.role),
+  };
+}
+
+function MemberAvatar({ member, size, className, fallbackClassName }: {
+  member: TeamMember;
+  size: number;
+  className: string;
+  fallbackClassName?: string;
+}) {
+  if (member.profileImage) {
+    return (
+      <Image
+        src={member.profileImage}
+        alt={`${member.name} 프로필`}
+        width={size}
+        height={size}
+        unoptimized
+        className={className}
+      />
+    );
+  }
+  return fallbackClassName
+    ? <div className={fallbackClassName}>{member.name.charAt(0)}</div>
+    : <>{member.name.charAt(0)}</>;
 }
 
 function TeamCardContent({ member }: { member: TeamMember }) {
-  const { lang } = useThemeLang();
-  const displayName = lang === 'ko' ? member.name : (member.nameEn || member.name);
-  const displayDesc = lang === 'ko' ? member.desc : (descTranslations[member.desc] || member.desc);
-  const displaySchool = lang === 'ko' ? member.school : (schoolTranslations[member.school] || member.school);
-  const displayMajor = lang === 'ko' ? member.major : (majorTranslations[member.major] || member.major);
-  const displayRole = lang === 'ko' ? member.role : (roleTranslations[member.role] || member.role);
+  const { displayName, displayDesc, displaySchool, displayMajor, displayRole } = useMemberDisplay(member);
   return (
     <>
       <div
@@ -431,19 +388,7 @@ function TeamCardContent({ member }: { member: TeamMember }) {
           member.profileImage ? styles.teamAvatarWithImage : ''
         }`}
       >
-        {member.profileImage ? (
-          <Image
-            src={member.profileImage}
-            alt={`${member.name} 프로필`}
-            width={200}
-            height={200}
-            quality={100}
-            unoptimized
-            className={styles.teamAvatarImg}
-          />
-        ) : (
-          member.name.charAt(0)
-        )}
+        <MemberAvatar member={member} size={200} className={styles.teamAvatarImg} />
       </div>
       <div className={styles.teamInfo}>
         <b className={styles.teamName}>{displayName}</b>
@@ -459,28 +404,11 @@ function TeamCardContent({ member }: { member: TeamMember }) {
 }
 
 function FlipCardFront({ member }: { member: TeamMember }) {
-  const { lang } = useThemeLang();
-  const displayName = lang === 'ko' ? member.name : (member.nameEn || member.name);
-  const displayDesc = lang === 'ko' ? member.desc : (descTranslations[member.desc] || member.desc);
-  const displaySchool = lang === 'ko' ? member.school : (schoolTranslations[member.school] || member.school);
-  const displayMajor = lang === 'ko' ? member.major : (majorTranslations[member.major] || member.major);
-  const displayRole = lang === 'ko' ? member.role : (roleTranslations[member.role] || member.role);
+  const { lang, displayName, displayDesc, displaySchool, displayMajor, displayRole } = useMemberDisplay(member);
   return (
     <div className={`${styles.flipCardFace} ${styles.flipCardFront}`}>
       <div className={styles.flipAvatar}>
-        {member.profileImage ? (
-          <Image
-            src={member.profileImage}
-            alt={`${member.name} 프로필`}
-            width={220}
-            height={220}
-            quality={100}
-            unoptimized
-            className={styles.flipAvatarImg}
-          />
-        ) : (
-          <div className={styles.flipAvatarFallback}>{member.name.charAt(0)}</div>
-        )}
+        <MemberAvatar member={member} size={220} className={styles.flipAvatarImg} fallbackClassName={styles.flipAvatarFallback} />
       </div>
       <span className={styles.flipName}>{displayName}</span>
       <span className={styles.flipRole}>{displayRole}</span>
@@ -495,28 +423,12 @@ function FlipCardFront({ member }: { member: TeamMember }) {
 }
 
 function FlipCardBack({ member }: { member: TeamMember }) {
-  const { lang } = useThemeLang();
-  const displayName = lang === 'ko' ? member.name : (member.nameEn || member.name);
-  const displaySchool = lang === 'ko' ? member.school : (schoolTranslations[member.school] || member.school);
-  const displayMajor = lang === 'ko' ? member.major : (majorTranslations[member.major] || member.major);
-  const displayRole = lang === 'ko' ? member.role : (roleTranslations[member.role] || member.role);
+  const { lang, displayName, displaySchool, displayMajor, displayRole } = useMemberDisplay(member);
   return (
     <div className={`${styles.flipCardFace} ${styles.flipCardBack}`}>
       <div className={styles.backHeader}>
         <div className={styles.backAvatar}>
-          {member.profileImage ? (
-            <Image
-              src={member.profileImage}
-              alt={`${member.name} 프로필`}
-              width={120}
-              height={120}
-              quality={100}
-              unoptimized
-              className={styles.flipAvatarImg}
-            />
-          ) : (
-            <div className={styles.flipAvatarFallback}>{member.name.charAt(0)}</div>
-          )}
+          <MemberAvatar member={member} size={120} className={styles.flipAvatarImg} fallbackClassName={styles.flipAvatarFallback} />
         </div>
         <div className={styles.backHeaderInfo}>
           <span className={styles.backName}>{displayName}</span>
@@ -649,7 +561,6 @@ function TeamCard({
   const { lang } = useThemeLang();
 
   const handleClick = () => {
-    if (member.inactive) return;
     const rect = cardRef.current?.getBoundingClientRect();
     if (rect) onSelect(member, rect);
   };
@@ -665,34 +576,91 @@ function TeamCard({
         member.inactive ? styles.teamCardInactive : ''
       }`}
       data-inactive-reason={inactiveLabel}
+      role="button"
+      tabIndex={0}
       onClick={handleClick}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          handleClick();
+        }
+      }}
     >
       <TeamCardContent member={member} />
+      {inactiveLabel && <span className={styles.inactiveLabel}>{inactiveLabel}</span>}
     </div>
   );
 }
 
-export default function TeamSection({ sectionRef, id, project = 'site' }: TeamSectionProps) {
-  const teamGroups = teamGroupsByProject[project];
-  const [planningMarketing, development, design] = teamGroups as TeamGroup[];
+function useTeamCardSelection(onDetailChange?: (open: boolean) => void) {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [modalOrigin, setModalOrigin] = useState<ModalOrigin>({ x: 0, y: 0, scale: 0.4 });
+
+  const handleCardSelect = useCallback((member: TeamMember, rect: DOMRect) => {
+    setModalOrigin({
+      x: rect.left + rect.width / 2 - window.innerWidth / 2,
+      y: rect.top + rect.height / 2 - window.innerHeight / 2,
+      scale: Math.min(rect.width / 320, rect.height / 420, 0.65),
+    });
+    setSelectedMember(member);
+    onDetailChange?.(true);
+  }, [onDetailChange]);
+
+  const handleClose = useCallback(() => {
+    setSelectedMember(null);
+    onDetailChange?.(false);
+  }, [onDetailChange]);
+
+  return { selectedMember, modalOrigin, handleCardSelect, handleClose };
+}
+
+function TeamGroupCards({ group, twoColumns, onSelect }: {
+  group: TeamGroup;
+  twoColumns?: boolean;
+  onSelect: (member: TeamMember, rect: DOMRect) => void;
+}) {
   const { lang } = useThemeLang();
+  return (
+    <div className={styles.teamGroup}>
+      <h3 className={styles.teamCategoryTitle}>{lang === 'ko' ? group.category : (categoryTranslations[group.category] || group.category)}</h3>
+      <div className={twoColumns ? `${styles.teamGrid} ${styles.teamGridTwo}` : styles.teamGrid}>
+        {group.members.map((member, index) => (
+          <TeamCard key={index} member={member} onSelect={onSelect} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  const MODAL_W = 320;
-  const MODAL_H = 420;
+export function SchoolTeamCards({
+  members,
+  onDetailChange,
+}: {
+  members: TeamMember[];
+  onDetailChange: (open: boolean) => void;
+}) {
+  const { selectedMember, modalOrigin, handleCardSelect, handleClose } = useTeamCardSelection(onDetailChange);
 
-  const handleCardSelect = useCallback((m: TeamMember, rect: DOMRect) => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const cardCX = rect.left + rect.width / 2;
-    const cardCY = rect.top + rect.height / 2;
-    const offsetX = cardCX - vw / 2;
-    const offsetY = cardCY - vh / 2;
-    const scale = Math.min(rect.width / MODAL_W, rect.height / MODAL_H, 0.65);
-    setModalOrigin({ x: offsetX, y: offsetY, scale });
-    setSelectedMember(m);
-  }, []);
+  return (
+    <div className={`${styles.teamSection} ${styles.schoolTeamCards}`}>
+      {members.map(member => (
+        <TeamCard key={member.name} member={member} onSelect={handleCardSelect} />
+      ))}
+      {selectedMember && (
+        <FlipCardModal
+          member={selectedMember}
+          origin={modalOrigin}
+          onClose={handleClose}
+        />
+      )}
+    </div>
+  );
+}
+
+export default function TeamSection({ sectionRef, id }: TeamSectionProps) {
+  const [planningMarketing, development, design, research] = teamGroups;
+  const { selectedMember, modalOrigin, handleCardSelect, handleClose } = useTeamCardSelection();
+  const { lang } = useThemeLang();
 
   return (
     <section
@@ -707,50 +675,18 @@ export default function TeamSection({ sectionRef, id, project = 'site' }: TeamSe
           <p className={styles.eyebrow}>Our Team</p>
           <h2 className={styles.h2}>{lang === 'ko' ? '함께 만들어가는 사람들' : 'The People Behind It'}</h2>
           <p className={styles.lead}>
-            {projectDescriptions[project][lang]}
+            {teamDescription[lang]}
           </p>
 
           <div className={styles.teamSplitRow}>
-            <div className={styles.teamGroup}>
-              <h3 className={styles.teamCategoryTitle}>{lang === 'ko' ? planningMarketing.category : (categoryTranslations[planningMarketing.category] || planningMarketing.category)}</h3>
-              <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
-                {planningMarketing.members.map((member, index) => (
-                  <TeamCard key={index} member={member} onSelect={handleCardSelect} />
-                ))}
-              </div>
-            </div>
-
-            {design.members.length > 0 ? (
-              <div className={styles.teamGroup}>
-                <h3 className={styles.teamCategoryTitle}>{lang === 'ko' ? design.category : (categoryTranslations[design.category] || design.category)}</h3>
-                <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
-                  {design.members.map((member, index) => (
-                    <TeamCard key={index} member={member} onSelect={handleCardSelect} />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className={styles.teamGroup}>
-                <h3 className={styles.teamCategoryTitle}>{lang === 'ko' ? development.category : (categoryTranslations[development.category] || development.category)}</h3>
-                <div className={`${styles.teamGrid} ${styles.teamGridTwo}`}>
-                  {development.members.map((member, index) => (
-                    <TeamCard key={index} member={member} onSelect={handleCardSelect} />
-                  ))}
-                </div>
-              </div>
-            )}
+            <TeamGroupCards group={planningMarketing} twoColumns onSelect={handleCardSelect} />
+            <TeamGroupCards group={design.members.length > 0 ? design : development} twoColumns onSelect={handleCardSelect} />
           </div>
 
           {design.members.length > 0 && (
-            <div className={styles.teamGroup}>
-              <h3 className={styles.teamCategoryTitle}>{lang === 'ko' ? development.category : (categoryTranslations[development.category] || development.category)}</h3>
-              <div className={styles.teamGrid}>
-                {development.members.map((member, index) => (
-                  <TeamCard key={index} member={member} onSelect={handleCardSelect} />
-                ))}
-              </div>
-            </div>
+            <TeamGroupCards group={development} onSelect={handleCardSelect} />
           )}
+          <TeamGroupCards group={research} onSelect={handleCardSelect} />
         </div>
       </div>
 
@@ -758,7 +694,7 @@ export default function TeamSection({ sectionRef, id, project = 'site' }: TeamSe
         <FlipCardModal
           member={selectedMember}
           origin={modalOrigin}
-          onClose={() => setSelectedMember(null)}
+          onClose={handleClose}
         />
       )}
     </section>

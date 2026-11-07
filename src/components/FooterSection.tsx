@@ -2,6 +2,7 @@
 
 import { RefObject } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useThemeLang } from './ThemeLanguageProvider';
 
 interface FooterSectionProps {
@@ -12,9 +13,9 @@ interface FooterSectionProps {
 export default function FooterSection({ visible, footerRef }: FooterSectionProps) {
   const { theme, lang } = useThemeLang();
   return (
-    <section
+    <footer
       ref={footerRef}
-      className={`parallax-section footer-section ${visible ? 'footer-visible' : ''}`}
+      className={`footer-section ${visible ? 'footer-visible' : ''}`}
     >
       <div
         className="footer-content company-footer"
@@ -47,9 +48,13 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
           />
         </div>
         <div>{lang === 'ko' ? '사업자 등록번호 : 772-88-04055 | 대표 : 임태호' : 'Business Reg. No.: 772-88-04055 | CEO: Taeho Lim'}</div>
-        <div>{lang === 'ko' ? '03777 서울특별시 서대문구 연세로2나길 61, 1층(창천동, 캠퍼스타운 에스큐브)' : '1F, 61, Yonsei-ro 2-na-gil, Seodaemun-gu, Seoul 03777, Korea'}</div>
+        <div>{lang === 'ko' ? '통신판매업 신고: 제 2026-서울영등포-2173 호 | 호스팅 제공자: Vercel Inc.' : 'Mail-Order Business Registration: No. 2026-서울영등포-2173 | Hosting Provider: Vercel Inc.'}</div>
+        <div>{lang === 'ko' ? '07250 서울특별시 영등포구 영중로24길 10, 2층 232호 (영등포동5가, 영포복합건물)' : '07250 Seoul, South Korea, 10, Yeongchung-ro 24-gil, 2F 232, Yeongdeungpo-dong 5-ga, Yeongpo Complex Building'}</div>
         <div>{lang === 'ko' ? '이메일: u-teed@u-teed.co.kr' : 'Email: u-teed@u-teed.co.kr'}</div>
         <div>Copyright © 2026 U-TEED. All Rights Reserved.</div>
+        <Link href="/privacy" className="footer-privacy-link">
+          {lang === 'ko' ? '개인정보 처리방침' : 'Privacy Policy'}
+        </Link>
         {/* 버튼 영역 */}
         <div style={{ display: 'flex', gap: '1.2rem', marginTop: '1.7rem' }}>
           <a
@@ -88,7 +93,6 @@ export default function FooterSection({ visible, footerRef }: FooterSectionProps
           </a>
         </div>
       </div>
-    </section>
+    </footer>
   );
 }
-

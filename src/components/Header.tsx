@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useId } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useThemeLang } from './ThemeLanguageProvider';
@@ -9,12 +9,118 @@ interface HeaderProps {
   onNavClick: (id: string) => void;
 }
 
+function HeaderPreferences({ active = true }: { active?: boolean }) {
+  const { theme, lang, toggleTheme, toggleLang } = useThemeLang();
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const languageRef = useRef<HTMLDivElement>(null);
+  const languageButtonRef = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
+
+  useEffect(() => {
+    if (!active) setLanguageOpen(false);
+  }, [active]);
+
+  useEffect(() => {
+    if (!languageOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !languageRef.current?.contains(event.target)) {
+        setLanguageOpen(false);
+      }
+    };
+    const handleFocusIn = (event: FocusEvent) => {
+      if (event.target instanceof Node && !languageRef.current?.contains(event.target)) {
+        setLanguageOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setLanguageOpen(false);
+        languageButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [languageOpen]);
+
+  return (
+    <>
+      <div className="header-language" ref={languageRef}>
+        <span className="preference-label">{lang === 'ko' ? '언어' : 'Language'}</span>
+        <button
+          ref={languageButtonRef}
+          type="button"
+          className="language-trigger"
+          aria-label={lang === 'ko' ? '언어 선택' : 'Select language'}
+          aria-expanded={languageOpen}
+          aria-controls={menuId}
+          onClick={() => setLanguageOpen(open => !open)}
+        >
+          <span>{lang === 'ko' ? '한국어' : 'English'}</span>
+          <span className="language-chevron" aria-hidden="true" />
+        </button>
+        <div
+          id={menuId}
+          className="language-menu"
+          role="group"
+          aria-label={lang === 'ko' ? '언어 선택' : 'Select language'}
+          hidden={!languageOpen}
+        >
+          {(['ko', 'en'] as const).map(option => (
+            <label key={option} className="language-option">
+              <input
+                type="radio"
+                name={`language-${menuId}`}
+                value={option}
+                checked={lang === option}
+                onChange={() => {
+                  if (lang !== option) toggleLang();
+                  setLanguageOpen(false);
+                  languageButtonRef.current?.focus();
+                }}
+                onClick={() => {
+                  if (lang === option) {
+                    setLanguageOpen(false);
+                    languageButtonRef.current?.focus();
+                  }
+                }}
+              />
+              <span>{option === 'ko' ? '한국어' : 'English'}</span>
+              {lang === option && <span className="language-check" aria-hidden="true">✓</span>}
+            </label>
+          ))}
+        </div>
+      </div>
+      <div className="header-theme">
+        <span className="preference-label">{lang === 'ko' ? '다크 모드' : 'Dark mode'}</span>
+        <button
+          type="button"
+          className="theme-switch"
+          role="switch"
+          aria-checked={theme === 'dark'}
+          aria-label={lang === 'ko' ? '다크 모드' : 'Dark mode'}
+          onClick={toggleTheme}
+        >
+          <span className="theme-switch-thumb" aria-hidden="true">{theme === 'dark' ? '☾' : '☀'}</span>
+        </button>
+      </div>
+    </>
+  );
+}
+
 export default function Header({ onNavClick }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
   const isDetailPage = pathname?.startsWith('/detail');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, lang, toggleTheme, toggleLang } = useThemeLang();
+  const { theme, lang } = useThemeLang();
 
   const handleLogoClick = () => {
     if (pathname === '/') {
@@ -74,22 +180,7 @@ export default function Header({ onNavClick }: HeaderProps) {
             )}
           </nav>
           <div className="header-cta">
-            <button
-              className="header-toggle-btn"
-              onClick={toggleLang}
-              aria-label="언어 전환"
-              title={lang === 'ko' ? 'Switch to English' : '한국어로 전환'}
-            >
-              {lang === 'ko' ? 'EN' : '한'}
-            </button>
-            <button
-              className="header-toggle-btn"
-              onClick={toggleTheme}
-              aria-label="다크모드 전환"
-              title={theme === 'light' ? '다크 모드로 전환' : '라이트 모드로 전환'}
-            >
-              {theme === 'light' ? '🌙' : '☀️'}
-            </button>
+            <HeaderPreferences />
             <a
               className="header-cta-btn"
               href="mailto:u-teed@u-teed.co.kr"
@@ -136,16 +227,10 @@ export default function Header({ onNavClick }: HeaderProps) {
             </a>
           </div>
           <div className="mobile-menu-section mobile-menu-toggles">
-            <button className="mobile-toggle-btn" onClick={toggleLang}>
-              {lang === 'ko' ? '🌐 English로 전환' : '🌐 한국어로 전환'}
-            </button>
-            <button className="mobile-toggle-btn" onClick={toggleTheme}>
-              {theme === 'light' ? (lang === 'ko' ? '🌙 다크 모드' : '🌙 Dark Mode') : (lang === 'ko' ? '☀️ 라이트 모드' : '☀️ Light Mode')}
-            </button>
+            <HeaderPreferences active={mobileMenuOpen} />
           </div>
         </div>
       </div>
     </>
   );
 }
-
