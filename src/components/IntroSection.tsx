@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, RefObject } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState, useRef, RefObject } from 'react';
 import Image from 'next/image';
 import { getSchoolTeamMembers, SchoolTeamCards } from './TeamSection';
 import { useThemeLang } from './ThemeLanguageProvider';
@@ -8,6 +8,8 @@ import ProjectRequest from './ProjectRequest';
 
 interface IntroSectionProps {
   sectionRef: RefObject<HTMLElement | null>;
+  currentProject: number;
+  setCurrentProject: Dispatch<SetStateAction<number>>;
 }
 
 const phrasesKo = [
@@ -32,18 +34,18 @@ const statsEn = [
 
 const projects = [
   {
-    name: 'B:Essential',
-    className: 'project-bessential',
-    href: 'https://bessential.ai.kr/',
-    ko: '창업과 관련하여 아이디어 진단과 기존 서비스와의 유사성을 분석하여 창업 아이디어의 성공 가능성을 높이는 서비스입니다.',
-    en: 'A service that analyzes the similarity of existing services and provides idea diagnosis to increase the success rate of startup ideas.',
-  },
-  {
     name: 'NoteON',
     className: 'project-noteon',
     href: 'https://www.noteon.xyz/',
     ko: '시험기간 때 교수님의 강의 내용을 정리하고, 중요한 내용을 기록할 수 있는 노트 필기 프로젝트입니다.',
     en: 'A note-taking project that allows students to organize lecture content and record important information during exam periods.',
+  },
+  {
+    name: 'B:Essential',
+    className: 'project-bessential',
+    href: 'https://bessential.ai.kr/',
+    ko: '창업과 관련하여 아이디어 진단과 기존 서비스와의 유사성을 분석하여 창업 아이디어의 성공 가능성을 높이는 서비스입니다.',
+    en: 'A service that analyzes the similarity of existing services and provides idea diagnosis to increase the success rate of startup ideas.',
   },
   {
     name: 'SITE',
@@ -59,26 +61,33 @@ const projects = [
   },
 ];
 
+export const projectCount = projects.length;
+
 const historyYears = [
   {
     year: '2024',
     entries: [
-      { ko: '경희대학교 창업경진대회 최우수상', en: 'Kyung Hee University Startup Competition Grand Prize' },
-      { ko: '지식재산권 활용 특허캠프 우수상', en: 'Intellectual Property Patent Camp Excellence Award' },
+      { ko: '창업경진대회 최우수상', en: 'Startup Competition Grand Prize', institution: { ko: '경희대학교', en: 'Kyung Hee University' } },
+      { ko: '지식재산권 활용 특허캠프 우수상', en: 'Intellectual Property Patent Camp Excellence Award', institution: { ko: '경희대학교', en: 'Kyung Hee University' } },
     ],
   },
   {
     year: '2025',
     entries: [
-      { ko: 'KISA KOREA LBS 스타트업 챌린지 TOP 10', en: 'KISA KOREA LBS Startup Challenge Top 10', project: 'SITE' },
+      { ko: 'KOREA LBS 스타트업 챌린지 TOP 10', en: 'KOREA LBS Startup Challenge Top 10', institution: { ko: 'KISA', en: 'KISA' }, project: 'SITE' },
     ],
   },
   {
     year: '2026',
     entries: [
       { ko: '주식회사 유티드 법인 설립', en: 'U-TEED incorporated', date: '2026.05' },
-      { ko: '고용노동부·한국사회적기업진흥원 사회적기업 창업지원사업 업종특화 (돌봄·사회서비스) 선정', en: 'Selected for the Ministry of Employment and Labor and Korea Social Enterprise Promotion Agency social enterprise startup support program for care and social services', project: 'MCI Link' },
-      { ko: '연세대학교 고등교육혁신원 워크스테이션 사회혁신타운 입주팀', en: 'Resident team at Yonsei University Institute for Higher Education Innovation Workstation Social Innovation Town' },
+      {
+        ko: '2026년 업종특화(돌봄·사회서비스) 사회적기업 창업지원사업 선정',
+        en: 'Selected for the 2026 sector-specific social enterprise startup support program (care and social services)',
+        organizer: { ko: '고용노동부 · 한국사회적기업진흥원', en: 'Ministry of Employment and Labor · Korea Social Enterprise Promotion Agency' },
+        operator: { ko: 'SE Empower', en: 'SE Empower' },
+        project: 'MCI Link',
+      },
     ],
   },
 ];
@@ -140,7 +149,7 @@ function CountUp({ target, suffix, start }: { target: number; suffix: string; st
   return <>{count}{suffix}</>;
 }
 
-export default function IntroSection({ sectionRef }: IntroSectionProps) {
+export default function IntroSection({ sectionRef, currentProject, setCurrentProject }: IntroSectionProps) {
   const { lang, theme } = useThemeLang();
   const phrases = lang === 'ko' ? phrasesKo : phrasesEn;
   const stats = lang === 'ko' ? statsKo : statsEn;
@@ -150,7 +159,6 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
   const [schoolTeamOpen, setSchoolTeamOpen] = useState(false);
   const [schoolTeamClosing, setSchoolTeamClosing] = useState(false);
   const [schoolMemberDetailOpen, setSchoolMemberDetailOpen] = useState(false);
-  const [currentProject, setCurrentProject] = useState(0);
 
   useEffect(() => {
     if (!schoolTeamOpen) return;
@@ -325,7 +333,7 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
           <header className="school-team-dialog-header">
             <div>
               <span className="school-team-dialog-eyebrow">Our Team</span>
-              <h2 id="school-team-title">{lang === 'ko' ? '학교별 팀원' : 'Our Team by School'}</h2>
+              <h2 id="school-team-title">{lang === 'ko' ? '학교별 활동 중인 팀원' : 'Active Team Members by School'}</h2>
             </div>
             <button
               type="button"
@@ -463,7 +471,22 @@ export default function IntroSection({ sectionRef }: IntroSectionProps) {
                             {'project' in entry && <span className="history-project">{entry.project}</span>}
                           </div>
                         )}
-                        <p>{entry[lang]}</p>
+                        <p className="history-entry-title">{entry[lang]}</p>
+                        {'institution' in entry && (
+                          <p className="history-entry-institution">
+                            <span>{lang === 'ko' ? '관련 기관' : 'Related institution'}</span> {entry.institution[lang]}
+                          </p>
+                        )}
+                        {'organizer' in entry && entry.organizer && (
+                          <p className="history-entry-institution">
+                            <span>{lang === 'ko' ? '주관' : 'Organized by'}</span> {entry.organizer[lang]}
+                          </p>
+                        )}
+                        {'operator' in entry && entry.operator && (
+                          <p className="history-entry-institution">
+                            <span>{lang === 'ko' ? '운영' : 'Operated by'}</span> {entry.operator[lang]}
+                          </p>
+                        )}
                       </li>
                     ))}
                   </ul>

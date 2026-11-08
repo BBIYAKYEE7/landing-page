@@ -121,7 +121,7 @@ const teamDescription = {
   en: 'The SITE and MCI Link teams bring their expertise together to create better services.',
 };
 
-const teamGroups = [
+const teamGroups: TeamGroup[] = [
   {
     category: '기획 / 마케팅',
     members: [
@@ -336,7 +336,7 @@ interface TeamGroup {
 }
 
 export function getSchoolTeamMembers() {
-  return teamGroups.flatMap(group => group.members);
+  return teamGroups.flatMap(group => group.members).filter(member => !member.inactive);
 }
 
 interface TeamSectionProps {

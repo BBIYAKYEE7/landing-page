@@ -1142,6 +1142,20 @@ a.project-panel-card:focus-visible {
   line-height: 1.55;
 }
 
+.history-entry-title {
+  font-weight: 600;
+}
+
+.history-entry-institution {
+  color: var(--color-muted);
+  font-size: 0.875em;
+}
+
+.history-entry-institution span {
+  margin-right: 0.35rem;
+  font-weight: 600;
+}
+
 .history-entry-meta {
   display: flex;
   flex-wrap: wrap;
