@@ -2,7 +2,8 @@
 
 .chart {
   --org-gap: 1.5rem;
-  --org-line: rgba(11, 13, 18, 0.18);
+  /* 연결선이 겹치는 이음매가 진하게 찍히지 않도록 반투명 대신 같은 색의 불투명 값 */
+  --org-line: #d3d3d4;
   --org-node-bg: #f7f9fc;
   --org-node-border: rgba(11, 13, 18, 0.1);
   --org-muted: #5b6270;
@@ -17,7 +18,7 @@
 }
 
 :global([data-theme="dark"]) .chart {
-  --org-line: rgba(255, 255, 255, 0.2);
+  --org-line: #484a52;
   --org-node-bg: #22252f;
   --org-node-border: rgba(255, 255, 255, 0.1);
   --org-muted: #a3a9b5;
@@ -120,6 +121,11 @@
   transform: translateX(-1px);
 }
 
+/* 좁은 화면 격자에서 한 카드만 줄바꿈돼도 같은 줄 카드 높이가 맞도록 칸을 채운다 */
+.members > li {
+  display: flex;
+}
+
 .node {
   position: relative;
   z-index: 1;
@@ -158,7 +164,7 @@
   letter-spacing: -0.01em;
 }
 
-/* 이름 옆 작은 교표. 교표 색이 어두운 학교가 많아 다크 모드에서도 흰 바탕 위에 둔다 */
+/* 이름 옆 작은 학교 엠블럼. 색이 어두운 엠블럼이 많아 다크 모드에서도 흰 바탕 위에 둔다 */
 .emblem {
   display: grid;
   flex: none;
@@ -175,6 +181,11 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* 마크업에서는 이름 뒤에 있지만(화면낭독기가 이름부터 읽게) 화면에서는 이름 왼쪽에 */
+.nodeName .emblem {
+  order: -1;
 }
 
 .emblemLarge {
@@ -365,8 +376,9 @@
   background: var(--org-accent);
 }
 
-/* ── 좁은 화면: 왼쪽 세로 줄기에 팀을 매단다 ── */
-@media (max-width: 720px) {
+/* ── 좁은 화면: 왼쪽 세로 줄기에 팀을 매단다.
+   960px보다 좁으면 네 칸이 좁아져 영문 팀 이름('Planning & Marketing')이 두 줄이 되고 칸이 어긋난다 ── */
+@media (max-width: 960px) {
   .chart {
     --org-stem: 1.25rem;
     /* 팀 이름 칸 높이의 절반. 가로 가지가 팀 이름 한가운데로 들어가게 */
@@ -411,9 +423,10 @@
     transform: translateX(-1px);
   }
 
+  /* 가지(2px)의 아래 가장자리까지 내려야 꺾이는 모서리가 비지 않는다 */
   .team:last-child::before {
     bottom: auto;
-    height: var(--org-team-mid);
+    height: calc(var(--org-team-mid) + 1px);
   }
 
   /* 줄기 → 팀 이름 가지 */
@@ -436,9 +449,10 @@
     white-space: nowrap;
   }
 
+  /* 태블릿 폭에서는 영문 이름('Seungbin Jeong')이 한 줄에 들어가도록 칸을 넓게 */
   .members {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
     gap: 0.5rem;
     padding-top: 0.5rem;
   }
@@ -461,5 +475,12 @@
     align-items: center;
     padding: 0.75rem 1rem;
     text-align: center;
+  }
+}
+
+/* 휴대폰 폭에서는 두 칸이 나란히 들어가도록 다시 좁게 */
+@media (max-width: 600px) {
+  .members {
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
   }
 }
