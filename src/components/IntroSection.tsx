@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useEffect, useState, useRef, RefObject } from 'react';
 import Image from 'next/image';
-import { getSchoolTeamMembers, SchoolTeamCards } from './TeamSection';
+import TeamOrgChart from './TeamOrgChart';
 import { useThemeLang } from './ThemeLanguageProvider';
 import ProjectRequest from './ProjectRequest';
 
@@ -100,8 +100,6 @@ const schoolImages = [
   { src: '/images/school/hongik.png', srcDark: '/images/school/hongik(d).png', name: '홍익대학교', nameEn: 'Hongik University' },
 ];
 
-const schoolTeamMembers = getSchoolTeamMembers();
-
 function CountUp({ target, suffix, start }: { target: number; suffix: string; start: boolean }) {
   const [count, setCount] = useState(0);
   const animationRef = useRef<number | null>(null);
@@ -158,7 +156,6 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
   const schoolTeamDialogRef = useRef<HTMLDialogElement>(null);
   const [schoolTeamOpen, setSchoolTeamOpen] = useState(false);
   const [schoolTeamClosing, setSchoolTeamClosing] = useState(false);
-  const [schoolMemberDetailOpen, setSchoolMemberDetailOpen] = useState(false);
 
   useEffect(() => {
     if (!schoolTeamOpen) return;
@@ -204,9 +201,7 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
   const projectsIndex = phrases.length + 2;
   const historyIndex = phrases.length + 3;
 
-  const closeSchoolTeamDialog = () => {
-    if (!schoolMemberDetailOpen) setSchoolTeamClosing(true);
-  };
+  const closeSchoolTeamDialog = () => setSchoolTeamClosing(true);
 
   return (
     <div ref={sectionRef as RefObject<HTMLDivElement>} className="intro-wrapper" id="intro">
@@ -316,10 +311,15 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
         </button>
         <dialog
           ref={schoolTeamDialogRef}
-          className={`school-team-dialog${schoolTeamClosing ? ' school-team-dialog-closing' : ''}${schoolMemberDetailOpen ? ' school-team-dialog-detail-open' : ''}`}
+          className={`school-team-dialog${schoolTeamClosing ? ' school-team-dialog-closing' : ''}`}
           aria-labelledby="school-team-title"
-          onClose={() => setSchoolTeamOpen(false)}
+          aria-describedby="school-team-hint"
+          // 안쪽 팀원 정보 창의 close·cancel도 React에서는 여기까지 올라오므로 이 창의 것만 처리한다
+          onClose={(event) => {
+            if (event.target === event.currentTarget) setSchoolTeamOpen(false);
+          }}
           onCancel={(event) => {
+            if (event.target !== event.currentTarget) return;
             event.preventDefault();
             closeSchoolTeamDialog();
           }}
@@ -333,7 +333,10 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
           <header className="school-team-dialog-header">
             <div>
               <span className="school-team-dialog-eyebrow">Our Team</span>
-              <h2 id="school-team-title">{lang === 'ko' ? '학교별 활동 중인 팀원' : 'Active Team Members by School'}</h2>
+              <h2 id="school-team-title">{lang === 'ko' ? '조직도' : 'Organization Chart'}</h2>
+              <p id="school-team-hint" className="school-team-dialog-hint">
+                {lang === 'ko' ? '이름을 누르면 학교와 수상·이력을 볼 수 있어요.' : 'Select a name to see their school, awards and experience.'}
+              </p>
             </div>
             <button
               type="button"
@@ -345,37 +348,7 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
             </button>
           </header>
           <div className="school-team-list">
-            {schoolImages.map(school => {
-              const members = schoolTeamMembers.filter(member => member.school === school.name);
-              return (
-                <section key={school.name} className="school-team-group">
-                  <h3 className="school-team-heading">
-                    <Image
-                      src={theme === 'dark' && school.srcDark ? school.srcDark : school.src}
-                      alt={lang === 'ko' ? school.name : school.nameEn}
-                      width={200}
-                      height={70}
-                      unoptimized
-                      className="school-team-logo"
-                    />
-                  </h3>
-                  {members.length ? (
-                    <SchoolTeamCards members={members} onDetailChange={setSchoolMemberDetailOpen} />
-                  ) : (
-                    <p>{lang === 'ko' ? '팀원 정보 미등록' : 'Member information not yet available'}</p>
-                  )}
-                </section>
-              );
-            })}
-            {schoolTeamMembers.some(member => !member.school) && (
-              <section className="school-team-group">
-                <h3>{lang === 'ko' ? '학교 정보 미등록' : 'School not specified'}</h3>
-                <SchoolTeamCards
-                  members={schoolTeamMembers.filter(member => !member.school)}
-                  onDetailChange={setSchoolMemberDetailOpen}
-                />
-              </section>
-            )}
+            <TeamOrgChart />
           </div>
         </dialog>
       </div>

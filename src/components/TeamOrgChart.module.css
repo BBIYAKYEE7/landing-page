@@ -1,0 +1,465 @@
+/* 조직도: 넓은 화면은 대표 아래로 팀이 가로로 갈라지는 나무, 좁은 화면은 왼쪽 줄기에 팀이 매달린 목록 */
+
+.chart {
+  --org-gap: 1.5rem;
+  --org-line: rgba(11, 13, 18, 0.18);
+  --org-node-bg: #f7f9fc;
+  --org-node-border: rgba(11, 13, 18, 0.1);
+  --org-muted: #5b6270;
+  /* 흰 글자와 대비 4.5:1 이상이 되도록 사이트 강조색(#2185ff)보다 조금 진하게 */
+  --org-accent: #1f6feb;
+  --org-team-bg: #e9f2ff;
+  --org-team-fg: #0b57d0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0 0.25rem;
+}
+
+:global([data-theme="dark"]) .chart {
+  --org-line: rgba(255, 255, 255, 0.2);
+  --org-node-bg: #22252f;
+  --org-node-border: rgba(255, 255, 255, 0.1);
+  --org-muted: #a3a9b5;
+  --org-team-bg: #1b2e4a;
+  --org-team-fg: #8cbcff;
+}
+
+/* 대표 → 팀을 잇는 세로줄 */
+.lead {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--org-gap);
+}
+
+.lead::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: var(--org-gap);
+  border-left: 2px solid var(--org-line);
+  transform: translateX(-1px);
+}
+
+.teams {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  width: 100%;
+  list-style: none;
+}
+
+.team {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--org-gap) 0.5rem 0;
+}
+
+/* 팀들을 가로로 묶는 줄: 첫 팀과 마지막 팀은 가운데까지만 */
+.team::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--org-line);
+}
+
+.team:first-child::before {
+  left: 50%;
+}
+
+.team:last-child::before {
+  right: 50%;
+}
+
+/* 가로줄 → 팀 이름 */
+.team::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: var(--org-gap);
+  border-left: 2px solid var(--org-line);
+  transform: translateX(-1px);
+}
+
+.teamName {
+  position: relative;
+  z-index: 1;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  background: var(--org-team-bg);
+  color: var(--org-team-fg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* 팀 이름 아래로 팀원들을 꿰는 줄. 카드 뒤에 깔려 카드 사이 틈에서만 보인다 */
+.members {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.75rem;
+  list-style: none;
+}
+
+.members::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 2px solid var(--org-line);
+  transform: translateX(-1px);
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--org-node-border);
+  border-radius: 12px;
+  background: var(--org-node-bg);
+  color: var(--color-text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.node:hover {
+  border-color: var(--org-accent);
+  box-shadow: 0 6px 18px rgba(31, 111, 235, 0.14);
+}
+
+.node:focus-visible {
+  outline: 2px solid #5277c7;
+  outline-offset: 3px;
+}
+
+.nodeName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* 이름 옆 작은 교표. 교표 색이 어두운 학교가 많아 다크 모드에서도 흰 바탕 위에 둔다 */
+.emblem {
+  display: grid;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  padding: 2px;
+  place-items: center;
+  border: 1px solid rgba(11, 13, 18, 0.08);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.emblem img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.emblemLarge {
+  width: 2rem;
+  height: 2rem;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.nodeRole {
+  color: var(--org-muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+.leadNode {
+  width: auto;
+  min-width: 12.5rem;
+  padding: 0.9rem 1.75rem;
+  border-color: transparent;
+  background: var(--org-accent);
+  color: #fff;
+}
+
+.leadNode:hover {
+  border-color: transparent;
+  box-shadow: 0 8px 22px rgba(31, 111, 235, 0.3);
+}
+
+.leadNode .nodeName {
+  font-size: 1.1rem;
+}
+
+.leadNode .nodeRole {
+  color: #fff;
+}
+
+.leadNode .emblem {
+  border-color: transparent;
+}
+
+/* ── 팀원 정보 창: 이름, 학교, 수상·선정, 이력 ── */
+.detail {
+  width: min(calc(100vw - 2.5rem), 26rem);
+  max-height: min(88vh, 46rem);
+  margin: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-card);
+  color: var(--color-text);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+/* 이름·학교는 고정하고 수상·이력만 스크롤되게 */
+.detail[open] {
+  display: flex;
+  flex-direction: column;
+  animation: detail-in 0.2s ease-out;
+}
+
+.detail::backdrop {
+  background: rgba(11, 13, 18, 0.35);
+}
+
+@keyframes detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail[open] {
+    animation: none;
+  }
+}
+
+.detailCard {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.detailClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.detailClose:hover {
+  background: var(--org-node-bg);
+}
+
+.detailClose:focus-visible {
+  outline: 2px solid #5277c7;
+  outline-offset: 2px;
+}
+
+.detailName {
+  padding-right: 2.75rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.detailSchool {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  word-break: keep-all;
+}
+
+.detailBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-height: 0;
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--color-border);
+}
+
+.detailBody:focus-visible {
+  outline: 2px solid #5277c7;
+  outline-offset: 2px;
+}
+
+.detailHeading {
+  margin-bottom: 0.5rem;
+  color: var(--org-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+/* 한국어가 음절 중간("우/수상")에서 끊기지 않게 띄어쓰기에서만 줄을 바꾼다 */
+.detailList li {
+  position: relative;
+  padding-left: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.detailList li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 0.1rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--org-accent);
+}
+
+/* ── 좁은 화면: 왼쪽 세로 줄기에 팀을 매단다 ── */
+@media (max-width: 720px) {
+  .chart {
+    --org-stem: 1.25rem;
+    /* 팀 이름 칸 높이의 절반. 가로 가지가 팀 이름 한가운데로 들어가게 */
+    --org-team-mid: 1.1rem;
+    --org-team-gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .lead {
+    padding-bottom: 1rem;
+  }
+
+  .lead::after {
+    left: var(--org-stem);
+    height: 1rem;
+  }
+
+  .leadNode {
+    width: 100%;
+  }
+
+  .teams {
+    grid-auto-columns: auto;
+    grid-auto-flow: row;
+    gap: var(--org-team-gap);
+  }
+
+  .team {
+    padding: 0 0 0 calc(var(--org-stem) * 2);
+  }
+
+  /* 세로 줄기: 다음 팀까지 이어지도록 팀 사이 틈만큼 더 내린다. 마지막 팀은 이름 높이에서 멈춘다 */
+  .team::before,
+  .team:first-child::before,
+  .team:last-child::before {
+    top: 0;
+    bottom: calc(var(--org-team-gap) * -1);
+    left: var(--org-stem);
+    right: auto;
+    border-top: 0;
+    border-left: 2px solid var(--org-line);
+    transform: translateX(-1px);
+  }
+
+  .team:last-child::before {
+    bottom: auto;
+    height: var(--org-team-mid);
+  }
+
+  /* 줄기 → 팀 이름 가지 */
+  .team::after {
+    top: var(--org-team-mid);
+    left: var(--org-stem);
+    width: var(--org-stem);
+    height: 0;
+    border-left: 0;
+    border-top: 2px solid var(--org-line);
+    transform: translateY(-1px);
+  }
+
+  .teamName {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    height: calc(var(--org-team-mid) * 2);
+    padding: 0 0.75rem;
+    white-space: nowrap;
+  }
+
+  .members {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .members::before {
+    display: none;
+  }
+
+  .node {
+    align-items: flex-start;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+  }
+
+  .nodeRole {
+    text-wrap: balance;
+  }
+
+  .leadNode {
+    align-items: center;
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+}

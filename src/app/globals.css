@@ -1362,6 +1362,14 @@ a.project-panel-card:focus-visible {
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
 }
 
+/* 휴대폰에서는 조직도가 덜 잘리도록 화면 높이를 더 쓴다 */
+@media (max-width: 600px) {
+  .school-team-dialog {
+    max-height: 88vh;
+    max-height: 88dvh;
+  }
+}
+
 .school-team-list {
   min-height: 0;
   padding: 0 clamp(1.25rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2rem);
@@ -1373,10 +1381,6 @@ a.project-panel-card:focus-visible {
 
 .school-team-list::-webkit-scrollbar {
   display: none;
-}
-
-.school-team-dialog-detail-open .school-team-list {
-  overflow-y: hidden;
 }
 
 .school-team-dialog[open] {
@@ -1449,6 +1453,17 @@ a.project-panel-card:focus-visible {
   font-size: 1.6rem;
 }
 
+/* --color-muted(#888)는 흰 바탕에서 대비가 모자라 본문 크기 글자에는 더 진한 회색을 쓴다 */
+.school-team-dialog-hint {
+  margin-top: 0.35rem;
+  color: #5b6270;
+  font-size: 0.9rem;
+}
+
+[data-theme="dark"] .school-team-dialog-hint {
+  color: #a3a9b5;
+}
+
 .school-team-dialog-close {
   display: grid;
   width: 2.5rem;
@@ -1481,32 +1496,6 @@ a.project-panel-card:focus-visible {
 
 [data-theme="dark"] .school-team-dialog-close:hover {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-}
-
-.school-team-group {
-  padding: 1.25rem 0;
-}
-
-.school-team-group + .school-team-group {
-  border-top: 1px solid var(--color-border);
-}
-
-.school-team-group h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.school-team-logo {
-  display: block;
-  width: 140px;
-  max-width: 100%;
-  height: 56px;
-  object-fit: contain;
-  object-position: left center;
-}
-
-.school-team-group > p {
-  color: var(--color-muted);
 }
 
 @keyframes marquee {
@@ -1607,7 +1596,7 @@ a.project-panel-card:focus-visible {
 }
 
 /* Parallax Section */
-.parallax-section, .footer-section, .team-section {
+.parallax-section, .footer-section {
   min-height: 100vh;
   scroll-snap-align: start;
   width: 100vw;
