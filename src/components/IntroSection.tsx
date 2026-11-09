@@ -23,12 +23,12 @@ const phrasesEn = [
 
 const statsKo = [
   { target: 2, suffix: '+', label: '서비스 운영 중' },
-  { target: 6, suffix: '+', label: '팀원' },
+  { target: 8, suffix: '+', label: '팀원' },
   { target: 2026, suffix: '', label: '법인 설립년도' },
 ];
 const statsEn = [
   { target: 2, suffix: '+', label: 'Services Running' },
-  { target: 6, suffix: '+', label: 'Team Members' },
+  { target: 8, suffix: '+', label: 'Team Members' },
   { target: 2026, suffix: '', label: 'Incorporated' },
 ];
 
