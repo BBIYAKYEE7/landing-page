@@ -1459,6 +1459,14 @@ a.project-panel-card:focus-visible {
   margin-top: 0.35rem;
   color: #5b6270;
   font-size: 0.9rem;
+  /* 휴대폰에서 '있어/요.'처럼 낱말 중간에서 끊기지 않게 띄어쓰기에서만, 두 줄 길이를 맞춰 바꾼다 */
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+/* keep-all이어도 가운뎃점 앞에서는 줄이 바뀔 수 있어('수상/·이력을') 한 덩어리로 묶는다 */
+.school-team-dialog-hint span {
+  white-space: nowrap;
 }
 
 [data-theme="dark"] .school-team-dialog-eyebrow,
