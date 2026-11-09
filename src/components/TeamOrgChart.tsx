@@ -10,7 +10,7 @@ type Text = Record<Lang, string>;
 
 interface School {
   name: Text;
-  /** 가로형 교표(/images/school/*.png)에서 문장만 잘라 낸 이미지 */
+  /** 가로형 시그니처 로고(/images/school/*.png)에서 글자를 빼고 엠블럼만 잘라 낸 이미지 */
   emblem: { src: string; width: number; height: number };
 }
 
@@ -199,7 +199,11 @@ const teams: Team[] = [
 
 function Emblem({ school, lang, large }: { school: School; lang: Lang; large?: boolean }) {
   return (
-    <span className={large ? `${styles.emblem} ${styles.emblemLarge}` : styles.emblem} title={school.name[lang]}>
+    // 조직도에서는 마우스를 올리면 학교 이름이 보이게. 정보 창에는 옆에 학교 이름이 글자로 있다
+    <span
+      className={large ? `${styles.emblem} ${styles.emblemLarge}` : styles.emblem}
+      title={large ? undefined : school.name[lang]}
+    >
       <Image
         src={school.emblem.src}
         // 정보 창에서는 옆에 학교 이름이 글자로 있으니 그림은 읽지 않는다
@@ -236,9 +240,10 @@ export default function TeamOrgChart() {
         setSelected(member);
       }}
     >
+      {/* 화면낭독기가 이름부터 읽도록 이름을 앞에 두고, 엠블럼은 CSS(order)로 이름 왼쪽에 보인다 */}
       <span className={styles.nodeName}>
-        <Emblem school={schools[member.school]} lang={lang} />
         {member.name[lang]}
+        <Emblem school={schools[member.school]} lang={lang} />
       </span>
       <span className={styles.nodeRole}>{member.role[lang]}</span>
     </button>
@@ -281,7 +286,9 @@ export default function TeamOrgChart() {
           pressedOnBackdrop.current = event.target === event.currentTarget;
         }}
         onClick={event => {
-          // 바깥 어두운 곳을 눌렀다 뗐을 때만 닫는다. 창 안에서 끌다 놓은 경우는 그대로 둔다
+          // 바깥 어두운 곳을 눌렀다 뗐을 때만 닫는다. 창 안에서 끌다 놓은 경우는 그대로 둔다.
+          // 이름을 더블클릭하면 두 번째 클릭이 막 열린 창의 바깥에 떨어지므로 연속 클릭은 무시한다
+          if (event.detail > 1) return;
           if (pressedOnBackdrop.current && event.target === event.currentTarget) event.currentTarget.close();
         }}
       >
@@ -311,7 +318,7 @@ export default function TeamOrgChart() {
                 aria-label={lang === 'ko' ? '수상 및 이력' : 'Awards and experience'}
               >
                 {sections.map(section => (
-                  <section key={section.key} className={styles.detailSection}>
+                  <section key={section.key}>
                     <h3 className={styles.detailHeading}>{section.title}</h3>
                     <ul className={styles.detailList}>
                       {section.items.map(item => (

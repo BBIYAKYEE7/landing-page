@@ -325,12 +325,15 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
           }}
           onAnimationEnd={(event) => {
             if (event.target === event.currentTarget && event.animationName === 'school-dialog-out' && schoolTeamClosing) {
+              // 안쪽 팀원 정보 창이 열린 채 이 창만 닫히면, 보이지 않는 모달이 남아 페이지 전체가 막힌다
+              schoolTeamDialogRef.current?.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(dialog => dialog.close());
               schoolTeamDialogRef.current?.close();
               setSchoolTeamClosing(false);
             }
           }}
         >
-          <header className="school-team-dialog-header">
+          {/* 사라지는 0.2초 동안 눌리지 않게 막는다 */}
+          <header className="school-team-dialog-header" inert={schoolTeamClosing}>
             <div>
               <span className="school-team-dialog-eyebrow">Our Team</span>
               <h2 id="school-team-title">{lang === 'ko' ? '조직도' : 'Organization Chart'}</h2>
@@ -347,7 +350,7 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
               &times;
             </button>
           </header>
-          <div className="school-team-list">
+          <div className="school-team-list" inert={schoolTeamClosing}>
             <TeamOrgChart />
           </div>
         </dialog>
