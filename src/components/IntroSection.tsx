@@ -338,7 +338,13 @@ export default function IntroSection({ sectionRef, currentProject, setCurrentPro
               <span className="school-team-dialog-eyebrow">Our Team</span>
               <h2 id="school-team-title">{lang === 'ko' ? '조직도' : 'Organization Chart'}</h2>
               <p id="school-team-hint" className="school-team-dialog-hint">
-                {lang === 'ko' ? '이름을 누르면 학교와 수상·이력을 볼 수 있어요.' : 'Select a name to see their school, awards and experience.'}
+                {lang === 'ko' ? (
+                  <>
+                    이름을 누르면 학교와 <span>수상·이력을</span> 볼 수 있어요.
+                  </>
+                ) : (
+                  'Select a name to see their school, awards and experience.'
+                )}
               </p>
             </div>
             <button
