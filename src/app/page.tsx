@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, MutableRefObject, useCallback } from 'react';
 import Header from '@/components/Header';
-import IntroSection from '@/components/IntroSection';
+import IntroSection, { projectCount } from '@/components/IntroSection';
 import ParallaxSection from '@/components/ParallaxSection';
 import FooterSection from '@/components/FooterSection';
 import { useThemeLang } from '@/components/ThemeLanguageProvider';
@@ -19,6 +19,8 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
   const [footerInView, setFooterInView] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [currentProject, setCurrentProject] = useState(0);
+  const projectWheelTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const footerRef = useRef<HTMLElement>(null!);
 
   const getAllSections = useCallback(() => {
@@ -27,11 +29,11 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
 
   const getCurrentSectionIndex = useCallback(() => {
     const allSections = getAllSections();
-    const windowHeight = window.innerHeight;
+    const viewportMiddle = window.innerHeight / 2;
     
     for (let i = 0; i < allSections.length; i++) {
       const rect = allSections[i].getBoundingClientRect();
-      if (rect.top >= -windowHeight / 2 && rect.top < windowHeight / 2) {
+      if (rect.top <= viewportMiddle && rect.bottom > viewportMiddle) {
         return i;
       }
     }
@@ -45,6 +47,23 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
       const allSections = getAllSections();
       const currentIndex = getCurrentSectionIndex();
       const currentSection = allSections[currentIndex];
+
+      if (e.deltaY === 0) return;
+
+      if (currentSection?.classList.contains('intro-project-slide') && projectWheelTimer.current) {
+        e.preventDefault();
+        return;
+      }
+
+      if (!isScrolling && currentSection?.classList.contains('intro-project-slide')) {
+        const nextProject = currentProject + (e.deltaY > 0 ? 1 : -1);
+        if (nextProject >= 0 && nextProject < projectCount) {
+          e.preventDefault();
+          setCurrentProject(nextProject);
+          projectWheelTimer.current = setTimeout(() => { projectWheelTimer.current = null; }, 450);
+          return;
+        }
+      }
 
       if (!isScrolling && (currentSection?.classList.contains('intro-history-slide') || currentSection?.classList.contains('intro-request-slide'))) {
         const scrollable = currentSection.querySelector<HTMLElement>('.history-timeline, .request-content');
@@ -89,7 +108,11 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
-  }, [isScrolling, getAllSections, getCurrentSectionIndex]);
+  }, [isScrolling, currentProject, getAllSections, getCurrentSectionIndex]);
+
+  useEffect(() => () => {
+    if (projectWheelTimer.current) clearTimeout(projectWheelTimer.current);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -139,7 +162,7 @@ function MainContent({ sectionRefs, introRef }: { sectionRefs: MutableRefObject<
           </div>
         ))}
       </div>
-      <IntroSection sectionRef={introRef} />
+      <IntroSection sectionRef={introRef} currentProject={currentProject} setCurrentProject={setCurrentProject} />
       {sections.map((sec, i) => (
         <ParallaxSection
           key={i}
