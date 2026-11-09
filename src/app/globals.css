@@ -944,6 +944,13 @@ code {
   margin-bottom: 1.5rem;
 }
 
+/* 프로젝트 카드 줄은 다음 카드들이 오른쪽 화면 밖까지 이어진다. 휴대폰 Chrome은 그 폭(390px 화면에서 1336px)을
+   페이지 폭으로 잡아, 오른쪽에서 열리는 메뉴가 화면 밖에 그려졌다. 슬라이드 가로 끝에서 잘라 페이지 폭을 화면 폭에 맞춘다 */
+.intro-project-slide {
+  overflow-x: hidden; /* overflow: clip을 모르는 Safari 15 이하용 */
+  overflow-x: clip;
+}
+
 .intro-project-slide .intro-content {
   width: min(100%, 1080px);
   max-width: 1080px;
