@@ -956,7 +956,7 @@ code {
 
 .project-carousel {
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .project-carousel-track {
