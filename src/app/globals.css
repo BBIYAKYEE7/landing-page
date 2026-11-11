@@ -944,6 +944,13 @@ code {
   margin-bottom: 1.5rem;
 }
 
+/* 프로젝트 카드 줄은 다음 카드들이 오른쪽 화면 밖까지 이어진다. 휴대폰 Chrome은 그 폭(390px 화면에서 1336px)을
+   페이지 폭으로 잡아, 오른쪽에서 열리는 메뉴가 화면 밖에 그려졌다. 슬라이드 가로 끝에서 잘라 페이지 폭을 화면 폭에 맞춘다 */
+.intro-project-slide {
+  overflow-x: hidden; /* overflow: clip을 모르는 Safari 15 이하용 */
+  overflow-x: clip;
+}
+
 .intro-project-slide .intro-content {
   width: min(100%, 1080px);
   max-width: 1080px;
@@ -1362,6 +1369,14 @@ a.project-panel-card:focus-visible {
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
 }
 
+/* 휴대폰에서는 조직도가 덜 잘리도록 화면 높이를 더 쓴다 */
+@media (max-width: 600px) {
+  .school-team-dialog {
+    max-height: 88vh;
+    max-height: 88dvh;
+  }
+}
+
 .school-team-list {
   min-height: 0;
   padding: 0 clamp(1.25rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2rem);
@@ -1373,10 +1388,6 @@ a.project-panel-card:focus-visible {
 
 .school-team-list::-webkit-scrollbar {
   display: none;
-}
-
-.school-team-dialog-detail-open .school-team-list {
-  overflow-y: hidden;
 }
 
 .school-team-dialog[open] {
@@ -1436,8 +1447,9 @@ a.project-panel-card:focus-visible {
   padding: clamp(1.25rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2rem) 0.5rem;
 }
 
+/* --color-muted(#888)는 흰 바탕에서 3.5:1이라 작은 글자에는 더 진한 회색을 쓴다(아래 안내 문구도 같음) */
 .school-team-dialog-eyebrow {
-  color: var(--color-muted);
+  color: #5b6270;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -1447,6 +1459,26 @@ a.project-panel-card:focus-visible {
 .school-team-dialog-header h2 {
   margin-top: 0.4rem;
   font-size: 1.6rem;
+}
+
+/* --color-muted(#888)는 흰 바탕에서 대비가 모자라 본문 크기 글자에는 더 진한 회색을 쓴다 */
+.school-team-dialog-hint {
+  margin-top: 0.35rem;
+  color: #5b6270;
+  font-size: 0.9rem;
+  /* 휴대폰에서 '있어/요.'처럼 낱말 중간에서 끊기지 않게 띄어쓰기에서만, 두 줄 길이를 맞춰 바꾼다 */
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+/* keep-all이어도 가운뎃점 앞에서는 줄이 바뀔 수 있어('수상/·이력을') 한 덩어리로 묶는다 */
+.school-team-dialog-hint span {
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .school-team-dialog-eyebrow,
+[data-theme="dark"] .school-team-dialog-hint {
+  color: #a3a9b5;
 }
 
 .school-team-dialog-close {
@@ -1481,32 +1513,6 @@ a.project-panel-card:focus-visible {
 
 [data-theme="dark"] .school-team-dialog-close:hover {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-}
-
-.school-team-group {
-  padding: 1.25rem 0;
-}
-
-.school-team-group + .school-team-group {
-  border-top: 1px solid var(--color-border);
-}
-
-.school-team-group h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.school-team-logo {
-  display: block;
-  width: 140px;
-  max-width: 100%;
-  height: 56px;
-  object-fit: contain;
-  object-position: left center;
-}
-
-.school-team-group > p {
-  color: var(--color-muted);
 }
 
 @keyframes marquee {
@@ -1607,7 +1613,7 @@ a.project-panel-card:focus-visible {
 }
 
 /* Parallax Section */
-.parallax-section, .footer-section, .team-section {
+.parallax-section, .footer-section {
   min-height: 100vh;
   scroll-snap-align: start;
   width: 100vw;
