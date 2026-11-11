@@ -14,6 +14,12 @@ npm run build
 npm run start
 ```
 
+## 글꼴
+
+Google Sans Flex는 `next/font`가 빌드 시 다운로드하고 사이트에서 직접 제공합니다.
+Pretendard Variable은 `public/font`에 포함되어 있으며, 두 글꼴의 라이선스도
+같은 디렉터리에 있습니다.
+
 ## 프로젝트 의뢰 이메일
 
 의뢰 폼은 `taeho@u-teed.co.kr`을 수신자로 지정하고 입력 내용을 담은 이메일 초안을
