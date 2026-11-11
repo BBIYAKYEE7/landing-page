@@ -167,6 +167,8 @@
 /* 이름 옆 작은 학교 엠블럼. 색이 어두운 엠블럼이 많아 다크 모드에서도 흰 바탕 위에 둔다 */
 .emblem {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   flex: none;
   width: 1.375rem;
   height: 1.375rem;
